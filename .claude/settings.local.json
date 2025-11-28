@@ -6,7 +6,11 @@
       "Bash(ping:*)",
       "Bash(nul)",
       "Bash(dir /s /b \"D:\\next js projects\\nextjs-website\\Centilio\\public\\images\\Sign page\")",
-      "Bash(dir:*)"
+      "Bash(dir:*)",
+      "Bash(powershell -Command \"Get-Content ''D:\\centilio-website\\reference\\json\\seobotfeaturepage\\seobotfeaturepage_with_urls.json'' | Select-Object -First 100\")",
+      "Bash(powershell -Command \"Get-Content ''D:\\centilio-website\\reference\\json\\seobotintegrationpage\\seobotintegrationpage_with_urls.json'' | Select-Object -First 100\")",
+      "Bash(powershell -Command \"Get-Content ''D:\\centilio-website\\reference\\json\\centiliogdprpolicy\\centiliogdprpolicy_with_urls.json'' | Select-Object -First 500\")",
+      "Bash(powershell -Command \"(Get-Content ''''D:\\centilio-website\\reference\\json\\centiliogdprpolicy\\centiliogdprpolicy_with_urls.json'''' | Select-String -Pattern ''''Data Controller and Data Protection Officer'''' -Context 0,30).Line\")"
     ],
     "deny": [],
     "ask": []
