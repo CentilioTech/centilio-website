@@ -10,7 +10,14 @@
       "Bash(powershell -Command \"Get-Content ''D:\\centilio-website\\reference\\json\\seobotfeaturepage\\seobotfeaturepage_with_urls.json'' | Select-Object -First 100\")",
       "Bash(powershell -Command \"Get-Content ''D:\\centilio-website\\reference\\json\\seobotintegrationpage\\seobotintegrationpage_with_urls.json'' | Select-Object -First 100\")",
       "Bash(powershell -Command \"Get-Content ''D:\\centilio-website\\reference\\json\\centiliogdprpolicy\\centiliogdprpolicy_with_urls.json'' | Select-Object -First 500\")",
-      "Bash(powershell -Command \"(Get-Content ''''D:\\centilio-website\\reference\\json\\centiliogdprpolicy\\centiliogdprpolicy_with_urls.json'''' | Select-String -Pattern ''''Data Controller and Data Protection Officer'''' -Context 0,30).Line\")"
+      "Bash(powershell -Command \"(Get-Content ''''D:\\centilio-website\\reference\\json\\centiliogdprpolicy\\centiliogdprpolicy_with_urls.json'''' | Select-String -Pattern ''''Data Controller and Data Protection Officer'''' -Context 0,30).Line\")",
+      "Bash(powershell -Command:*)",
+      "Bash(findstr:*)",
+      "Bash(timeout:*)",
+      "Bash(Select-Object -First 150)",
+      "Bash(cat:*)",
+      "mcp__ide__getDiagnostics",
+      "Bash(del terms_of_use_structure.json TERMS_OF_USE_COMPLETE_EXTRACTION.md EXTRACTION_SUMMARY.md QUICK_START_GUIDE.md CentilioTermsOfUseComponent.example.tsx)"
     ],
     "deny": [],
     "ask": []
