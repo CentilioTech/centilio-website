@@ -1,11 +1,46 @@
 'use client'
 
 import Image from 'next/image'
-import { useState } from 'react'
+import { useState, useRef, useEffect } from 'react'
+import { AuroraHero } from '@/components/ui/futuristic-hero-section'
+import { Sparkles } from '@/components/ui/sparkles'
+import BackgroundGradient from '@/components/ui/background-gradient'
+import { VerticalMarquee } from '@/components/ui/cta-with-text-marquee'
+import { ShootingStars } from '@/components/ui/shooting-stars'
 
 export default function SignPage() {
-  const [showPassword, setShowPassword] = useState(false)
   const [currentTestimonial, setCurrentTestimonial] = useState(0)
+  const marqueeRef = useRef<HTMLDivElement>(null)
+
+  useEffect(() => {
+    const marqueeContainer = marqueeRef.current;
+    if (!marqueeContainer) return;
+
+    const updateOpacity = () => {
+      const items = marqueeContainer.querySelectorAll('.marquee-item');
+      const containerRect = marqueeContainer.getBoundingClientRect();
+      const centerY = containerRect.top + containerRect.height / 2;
+
+      items.forEach((item) => {
+        const itemRect = item.getBoundingClientRect();
+        const itemCenterY = itemRect.top + itemRect.height / 2;
+        const distance = Math.abs(centerY - itemCenterY);
+        const maxDistance = containerRect.height / 2;
+        const normalizedDistance = Math.min(distance / maxDistance, 1);
+        const opacity = 1 - normalizedDistance * 0.75;
+        (item as HTMLElement).style.opacity = opacity.toString();
+      });
+    };
+
+    const animationFrame = () => {
+      updateOpacity();
+      requestAnimationFrame(animationFrame);
+    };
+
+    const frame = requestAnimationFrame(animationFrame);
+
+    return () => cancelAnimationFrame(frame);
+  }, [])
 
   return (
     <div className="min-h-screen bg-white">
@@ -40,115 +75,15 @@ export default function SignPage() {
       </header>
 
       {/* Hero Section */}
-      <section className="bg-dark-bg text-white py-20 px-6 relative overflow-hidden">
-        <div className="max-w-7xl mx-auto text-center">
-          <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold mb-6">
-            Get documents{' '}
-            <span
-              className="bg-clip-text text-transparent"
-              style={{ backgroundImage: 'linear-gradient(to right, #4285F4, #34A853)' }}
-            >
-              signed in
-            </span>
-            <br />
-            <span
-              className="bg-clip-text text-transparent"
-              style={{ backgroundImage: 'linear-gradient(to right, #4285F4, #34A853)' }}
-            >
-              minutes
-            </span>
-            , not days
-          </h1>
-          <p className="text-lg md:text-xl text-gray-300 max-w-4xl mx-auto mb-10">
-            Centilio Sign is your all-in-one electronic signature and document workflow platform.
-            From contracts and HR forms to sales agreements and legal documents, streamline every step,
-            create, send, sign, and track without the paperwork hassle.
-          </p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center mb-16">
-            <button className="px-8 py-3 bg-white text-black font-medium rounded-full hover:bg-gray-100 transition-colors">
-              START FREE TRIAL
-            </button>
-            <button
-              className="px-8 py-3 bg-transparent border border-white text-white font-medium rounded-full hover:bg-white/10 transition-colors flex items-center justify-center gap-2"
-              style={{ boxShadow: 'inset 0 0 0 1px #ffffff' }}
-            >
-              <Image
-                src="/images/Sign page/firstfoldvideoplay vector.svg"
-                alt="Play"
-                width={20}
-                height={20}
-              />
-              WATCH DEMO
-            </button>
-          </div>
-
-          {/* Sign-up Form Mockup */}
-          <div className="max-w-6xl mx-auto relative flex justify-center">
-            <div
-              className="relative rounded-lg shadow-2xl overflow-visible"
-              style={{ width: '1109.33px', height: '624px' }}
-            >
-              <Image
-                src="/images/Sign page/first fold/Image 1.2.1.jpg"
-                alt="Document Interface"
-                fill
-                className="object-cover"
-              />
-              <div className="absolute bg-white rounded-lg p-6 w-80 shadow-xl" style={{ top: '50%', transform: 'translateY(-50%)', right: '-40px' }}>
-                <h3 className="text-2xl font-bold text-black mb-6">Start a 28-day free trial</h3>
-                <form className="space-y-4">
-                  <div>
-                    <input
-                      type="email"
-                      placeholder="Email *"
-                      className="w-full px-4 py-3 border border-gray-300 rounded-lg text-black focus:outline-none focus:border-accent-blue"
-                    />
-                  </div>
-                  <div className="relative">
-                    <input
-                      type={showPassword ? "text" : "password"}
-                      placeholder="Password *"
-                      className="w-full px-4 py-3 border border-gray-300 rounded-lg text-black focus:outline-none focus:border-accent-blue"
-                    />
-                    <button
-                      type="button"
-                      onClick={() => setShowPassword(!showPassword)}
-                      className="absolute right-4 top-1/2 -translate-y-1/2"
-                    >
-                      <Image
-                        src="/images/Sign page/first fold/eyeVector.svg"
-                        alt="Toggle password visibility"
-                        width={23}
-                        height={22}
-                      />
-                    </button>
-                  </div>
-                  <p className="text-xs text-gray-600">
-                    By clicking, you're accepting the{' '}
-                    <a href="#" className="text-accent-red hover:underline">terms of use</a>,{' '}
-                    <a href="#" className="text-accent-red hover:underline">Privacy Policy</a> and{' '}
-                    Data Processing Agreement.
-                  </p>
-                  <button
-                    type="submit"
-                    className="w-full py-3 bg-black text-white font-medium rounded-full hover:bg-gray-800 transition-colors"
-                  >
-                    SIGN UP
-                  </button>
-                </form>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
+      <AuroraHero />
 
       {/* Stats Section */}
-      <section className="py-16 px-6 bg-white">
+      <section className="py-10 lg:py-20 px-6 bg-white">
         <div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-8 text-center">
           <div>
             <h3 className="text-5xl font-bold text-black mb-2">+12k</h3>
             <p
-              className="text-xl bg-clip-text text-transparent"
+              className="text-xl font-bold bg-clip-text text-transparent"
               style={{ backgroundImage: 'radial-gradient(circle, #34A853, #4285F4)' }}
             >
               Uploaded Documents
@@ -157,7 +92,7 @@ export default function SignPage() {
           <div>
             <h3 className="text-5xl font-bold text-black mb-2">+17k</h3>
             <p
-              className="text-xl bg-clip-text text-transparent"
+              className="text-xl font-bold bg-clip-text text-transparent"
               style={{ backgroundImage: 'radial-gradient(circle, #4285F4, #34A853)' }}
             >
               Documents Signed
@@ -166,7 +101,7 @@ export default function SignPage() {
           <div>
             <h3 className="text-5xl font-bold text-black mb-2">+800k</h3>
             <p
-              className="text-xl bg-clip-text text-transparent"
+              className="text-xl font-bold bg-clip-text text-transparent"
               style={{ backgroundImage: 'radial-gradient(circle, #34A853, #4285F4)' }}
             >
               Minutes Saved on Paperwork
@@ -178,7 +113,7 @@ export default function SignPage() {
       {/* Trusted By Section */}
       <section className="pt-16 pb-32 px-6 bg-dark-bg text-white relative overflow-hidden">
         <div className="max-w-6xl mx-auto relative z-10">
-          <h2 className="text-3xl font-bold text-center mb-12">Trusted by</h2>
+          <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-center mb-12">Trusted by</h2>
           <div className="flex flex-wrap items-center justify-center gap-12 md:gap-16 mb-16">
             <Image
               src="/images/Sign page/third fold/digitalocean-2-lwhite.png"
@@ -197,28 +132,40 @@ export default function SignPage() {
             <Image
               src="/images/Sign page/third fold/monday.com logo white.png"
               alt="Monday.com"
-              width={150}
-              height={40}
-              className="h-8 w-auto opacity-90 hover:opacity-100 transition-opacity"
+              width={220}
+              height={60}
+              className="h-12 w-auto opacity-90 hover:opacity-100 transition-opacity"
             />
             <Image
               src="/images/Sign page/third fold/ion8_logo white.png"
               alt="ion8"
-              width={80}
-              height={40}
-              className="h-8 w-auto opacity-90 hover:opacity-100 transition-opacity"
+              width={450}
+              height={80}
+              className="h-20 w-auto opacity-90 hover:opacity-100 transition-opacity"
             />
             <Image
               src="/images/Sign page/third fold/aws logo white.png"
               alt="AWS"
-              width={80}
+              width={150}
               height={40}
               className="h-10 w-auto opacity-90 hover:opacity-100 transition-opacity"
             />
           </div>
         </div>
+        
+        {/* Sparkles Animation Background */}
+        <div className="absolute inset-0 overflow-hidden [mask-image:radial-gradient(50%_50%,white,transparent)]">
+          <div className="absolute inset-0 before:absolute before:inset-0 before:bg-[radial-gradient(circle_at_bottom_center,#8350e8,transparent_70%)] before:opacity-40" />
+          {/* <div className="absolute -left-1/2 top-1/2 aspect-[1/0.7] z-10 w-[200%] rounded-[100%] border-t border-zinc-900/20 dark:border-white/20 bg-dark-bg" /> */}
+          <Sparkles
+            density={1200}
+            className="absolute inset-x-0 bottom-0 h-full w-full [mask-image:radial-gradient(50%_50%,white,transparent_85%)]"
+            color="#ffffff"
+          />
+        </div>
+        
         {/* Ellipse decoration at bottom */}
-        <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-full pointer-events-none">
+        <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-full pointer-events-none z-20">
           <Image
             src="/images/Sign page/third fold/Ellipse 39.svg"
             alt=""
@@ -231,34 +178,35 @@ export default function SignPage() {
 
       {/* Results Section */}
       <section className="py-20 px-6 bg-white">
-        <div className="max-w-6xl mx-auto">
-          <h2 className="text-4xl md:text-5xl font-bold text-center mb-4">
+        <div className="max-w-7xl mx-auto">
+          <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-center mb-4 lg:mb-16 leading-tight">
             Get measurable results with
+            <span
+              className=" bg-clip-text text-transparent inline-block w-full pb-2"
+              style={{
+                backgroundImage: 'linear-gradient(to right, #4285F4, #34A853)',
+                lineHeight: '1.2'
+              }}
+            >
+              Centilio Sign
+            </span>
           </h2>
-          <h3
-            className="text-4xl md:text-5xl font-bold text-center mb-16 bg-clip-text text-transparent inline-block w-full pb-2"
-            style={{
-              backgroundImage: 'linear-gradient(to right, #4285F4, #34A853)',
-              lineHeight: '1.2'
-            }}
-          >
-            Centilio Sign
-          </h3>
 
           <div className="space-y-16">
             {/* Feature 1 */}
             <div className="grid md:grid-cols-2 gap-12 items-center">
               <div>
-                <h4 className="text-3xl md:text-4xl font-bold mb-4">
+                <h4 className="text-xl sm:text-3xl md:text-4xl font-bold mb-4 leading-tight">
                   Up to <span className="text-blue-500">90%</span> faster<br />
                   document turnaround
                 </h4>
-                <p className="text-lg text-gray-600">
+                <p className="text-base md:text-lg text-gray-600 max-w-lg">
                   Sign and finalize documents in just minutes accelerate your workflows dramatically.
                 </p>
               </div>
-              <div className="relative overflow-hidden" style={{ width: '544px', height: '402px', background: '#181A1E', borderRadius: '20px', border: '1px solid #5A5858' }}>
-                <div
+              <div className="relative overflow-hidden w-full max-w-[544px] mx-auto md:mx-0" style={{ aspectRatio: '544/402', background: '#181A1E', borderRadius: '20px', border: '1px solid #5A5858' }}>
+                <BackgroundGradient />
+                {/* <div
                   className="absolute"
                   style={{
                     background: 'linear-gradient(180deg, rgba(66, 133, 244, 1) 0%, rgba(234, 68, 53, 1) 32.21%, rgba(251, 188, 5, 1) 63.46%, rgba(52, 168, 83, 1) 100%)',
@@ -269,8 +217,8 @@ export default function SignPage() {
                     width: '310px',
                     height: '360px'
                   }}
-                />
-                <div className="absolute z-10" style={{ left: '117px', top: '42px', width: '310px', height: '360px' }}>
+                /> */}
+                <div className="absolute z-10 left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 md:left-[117px] md:top-[42px] md:translate-x-0 md:translate-y-0" style={{ width: '310px', height: '360px' }}>
                   <Image
                     src="/images/Sign page/fourth fold/product 1.png"
                     alt="Document Signature Interface"
@@ -279,13 +227,17 @@ export default function SignPage() {
                     className="w-full h-full object-cover"
                     style={{ borderRadius: '10px 10px 0 0' }}
                   />
+                  <div className="absolute inset-0 -z-10 bg-black">
+                    <div className="absolute inset-0 bg-[radial-gradient(circle_700px_at_50%_200px,rgba(96,165,250,0.25),transparent)]" />
+                    <div className="absolute inset-0 bg-[radial-gradient(circle_400px_at_70%_500px,rgba(244,114,182,0.3),transparent)]" />
+                  </div>
                 </div>
               </div>
             </div>
 
             {/* Feature 2 */}
             <div className="grid md:grid-cols-2 gap-12 items-center">
-              <div className="relative overflow-hidden md:order-1 order-2" style={{ width: '544px', height: '402px', background: '#181A1E', borderRadius: '20px', border: '1px solid #5A5858' }}>
+              <div className="relative overflow-hidden md:order-1 order-2 w-full max-w-[544px] mx-auto md:mx-0" style={{ aspectRatio: '544/402', background: '#181A1E', borderRadius: '20px', border: '1px solid #5A5858' }}>
                 <div
                   className="absolute"
                   style={{
@@ -298,7 +250,7 @@ export default function SignPage() {
                     height: '266.8px'
                   }}
                 />
-                <div className="absolute z-10" style={{ left: '38px', top: '135px', width: '467.71px', height: '266.8px' }}>
+                <div className="absolute z-10 left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 md:left-[38px] md:top-[135px] md:translate-x-0 md:translate-y-0" style={{ width: '467.71px', height: '266.8px' }}>
                   <Image
                     src="/images/Sign page/fourth fold/prouduct 2.png"
                     alt="Document Management Dashboard"
@@ -310,11 +262,11 @@ export default function SignPage() {
                 </div>
               </div>
               <div className="md:order-2 order-1">
-                <h4 className="text-3xl md:text-4xl font-bold mb-4">
+                <h4 className="text-xl sm:text-3xl md:text-4xl font-bold mb-4 leading-tight ">
                   Save <span className="text-blue-500">₹2,000</span> or<br />
                   more per agreement
                 </h4>
-                <p className="text-lg text-gray-600">
+                <p className="text-base md:text-lg text-gray-600 max-w-lg">
                   Eliminate printing, courier, and manual processing costs across departments.
                 </p>
               </div>
@@ -323,15 +275,15 @@ export default function SignPage() {
             {/* Feature 3 */}
             <div className="grid md:grid-cols-2 gap-12 items-center">
               <div>
-                <h4 className="text-3xl md:text-4xl font-bold mb-4">
+                <h4 className="text-xl sm:text-3xl md:text-4xl font-bold mb-4 leading-tight">
                   Save <span className="text-blue-500">70+</span> hours per<br />
                   employee annually
                 </h4>
-                <p className="text-lg text-gray-600">
+                <p className="text-base md:text-lg text-gray-600 max-w-lg">
                   Automate routine tasks and approvals to boost team productivity year-round.
                 </p>
               </div>
-              <div className="relative overflow-hidden" style={{ width: '544px', height: '402px', background: '#181A1E', borderRadius: '20px', border: '1px solid #5A5858' }}>
+              <div className="relative overflow-hidden w-full max-w-[544px] mx-auto md:mx-0" style={{ aspectRatio: '544/402', background: '#181A1E', borderRadius: '20px', border: '1px solid #5A5858' }}>
                 <div
                   className="absolute"
                   style={{
@@ -344,7 +296,7 @@ export default function SignPage() {
                     height: '266.8px'
                   }}
                 />
-                <div className="absolute z-10" style={{ left: '38px', top: '135px', width: '467.71px', height: '266.8px' }}>
+                <div className="absolute z-10 left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 md:left-[38px] md:top-[135px] md:translate-x-0 md:translate-y-0" style={{ width: '467.71px', height: '266.8px' }}>
                   <Image
                     src="/images/Sign page/fourth fold/prouduct 3.png"
                     alt="Document Analytics Dashboard"
@@ -362,8 +314,8 @@ export default function SignPage() {
 
       {/* Testimonials Section */}
       <section className="py-20 px-6 bg-gray-50">
-        <div className="max-w-6xl mx-auto">
-          <h2 className="text-4xl md:text-5xl font-bold text-center mb-16">
+        <div className="max-w-7xl mx-auto">
+          <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-center mb-16">
             Hear it from{' '}
             <span
               className="bg-clip-text text-transparent"
@@ -386,16 +338,20 @@ export default function SignPage() {
 
             <div className="grid md:grid-cols-2 gap-12 items-center relative z-10">
               <div className="text-white flex flex-col justify-end h-full">
-                <h3 className="text-2xl font-bold mb-2">Sonal Mehta</h3>
-                <p className="text-gray-400">Operations Head, BrightEdge Legal</p>
+                <h3 className="text-xl mb-2">Sonal Mehta</h3>
+                <p className="text-gray-400 text-sm">Operations Head, BrightEdge Legal</p>
               </div>
-              <div className="bg-gray-800 rounded-xl p-8 border border-gray-700">
-                <div className="flex gap-1 mb-4">
-                  {[1, 2, 3, 4, 5].map((star) => (
-                    <span key={star} className="text-yellow-400 text-2xl">★</span>
-                  ))}
+              <div className="bg-[#181A1E] rounded-xl p-10 border border-gray-700">
+                <div className="flex gap-1 mb-4 lg:mb-12">
+                  <Image
+                    src="/images/Sign page/fifth fold/stars.png"
+                    alt="5 star rating"
+                    width={120}
+                    height={24}
+                    className="h-6 w-auto"
+                  />
                 </div>
-                <p className="text-white text-lg leading-relaxed">
+                <p className="text-white text-base lg:text-md leading-9">
                   "Centilio Sign has completely transformed how we handle contracts.
                   What used to take days of back-and-forth now gets done in under an hour.
                   The platform is intuitive, secure, and fits right into our existing tools.
@@ -433,92 +389,77 @@ export default function SignPage() {
       </section>
 
       {/* Features Section */}
-      <section className="py-20 px-6 bg-dark-bg text-white">
-        <div className="max-w-6xl mx-auto">
-          <div className="grid md:grid-cols-2 gap-16">
-            <div>
-              <h2 className="text-4xl md:text-5xl font-bold mb-4">
+      <section className="py-20 px-6 bg-dark-bg text-white overflow-visible">
+        <div className="container mx-auto overflow-visible">
+          <div className="flex flex-col md:flex-row gap-6 overflow-visible">
+            <div className="md:w-[45%]">
+              <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-4 md:mb-8">
                 Why teams choose
+                <span
+                  className="  bg-clip-text text-transparent inline-block pb-2"
+                  style={{ backgroundImage: 'linear-gradient(to right, #4285F4, #34A853)', lineHeight: '1.2' }}
+                >
+                  Centilio Sign
+                </span>
               </h2>
-              <h3
-                className="text-4xl md:text-5xl font-bold mb-8 bg-clip-text text-transparent inline-block pb-2"
-                style={{ backgroundImage: 'linear-gradient(to right, #4285F4, #34A853)', lineHeight: '1.2' }}
-              >
-                Centilio Sign
-              </h3>
-              <p className="text-lg text-gray-300">
+              <p className="text-lg text-gray-300 max-w-lg">
                 Trusted by modern teams to move faster, stay compliant, and work smarter.
                 Centilio Sign brings simplicity and control to every stage of your document workflow.
               </p>
             </div>
 
-            <div className="space-y-8 pl-8">
-              {/* Feature 1 */}
-              <div className="relative border border-gray-700 rounded-xl p-6 hover:border-teal-400 transition-colors">
-                <div
-                  className="absolute -left-6 top-1/2 -translate-y-1/2 w-12 h-12 rounded-full flex items-center justify-center text-black font-bold text-xl"
-                  style={{ backgroundImage: 'linear-gradient(to right, #4285F4, #34A853)' }}
-                >
-                  01
-                </div>
-                <div className="pl-8">
-                  <h4 className="text-xl font-bold mb-2">Ironclad Security & Legal Compliance</h4>
-                  <p className="text-gray-400">
-                    Bank-grade encryption, blockchain audit trails, and full compliance with ESIGN,
-                    eIDAS, and global e-signature laws ensure every document is tamper-proof and legally binding.
-                  </p>
-                </div>
-              </div>
-
-              {/* Feature 2 */}
-              <div className="relative border border-gray-700 rounded-xl p-6 hover:border-teal-400 transition-colors">
-                <div
-                  className="absolute -left-6 top-1/2 -translate-y-1/2 w-12 h-12 rounded-full flex items-center justify-center text-black font-bold text-xl"
-                  style={{ backgroundImage: 'linear-gradient(to right, #4285F4, #34A853)' }}
-                >
-                  02
-                </div>
-                <div className="pl-8">
-                  <h4 className="text-xl font-bold mb-2">3x Faster Turnaround</h4>
-                  <p className="text-gray-400">
-                    Send contracts and get signatures back in minutes, not days.
-                    Automated reminders and real-time tracking keep deals moving.
-                  </p>
-                </div>
-              </div>
-
-              {/* Feature 3 */}
-              <div className="relative border border-gray-700 rounded-xl p-6 hover:border-teal-400 transition-colors">
-                <div
-                  className="absolute -left-6 top-1/2 -translate-y-1/2 w-12 h-12 rounded-full flex items-center justify-center text-black font-bold text-xl"
-                  style={{ backgroundImage: 'linear-gradient(to right, #4285F4, #34A853)' }}
-                >
-                  03
-                </div>
-                <div className="pl-8">
-                  <h4 className="text-xl font-bold mb-2">All-in-One Document Workflow</h4>
-                  <p className="text-gray-400">
-                    Create, send, sign, and store documents from a single platform.
-                    No juggling between apps or tools.
-                  </p>
-                </div>
-              </div>
-
-              {/* Feature 4 */}
-              <div className="relative border border-gray-700 rounded-xl p-6 hover:border-teal-400 transition-colors">
-                <div
-                  className="absolute -left-6 top-1/2 -translate-y-1/2 w-12 h-12 rounded-full flex items-center justify-center text-black font-bold text-xl"
-                  style={{ backgroundImage: 'linear-gradient(to right, #4285F4, #34A853)' }}
-                >
-                  04
-                </div>
-                <div className="pl-8">
-                  <h4 className="text-xl font-bold mb-2">Works with Your Stack</h4>
-                  <p className="text-gray-400">
-                    Integrates with CRMs like Salesforce & HubSpot, and cloud drives like Google Drive & OneDrive.
-                    Plus, developer-friendly API for full automation.
-                  </p>
-                </div>
+            <div ref={marqueeRef} className="relative md:w-[50%] h-[600px] lg:h-[700px] flex items-center justify-center animate-fade-in-up [animation-delay:400ms] overflow-visible">
+              <div className="relative w-full h-full overflow-visible">
+                <VerticalMarquee speed={20} className="h-full pl-8">
+                  {[
+                    {
+                      num: "01",
+                      title: "Ironclad Security & Legal Compliance",
+                      desc: "Bank-grade encryption, blockchain audit trails, and full compliance with ESIGN, eIDAS, and global e-signature laws ensure every document is tamper-proof and legally binding."
+                    },
+                    {
+                      num: "02", 
+                      title: "3x Faster Turnaround",
+                      desc: "Send contracts and get signatures back in minutes, not days. Automated reminders and real-time tracking keep deals moving."
+                    },
+                    {
+                      num: "03",
+                      title: "All-in-One Document Workflow", 
+                      desc: "Create, send, sign, and store documents from a single platform. No juggling between apps or tools."
+                    },
+                    {
+                      num: "04",
+                      title: "Works with Your Stack",
+                      desc: "Integrates with CRMs like Salesforce & HubSpot, and cloud drives like Google Drive & OneDrive. Plus, developer-friendly API for full automation."
+                    }
+                  ].map((feature, idx) => (
+                    <div
+                      key={idx}
+                      className="relative border border-gray-700 rounded-xl p-6 hover:border-teal-400 transition-colors marquee-item my-4"
+                    >
+                      <div
+                        className="absolute -left-7 top-1/2 -translate-y-1/2 w-14 h-14 rounded-full flex items-center justify-center text-white font-bold text-xl z-10"
+                        style={{ backgroundImage: 'linear-gradient(to right, #4285F4, #34A853)' }}
+                      >
+                        {feature.num}
+                      </div>
+                      <div className="pl-8 flex items-center gap-10 py-4">
+                        <div className='w-[45%]'>
+                          <h4 className="text-xl font-bold mb-2 leading-8">{feature.title}</h4>
+                        </div>
+                        <p className="text-gray-300 w-[55%] text-lg leading-9">
+                          {feature.desc}
+                        </p>
+                      </div>
+                    </div>
+                  ))}
+                </VerticalMarquee>
+                
+                {/* Top vignette */}
+                <div className="pointer-events-none absolute top-0 left-0 right-0 h-32 bg-gradient-to-b from-[#181A1E] via-[#181A1E]/50 to-transparent z-10"></div>
+                
+                {/* Bottom vignette */}
+                <div className="pointer-events-none absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-[#181A1E] via-[#181A1E]/50 to-transparent z-10"></div>
               </div>
             </div>
           </div>
@@ -526,20 +467,56 @@ export default function SignPage() {
       </section>
 
       {/* Enterprise Section */}
-      <section className="py-20 px-6 bg-dark-bg text-white border-t border-gray-800">
-        <div className="max-w-6xl mx-auto text-center">
-          <h2 className="text-4xl md:text-5xl font-bold mb-6 leading-tight">
+      <section className="py-20 px-6 bg-dark-bg text-white border-t border-gray-800 relative overflow-hidden">
+        {/* Starfield Background */}
+        <div className="absolute inset-0 stars opacity-60"></div>
+        
+        {/* Shooting Stars Animation */}
+        <ShootingStars
+          starColor="#FFFFFF"
+          trailColor="#4285F4"
+          minSpeed={15}
+          maxSpeed={35}
+          minDelay={1000}
+          maxDelay={3000}
+          starWidth={15}
+          starHeight={2}
+        />
+        <ShootingStars
+          starColor="#FFFFFF"
+          trailColor="#34A853"
+          minSpeed={10}
+          maxSpeed={25}
+          minDelay={2000}
+          maxDelay={4000}
+          starWidth={12}
+          starHeight={2}
+        />
+        <ShootingStars
+          starColor="#FFFFFF"
+          trailColor="#EA4335"
+          minSpeed={20}
+          maxSpeed={40}
+          minDelay={1500}
+          maxDelay={3500}
+          starWidth={10}
+          starHeight={1}
+        />
+        
+        <div className="max-w-6xl mx-auto text-center relative z-10">
+          <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-6 leading-tight">
             Enterprise-Grade Security. Effortless
-            <br />
             Signing. Unmatched Speed.
           </h2>
           <p className="text-lg text-gray-300 mb-10 max-w-3xl mx-auto">
             Join hundreds of growing teams and large enterprises that rely on Centilio Sign to drive
             productivity and maintain compliance without the paperwork delays.
           </p>
-          <button className="px-8 py-3 bg-white text-black font-medium rounded-full hover:bg-gray-100 transition-colors mb-12">
-            REQUEST ENTERPRISE DEMO
-          </button>
+          <div className="inline-block rounded-[50px] p-[2px] bg-gradient-to-r from-[#4285F4] via-[#EA4335] via-[#FBBC05] to-[#34A853] mb-12">
+            <button className="px-8 py-3 bg-white text-black font-medium rounded-full hover:bg-gray-100 transition-colors ">
+              REQUEST ENTERPRISE DEMO
+            </button>
+          </div>
 
           <div className="relative mb-16" style={{ height: '50px' }}>
             {/* Point 1 */}
@@ -718,6 +695,36 @@ export default function SignPage() {
           </div>
         </div>
       </footer>
+      <style jsx>{`
+      .stars {
+        background-image: 
+          radial-gradient(1px 1px at 20px 30px, #eee, rgba(0,0,0,0)),
+          radial-gradient(1px 1px at 40px 70px, #fff, rgba(0,0,0,0)),
+          radial-gradient(1px 1px at 90px 40px, #fff, rgba(0,0,0,0)),
+          radial-gradient(2px 2px at 130px 80px, #fff, rgba(0,0,0,0)),
+          radial-gradient(1px 1px at 160px 120px, #ddd, rgba(0,0,0,0)),
+          radial-gradient(1px 1px at 200px 160px, #eee, rgba(0,0,0,0)),
+          radial-gradient(2px 2px at 240px 50px, #fff, rgba(0,0,0,0)),
+          radial-gradient(1px 1px at 280px 90px, #fff, rgba(0,0,0,0)),
+          radial-gradient(1px 1px at 320px 170px, #ddd, rgba(0,0,0,0)),
+          radial-gradient(2px 2px at 360px 20px, #fff, rgba(0,0,0,0)),
+          radial-gradient(1px 1px at 400px 130px, #eee, rgba(0,0,0,0)),
+          radial-gradient(1px 1px at 440px 60px, #fff, rgba(0,0,0,0)),
+          radial-gradient(2px 2px at 480px 140px, #fff, rgba(0,0,0,0)),
+          radial-gradient(1px 1px at 520px 30px, #ddd, rgba(0,0,0,0)),
+          radial-gradient(1px 1px at 560px 100px, #fff, rgba(0,0,0,0)),
+          radial-gradient(1px 1px at 600px 150px, #eee, rgba(0,0,0,0));
+        background-repeat: repeat;
+        background-size: 300px 200px;
+        animation: twinkle 4s ease-in-out infinite alternate;
+      }
+
+      @keyframes twinkle {
+        0% { opacity: 0.5; }
+        50% { opacity: 1; }
+        100% { opacity: 0.7; }
+      }
+    `}</style>
     </div>
   )
 }

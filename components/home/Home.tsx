@@ -3,10 +3,31 @@
 import Image from 'next/image';
 import Header from '@/components/layout/Header';
 import Footer from '@/components/layout/Footer';
-import { useState } from 'react';
+import { GlowCard } from '@/components/ui/spotlight-card';
+import { GlobalHoverCard } from '@/components/ui/global-hover-card';
+import { useState, useEffect, useRef } from 'react';
 
 export default function Home() {
   const [activeTab, setActiveTab] = useState<'manufacturer' | 'business' | 'promoter'>('promoter');
+  const [trustedByVisible, setTrustedByVisible] = useState(false);
+  const trustedByRef = useRef<HTMLElement>(null);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setTrustedByVisible(true);
+        }
+      },
+      { threshold: 0.3 }
+    );
+
+    if (trustedByRef.current) {
+      observer.observe(trustedByRef.current);
+    }
+
+    return () => observer.disconnect();
+  }, []);
 
   return (
     <div className="min-h-screen">
@@ -16,23 +37,25 @@ export default function Home() {
       <section className="w-full bg-[#181A1E] py-16 lg:py-24">
         <div className="container mx-auto px-4 lg:px-8">
           <div className="max-w-6xl mx-auto text-center mb-12 lg:mb-16">
-            <h1 className="text-4xl lg:text-6xl font-bold text-white mb-6">
+            <h1 className="text-2xl sm:text-3xl md:text-5xl lg:text-6xl font-bold text-white mb-6 lg:mb-12">
               Your trusted growth engine.
             </h1>
-            <p className="text-lg lg:text-xl text-gray-300 mb-8 max-w-3xl mx-auto">
+            <p className="text-lg md:text-xl lg:text-2xl text-gray-300 mb-8 lg:mb-18 max-w-3xl mx-auto">
               Designed for businesses that are ready to grow with results that speak for themselves.
               Centilio is your ready-to-use partner for faster, smarter business growth.
             </p>
-            <button className="inline-flex items-center gap-2 px-8 py-3 bg-white text-black font-semibold rounded-[50px] hover:bg-gray-100 transition-colors">
-              LET'S GROW YOUR REVENUE TODAY
-              <Image
-                src="/images/home page/cta-arrowVector.svg"
-                alt="Arrow"
-                width={14}
-                height={14}
-                style={{ filter: 'invert(1)' }}
-              />
-            </button>
+            <div className="inline-block rounded-[50px] p-[2px] bg-gradient-to-r from-[#4285F4] via-[#EA4335] via-[#FBBC05] to-[#34A853]">
+              <button className="inline-flex items-center gap-2 px-8 py-3 bg-white text-black font-semibold rounded-[50px] hover:bg-gray-100 transition-colors">
+                LET'S GROW YOUR REVENUE TODAY
+                <Image
+                  src="/images/home page/cta-arrowVector.svg"
+                  alt="Arrow"
+                  width={14}
+                  height={14}
+                  style={{ filter: 'invert(1)' }}
+                />
+              </button>
+            </div>
           </div>
 
           {/* Product Grid - Mixed size tiles with centered 2x2 feature cards */}
@@ -40,7 +63,12 @@ export default function Home() {
             {/* Row 1 - Small boxes */}
             <div className="flex justify-center gap-3 lg:gap-4 flex-nowrap min-w-min">
               {Array.from({ length: 9 }).map((_, i) => (
-                <div key={`r1-${i}`} className="w-[121px] h-[112px] flex-shrink-0 bg-[#1F2125] border border-[#5B5858] rounded-[20px] hover:border-gray-400 transition-colors"></div>
+                <GlobalHoverCard 
+                  key={`r1-${i}`}
+                  width={121}
+                  height={112}
+                  className="flex-shrink-0"
+                />
               ))}
             </div>
 
@@ -51,7 +79,12 @@ export default function Home() {
                 {Array.from({ length: 3 }).map((_, row) => (
                   <div key={`left-row-${row}`} className="flex gap-3 lg:gap-4">
                     {Array.from({ length: 3 }).map((_, col) => (
-                      <div key={`left-${row}-${col}`} className="w-[121px] h-[112px] flex-shrink-0 bg-[#1F2125] border border-[#5B5858] rounded-[20px] hover:border-gray-400 transition-colors"></div>
+                      <GlobalHoverCard 
+                        key={`left-${row}-${col}`}
+                        width={121}
+                        height={112}
+                        className="flex-shrink-0"
+                      />
                     ))}
                   </div>
                 ))}
@@ -62,7 +95,13 @@ export default function Home() {
                 {/* Row 1 of feature cards */}
                 <div className="flex gap-3 lg:gap-4">
                   {/* Sign - Large feature card */}
-                  <div className="w-[189px] h-[182px] flex-shrink-0 bg-[#1F2125] border border-[#5B5858] rounded-[20px] p-5 flex flex-col items-center justify-center hover:border-gray-400 transition-all shadow-lg shadow-blue-500/20 relative">
+                  <GlowCard 
+                    customSize={true}
+                    glowColor="blue"
+                    width={189}
+                    height={182}
+                    className="flex-shrink-0 bg-[#1F2125] p-5 flex flex-col items-center justify-center"
+                  >
                     <Image
                       src="/images/home page/first fold/Vector1.svg"
                       alt="Sign"
@@ -71,10 +110,16 @@ export default function Home() {
                       className="mb-3"
                     />
                     <span className="text-white text-sm font-semibold text-center">Sign</span>
-                  </div>
+                  </GlowCard>
 
                   {/* SEO Agent - Large feature card */}
-                  <div className="w-[189px] h-[182px] flex-shrink-0 bg-[#1F2125] border border-[#5B5858] rounded-[20px] p-5 flex flex-col items-center justify-center hover:border-gray-400 transition-all shadow-lg shadow-blue-500/20">
+                  <GlowCard 
+                    customSize={true}
+                    glowColor="blue"
+                    width={189}
+                    height={182}
+                    className="flex-shrink-0 bg-[#1F2125] p-5 flex flex-col items-center justify-center"
+                  >
                     <Image
                       src="/images/home page/first fold/Vector2.svg"
                       alt="SEO Agent"
@@ -83,13 +128,19 @@ export default function Home() {
                       className="mb-3"
                     />
                     <span className="text-white text-sm font-semibold text-center">SEO Agent</span>
-                  </div>
+                  </GlowCard>
                 </div>
 
                 {/* Row 2 of feature cards */}
                 <div className="flex gap-3 lg:gap-4">
                   {/* HR Agent - Large feature card */}
-                  <div className="w-[189px] h-[182px] flex-shrink-0 bg-[#1F2125] border border-[#5B5858] rounded-[20px] p-5 flex flex-col items-center justify-center hover:border-gray-400 transition-all shadow-lg shadow-purple-500/20">
+                  <GlowCard 
+                    customSize={true}
+                    glowColor="purple"
+                    width={189}
+                    height={182}
+                    className="flex-shrink-0 bg-[#1F2125] p-5 flex flex-col items-center justify-center"
+                  >
                     <div className="w-[60px] h-[60px] flex items-center justify-center mb-3">
                       <Image
                         src="/images/home page/first fold/HR Agent logo - white.png"
@@ -100,10 +151,16 @@ export default function Home() {
                       />
                     </div>
                     <span className="text-white text-sm font-semibold text-center">HR Agent</span>
-                  </div>
+                  </GlowCard>
 
                   {/* Email Outreach - Large feature card */}
-                  <div className="w-[189px] h-[182px] flex-shrink-0 bg-[#1F2125] border border-[#5B5858] rounded-[20px] p-5 flex flex-col items-center justify-center hover:border-gray-400 transition-all shadow-lg shadow-orange-500/20">
+                  <GlowCard 
+                    customSize={true}
+                    glowColor="orange"
+                    width={189}
+                    height={182}
+                    className="flex-shrink-0 bg-[#1F2125] p-5 flex flex-col items-center justify-center"
+                  >
                     <div className="w-[60px] h-[60px] flex items-center justify-center mb-3">
                       <Image
                         src="/images/home page/first fold/email logo white.png"
@@ -114,7 +171,7 @@ export default function Home() {
                       />
                     </div>
                     <span className="text-white text-sm font-semibold text-center">Email<br />Outreach</span>
-                  </div>
+                  </GlowCard>
                 </div>
               </div>
 
@@ -123,17 +180,28 @@ export default function Home() {
                 {Array.from({ length: 3 }).map((_, row) => (
                   <div key={`right-row-${row}`} className="flex gap-3 lg:gap-4">
                     {Array.from({ length: 3 }).map((_, col) => (
-                      <div key={`right-${row}-${col}`} className="w-[121px] h-[112px] flex-shrink-0 bg-[#1F2125] border border-[#5B5858] rounded-[20px] hover:border-gray-400 transition-colors"></div>
+                      <GlobalHoverCard 
+                        key={`right-${row}-${col}`}
+                        width={121}
+                        height={112}
+                        className="flex-shrink-0"
+                      />
                     ))}
                   </div>
                 ))}
               </div>
             </div>
+              
 
             {/* Row 4 - Small boxes */}
             <div className="flex justify-center gap-3 lg:gap-4 flex-nowrap min-w-min">
               {Array.from({ length: 9 }).map((_, i) => (
-                <div key={`r4-${i}`} className="w-[121px] h-[112px] flex-shrink-0 bg-[#1F2125] border border-[#5B5858] rounded-[20px] hover:border-gray-400 transition-colors"></div>
+                <GlobalHoverCard 
+                  key={`r4-${i}`}
+                  width={121}
+                  height={112}
+                  className="flex-shrink-0"
+                />
               ))}
             </div>
           </div>
@@ -144,10 +212,10 @@ export default function Home() {
       <section className="w-full bg-white py-16 lg:py-24">
         <div className="container mx-auto px-4 lg:px-8">
           <div className="max-w-4xl mx-auto text-center">
-            <span className="inline-block text-red-600 text-sm font-semibold mb-6">
+            <span className="inline-block text-red-600 text-2xl font-light mb-4">
               Why We Exist
             </span>
-            <h2 className="text-4xl lg:text-5xl font-bold text-black mb-6">
+            <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-black mb-6 lg:mb-8 leading-tight">
               Your business needs growth.
               <br />
               <span style={{
@@ -162,7 +230,7 @@ export default function Home() {
               right tools and support. Centilio exists to simplify growth by giving you ready-to-use digital tools
               and systems all in one place, so you can scale faster, smarter, and with less hassle.
             </p>
-            <button className="inline-flex items-center gap-2 px-8 py-3 bg-black text-white font-semibold rounded-[50px] hover:bg-gray-800 transition-colors">
+            {/* <button className="inline-flex items-center gap-2 px-8 py-3 bg-black text-white font-semibold rounded-[50px] hover:bg-gray-800 transition-colors">
               TALK TO A GROWTH EXPERT
               <Image
                 src="/images/home page/cta-arrowVector.svg"
@@ -170,141 +238,297 @@ export default function Home() {
                 width={14}
                 height={14}
               />
-            </button>
+            </button> */}
+            <div className="relative inline-block">
+              <style jsx>{`
+                .rainbow-border-animated {
+                  position: relative;
+                  background: black;
+                  border: none;
+                  border-radius: 50px;
+                  padding: 3px;
+                  overflow: hidden;
+                }
+                .rainbow-border-animated::before {
+                  content: '';
+                  position: absolute;
+                  inset: 0;
+                  padding: 3px;
+                  background: conic-gradient(from 0deg, #4285F4, #EA4435, #FBBC05, #34A853, #4285F4);
+                  border-radius: inherit;
+                  mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+                  mask-composite: xor;
+                  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+                  -webkit-mask-composite: xor;
+                  animation: rainbow-rotate 3s linear infinite;
+                }
+                .rainbow-button-content {
+                  position: relative;
+                  background: black;
+                  border-radius: 47px;
+                  z-index: 1;
+                }
+                @keyframes rainbow-rotate {
+                  0% { transform: rotate(0deg); }
+                  100% { transform: rotate(360deg); }
+                }
+              `}</style>
+              <div className="rainbow-border-animated">
+                <button className="rainbow-button-content inline-flex items-center gap-2 px-8 py-3 text-white font-semibold hover:bg-gray-800 transition-colors w-full">
+                  TALK TO A GROWTH EXPERT
+                  <Image
+                    src="/images/home page/cta-arrowVector.svg"
+                    alt="Arrow"
+                    width={14}
+                    height={14}
+                  />
+                </button>
+              </div>
+            </div>
+            
           </div>
         </div>
       </section>
 
       {/* THIRD FOLD - Trusted By */}
-      <section className="w-full bg-[#181A1E] py-16 lg:py-24">
-        <div className="container mx-auto px-4 lg:px-8">
+      <section ref={trustedByRef} className="w-full bg-[#181A1E] pt-16 lg:pt-24 pb-0 trusted-section h-[80vh]">
+        <div className="w-full mx-auto px-4 lg:px-8 h-full flex flex-col">
           <h2 className="text-3xl lg:text-4xl font-bold text-white text-center mb-12">
             Trusted by
           </h2>
-          <div className="max-w-7xl mx-auto">
-            {/* Top Row - 4 logos more spread out */}
-            <div className="flex justify-center items-center gap-6 lg:gap-12 mb-6 flex-wrap">
+          <style jsx>{`
+            .logo-item {
+              opacity: 0;
+              transform: translateY(-400px) rotate(0deg) scale(0.8);
+              animation: none;
+            }
+            .logo-item.animate {
+              animation: smoothFall 1.5s ease-out forwards;
+            }
+            .logo-item.animate:nth-child(1) { animation-delay: 0.1s; }
+            .logo-item.animate:nth-child(2) { animation-delay: 0.2s; }
+            .logo-item.animate:nth-child(3) { animation-delay: 0.4s; }
+            .logo-item.animate:nth-child(4) { animation-delay: 0.3s; }
+            .logo-item.animate:nth-child(5) { animation-delay: 0.5s; }
+            .logo-item.animate:nth-child(6) { animation-delay: 0.6s; }
+            
+            .logo-row-1 .logo-item.animate:nth-child(1) { animation-delay: 0.1s; }
+            .logo-row-1 .logo-item.animate:nth-child(2) { animation-delay: 0.3s; }
+            .logo-row-1 .logo-item.animate:nth-child(3) { animation-delay: 0.5s; }
+            .logo-row-1 .logo-item.animate:nth-child(4) { animation-delay: 0.2s; }
+            
+            .logo-row-2 .logo-item.animate:nth-child(1) { animation-delay: 0.7s; }
+            .logo-row-2 .logo-item.animate:nth-child(2) { animation-delay: 0.4s; }
+            .logo-row-2 .logo-item.animate:nth-child(3) { animation-delay: 0.9s; }
+            .logo-row-2 .logo-item.animate:nth-child(4) { animation-delay: 0.6s; }
+            .logo-row-2 .logo-item.animate:nth-child(5) { animation-delay: 0.8s; }
+            .logo-row-2 .logo-item.animate:nth-child(6) { animation-delay: 1.0s; }
+            
+            @keyframes smoothFall {
+              0% {
+                opacity: 0;
+                transform: translateY(-500px) scale(0.9);
+              }
+              100% {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+              }
+            }
+            
+            .trusted-section {
+              position: relative;
+              overflow: hidden;
+            }
+          `}</style>
+          <div className="relative w-full flex-1 flex justify-center items-end pb-8">
+            {/* Scattered logos at bottom like fallen cards */}
+            <div className="relative w-full h-80">
+              {/* mēkā - top left */}
               <div
-                className="p-6 flex items-center justify-center w-[217px] h-[115px]"
-                style={{ transform: 'rotate(-8deg)' }}
+                className={`logo-item absolute p-6 flex items-center justify-center w-[240px] h-[130px] ${trustedByVisible ? 'animate' : ''}`}
+                style={{ 
+                  left: '5%', 
+                  bottom: '60%', 
+                  transform: trustedByVisible ? 'rotate(-25deg)' : 'translateY(-400px) rotate(0deg) scale(0.8)',
+                  animationDelay: '0.1s'
+                }}
               >
                 <Image
                   src="/images/home page/third fold/logo10.png"
                   alt="mēkā"
-                  width={217}
-                  height={115}
+                  width={240}
+                  height={130}
                   className="object-contain"
                 />
               </div>
+
+              {/* ProtonMail - top center */}
               <div
-                className="p-6 flex items-center justify-center w-[217px] h-[115px]"
-                style={{ transform: 'rotate(3deg)' }}
+                className={`logo-item absolute p-6 flex items-center justify-center w-[240px] h-[130px] ${trustedByVisible ? 'animate' : ''}`}
+                style={{ 
+                  left: '25%', 
+                  bottom: '45%', 
+                  transform: trustedByVisible ? 'rotate(8deg)' : 'translateY(-400px) rotate(0deg) scale(0.8)',
+                  animationDelay: '0.3s'
+                }}
               >
                 <Image
                   src="/images/home page/third fold/logo9.png"
                   alt="ProtonMail"
-                  width={217}
-                  height={115}
+                  width={240}
+                  height={130}
                   className="object-contain"
                 />
               </div>
+
+              {/* STRATOS - center */}
               <div
-                className="p-6 flex items-center justify-center w-[217px] h-[115px]"
-                style={{ transform: 'rotate(-5deg)' }}
+                className={`logo-item absolute p-6 flex items-center justify-center w-[240px] h-[130px] ${trustedByVisible ? 'animate' : ''}`}
+                style={{ 
+                  left: '47%', 
+                  bottom: '0%', 
+                  transform: trustedByVisible ? 'rotate(-5deg)' : 'translateY(-400px) rotate(0deg) scale(0.8)',
+                  animationDelay: '0.5s'
+                }}
               >
                 <Image
                   src="/images/home page/third fold/logo8.png"
                   alt="STRATOS"
-                  width={217}
-                  height={115}
+                  width={240}
+                  height={130}
                   className="object-contain"
                 />
               </div>
+
+              {/* monday.com - top right */}
               <div
-                className="p-6 flex items-center justify-center w-[217px] h-[115px]"
-                style={{ transform: 'rotate(4deg)' }}
+                className={`logo-item absolute p-6 flex items-center justify-center w-[240px] h-[130px] ${trustedByVisible ? 'animate' : ''}`}
+                style={{ 
+                  right: '8%', 
+                  bottom: '50%', 
+                  transform: trustedByVisible ? 'rotate(15deg)' : 'translateY(-400px) rotate(0deg) scale(0.8)',
+                  animationDelay: '0.2s'
+                }}
               >
                 <Image
                   src="/images/home page/third fold/logo7.png"
                   alt="monday.com"
-                  width={217}
-                  height={115}
+                  width={240}
+                  height={130}
                   className="object-contain"
                 />
               </div>
-            </div>
 
-            {/* Bottom Row - 6 logos more compact */}
-            <div className="flex justify-center items-center gap-4 lg:gap-8 flex-wrap">
+              {/* AWS - bottom left */}
               <div
-                className="p-6 flex items-center justify-center w-[217px] h-[115px]"
-                style={{ transform: 'rotate(-6deg)' }}
+                className={`logo-item absolute p-6 flex items-center justify-center w-[240px] h-[130px] ${trustedByVisible ? 'animate' : ''}`}
+                style={{ 
+                  left: '8%', 
+                  bottom: '5%', 
+                  transform: trustedByVisible ? 'rotate(-18deg)' : 'translateY(-400px) rotate(0deg) scale(0.8)',
+                  animationDelay: '0.7s'
+                }}
               >
                 <Image
                   src="/images/home page/third fold/logo1.png"
                   alt="AWS"
-                  width={217}
-                  height={115}
+                  width={240}
+                  height={130}
                   className="object-contain"
                 />
               </div>
+
+              {/* DigitalOcean - bottom left center */}
               <div
-                className="p-6 flex items-center justify-center w-[217px] h-[115px]"
-                style={{ transform: 'rotate(2deg)' }}
+                className={`logo-item absolute p-6 flex items-center justify-center w-[240px] h-[130px] ${trustedByVisible ? 'animate' : ''}`}
+                style={{ 
+                  left: '22%', 
+                  bottom: '0%', 
+                  transform: trustedByVisible ? 'rotate(12deg)' : 'translateY(-400px) rotate(0deg) scale(0.8)',
+                  animationDelay: '0.4s'
+                }}
               >
                 <Image
                   src="/images/home page/third fold/logo2.png"
                   alt="DigitalOcean"
-                  width={217}
-                  height={115}
+                  width={240}
+                  height={130}
                   className="object-contain"
                 />
               </div>
+
+              {/* Google Cloud - center bottom */}
               <div
-                className="p-6 flex items-center justify-center w-[217px] h-[115px]"
-                style={{ transform: 'rotate(-4deg)' }}
+                className={`logo-item absolute p-6 flex items-center justify-center w-[240px] h-[130px] ${trustedByVisible ? 'animate' : ''}`}
+                style={{ 
+                  left: '35%', 
+                  bottom: '0%', 
+                  transform: trustedByVisible ? 'rotate(-8deg)' : 'translateY(-400px) rotate(0deg) scale(0.8)',
+                  animationDelay: '0.9s'
+                }}
               >
                 <Image
                   src="/images/home page/third fold/logo3.png"
                   alt="Google Cloud"
-                  width={217}
-                  height={115}
+                  width={240}
+                  height={130}
                   className="object-contain"
                 />
               </div>
+
+              {/* G.S.C - right center */}
               <div
-                className="p-6 flex items-center justify-center w-[217px] h-[115px]"
-                style={{ transform: 'rotate(5deg)' }}
+                className={`logo-item absolute p-6 flex items-center justify-center w-[240px] h-[130px] ${trustedByVisible ? 'animate' : ''}`}
+                style={{ 
+                  right: '25%', 
+                  bottom: '0%', 
+                  transform: trustedByVisible ? 'rotate(20deg)' : 'translateY(-400px) rotate(0deg) scale(0.8)',
+                  animationDelay: '0.6s'
+                }}
               >
                 <Image
                   src="/images/home page/third fold/logo4.png"
                   alt="G.S.C"
-                  width={217}
-                  height={115}
+                  width={240}
+                  height={130}
                   className="object-contain"
                 />
               </div>
+
+              {/* ions - right */}
               <div
-                className="p-6 flex items-center justify-center w-[217px] h-[115px]"
-                style={{ transform: 'rotate(-3deg)' }}
+                className={`logo-item absolute p-6 flex items-center justify-center w-[240px] h-[130px] ${trustedByVisible ? 'animate' : ''}`}
+                style={{ 
+                  right: '12%', 
+                  bottom: '8%', 
+                  transform: trustedByVisible ? 'rotate(-12deg)' : 'translateY(-400px) rotate(0deg) scale(0.8)',
+                  animationDelay: '0.8s'
+                }}
               >
                 <Image
                   src="/images/home page/third fold/logo5.png"
                   alt="ions"
-                  width={217}
-                  height={115}
+                  width={240}
+                  height={130}
                   className="object-contain"
                 />
               </div>
+
+              {/* pipedrive - far right */}
               <div
-                className="p-6 flex items-center justify-center w-[217px] h-[115px]"
-                style={{ transform: 'rotate(6deg)' }}
+                className={`logo-item absolute p-6 flex items-center justify-center w-[240px] h-[130px] ${trustedByVisible ? 'animate' : ''}`}
+                style={{ 
+                  right: '3%', 
+                  bottom: '25%', 
+                  transform: trustedByVisible ? 'rotate(25deg)' : 'translateY(-400px) rotate(0deg) scale(0.8)',
+                  animationDelay: '1.0s'
+                }}
               >
                 <Image
                   src="/images/home page/third fold/logo6.png"
                   alt="pipedrive"
-                  width={217}
-                  height={115}
+                  width={240}
+                  height={130}
                   className="object-contain"
                 />
               </div>
@@ -316,9 +540,9 @@ export default function Home() {
       {/* FOURTH FOLD - From Thought to Thrive */}
       <section className="w-full bg-white py-16 lg:py-24">
         <div className="container mx-auto px-4 lg:px-8">
-          <div className="max-w-6xl mx-auto grid lg:grid-cols-2 gap-12 items-center">
-            <div>
-              <h2 className="text-4xl lg:text-5xl font-bold text-black mb-6">
+          <div className="container mx-auto grid lg:grid-cols-2 gap-12 items-center">
+            <div className='max-w-lg'>
+              <h2 className="text-2xl sm:text-3xl md:text-5xl font-bold text-black mb-6 leading-tight">
                 From thought to thrive
               </h2>
               <p className="text-lg text-gray-700 mb-4">
@@ -335,15 +559,17 @@ export default function Home() {
                   backgroundClip: 'text'
                 }}>automation</span>, from outreach to operations, every Centilio solution works together to power your growth and deliver results.
               </p>
-              <button className="inline-flex items-center gap-2 px-8 py-3 bg-black text-white font-semibold rounded-[50px] hover:bg-gray-800 transition-colors mt-6">
-                LEARN MORE
-                <Image
-                  src="/images/home page/cta-arrowVector.svg"
-                  alt="Arrow"
-                  width={14}
-                  height={14}
-                />
-              </button>
+              <div className="inline-block rounded-[50px] p-[2px] bg-gradient-to-r from-[#4285F4] via-[#EA4335] via-[#FBBC05] to-[#34A853]">
+                <button className="inline-flex items-center gap-2 px-8 py-3 bg-black text-white font-semibold rounded-[50px] hover:bg-gray-800 transition-colors">
+                  LEARN MORE
+                  <Image
+                    src="/images/home page/cta-arrowVector.svg"
+                    alt="Arrow"
+                    width={14}
+                    height={14}
+                  />
+                </button>
+              </div>
             </div>
             <div className="bg-gray-200 rounded-[20px] aspect-video flex items-center justify-center">
               <span className="text-gray-500">Content Image/Video</span>
@@ -356,7 +582,7 @@ export default function Home() {
       <section className="w-full bg-white py-16 lg:py-24">
         <div className="container mx-auto px-4 lg:px-8">
           <div className="max-w-4xl mx-auto">
-            <h2 className="text-4xl lg:text-5xl font-bold text-black text-center mb-6">
+            <h2 className="text-2xl sm:text-3xl md:text-5xl font-bold text-black text-center mb-6 leading-tight">
               Your business needs growth. We<br className="hidden sm:inline" /> make it happen.
             </h2>
             <p className="text-lg text-gray-700 text-center mb-8">
@@ -366,7 +592,7 @@ export default function Home() {
             </p>
 
             {/* Tabs */}
-            <div className="flex flex-wrap justify-center gap-8 mb-16">
+            <div className="flex flex-wrap justify-center gap-8 mb-16 border-b border-[#7F8394] max-w-xl mx-auto">
               <button
                 onClick={() => setActiveTab('manufacturer')}
                 className={`pb-2 text-base transition-colors ${
@@ -420,7 +646,7 @@ export default function Home() {
                 className="absolute rounded-[40px] p-[2px]"
                 style={{
                   width: '820px',
-                  height: '414px',
+                  height: '354px',
                   background: 'linear-gradient(135deg, rgba(255,215,0,0.3) 0%, rgba(255,165,0,0.3) 25%, rgba(0,255,127,0.3) 50%, rgba(64,224,208,0.3) 75%, rgba(30,144,255,0.3) 100%)',
                   zIndex: 0,
                   transform: 'translateY(30%)'
@@ -430,7 +656,7 @@ export default function Home() {
               </div>
 
               {/* Content wrapper */}
-              <div className="relative pt-16 pb-8" style={{ width: '820px', minHeight: '414px' }}>
+              <div className="relative pb-8" style={{ width: '820px', minHeight: '414px' }}>
                 {/* Customer photo with multicolor halo - positioned above card */}
                 <div className="flex justify-center mb-[-80px] relative z-20">
                   <div className="relative w-40 h-40">
@@ -453,15 +679,15 @@ export default function Home() {
                 </div>
 
                 {/* Dark testimonial card */}
-                <div className="relative z-10 bg-[#181A1E] rounded-[20px] mx-auto" style={{ width: '480px', height: '441px' }}>
+                <div className="relative z-10 bg-[#181A1E] rounded-xl mx-auto" style={{ width: '480px', height: '441px' }}>
                   <div className="flex flex-col items-center text-center justify-center h-full px-8 pt-24 pb-8">
-                    <p className="text-lg text-white mb-8 max-w-md mx-auto">
+                    <p className="text-lg text-white mb-8 max-w-md mx-auto mt-[40px] text-justify leading-6">
                       "We were exploring ways to streamline operations and drive consistent growth. Centilio delivered on both. The
                       platform is intuitive, reliable, and packed with tools that actually work. It's like having a growth team built into our
                       business."
                     </p>
                     <div className="flex flex-col items-center">
-                      <p className="font-bold text-white text-lg mb-3">Prathesh Kumar, Owner</p>
+                      <p className="font-bold text-white text-lg">Prathesh Kumar, <span className='font-thin'>Owner</span></p>
                       <Image
                         src="/images/home page/fifth fold/logo - transparent- vkv white 1.svg"
                         alt="VEG TRON"
@@ -479,23 +705,23 @@ export default function Home() {
       </section>
 
       {/* SIXTH FOLD - Tamil Nadu Stats */}
-      <section className="w-full bg-[#181A1E] py-16 lg:py-24 relative overflow-hidden">
-        <div className="container mx-auto px-4 lg:px-8">
+      <section className="w-full bg-[#181A1E] py-16 lg:py-30 relative overflow-hidden">
+        <div className="container px-4 lg:px-8">
           <div className="max-w-6xl mx-auto relative z-10">
-            <h2 className="text-4xl lg:text-5xl font-bold text-white mb-16">
+            <h2 className="text-2xl sm:text-3xl md:text-5xl font-bold text-white mb-16 leading-tight">
               From Tamil Nadu. For Growing<br /> Business Globally.
             </h2>
             <div className="grid grid-cols-3 gap-8 max-w-2xl">
               <div className="text-left">
-                <h3 className="text-4xl lg:text-5xl font-bold text-white mb-2">100+</h3>
+                <h3 className="text-2xl lg:text-5xl font-semibold text-white mb-2">100+</h3>
                 <p className="text-sm lg:text-base text-gray-300">Businesses<br />Served</p>
               </div>
               <div className="text-left">
-                <h3 className="text-4xl lg:text-5xl font-bold text-white mb-2">10+</h3>
+                <h3 className="text-2xl lg:text-5xl font-semibold text-white mb-2">10+</h3>
                 <p className="text-sm lg:text-base text-gray-300">Countries<br />Supported</p>
               </div>
               <div className="text-left">
-                <h3 className="text-4xl lg:text-5xl font-bold text-white mb-2">50+</h3>
+                <h3 className="text-2xl lg:text-5xl font-semibold text-white mb-2">50+</h3>
                 <p className="text-sm lg:text-base text-gray-300">CRM Setups<br />Done</p>
               </div>
             </div>
@@ -516,9 +742,9 @@ export default function Home() {
       {/* SEVENTH FOLD - Your Growth */}
       <section className="w-full bg-white py-16 lg:py-24">
         <div className="container mx-auto px-4 lg:px-8">
-          <div className="max-w-6xl mx-auto grid lg:grid-cols-2 gap-12 items-center">
-            <div>
-              <h2 className="text-4xl lg:text-5xl font-bold text-black mb-6">
+          <div className=" mx-auto grid lg:grid-cols-2 gap-12 items-center">
+            <div className='max-w-lg'>
+              <h2 className="text-2xl sm:text-3xl md:text-5xl font-bold text-black mb-6 lg:mb-14 leading-tight">
                 Your Growth Is{' '}
                 <span style={{
                   background: 'linear-gradient(to right, #4285F4, #083987)',
@@ -544,7 +770,7 @@ export default function Home() {
       <section className="w-full bg-[#181A1E] py-16 lg:py-24">
         <div className="container mx-auto px-4 lg:px-8">
           <div className="max-w-6xl mx-auto">
-            <h2 className="text-4xl lg:text-5xl font-bold text-white text-center mb-12">
+            <h2 className="text-2xl sm:text-3xl md:text-5xl font-bold text-white text-center mb-12 lg:mb-24">
               The values that drive Centilio
             </h2>
             <div className="grid md:grid-cols-3 gap-8">
@@ -610,7 +836,7 @@ export default function Home() {
       <section className="w-full bg-white py-16 lg:py-24">
         <div className="container mx-auto px-4 lg:px-8">
           <div className="max-w-4xl mx-auto text-center">
-            <h2 className="text-4xl lg:text-5xl font-bold text-black mb-6">
+            <h2 className="text-2xl sm:text-3xl md:text-5xl font-bold text-black mb-6">
               Ready to{' '}
               <span style={{
                 background: 'linear-gradient(to right, #4285F4, #083987)',
@@ -619,19 +845,20 @@ export default function Home() {
                 backgroundClip: 'text'
               }}>Grow Your Revenue?</span>
             </h2>
-            <p className="text-lg text-gray-700 mb-8">
-              Let's build a strategy that works for you. Talk to our growth experts today
-              and see how Centilio can transform your business.
+            <p className="text-lg text-gray-700 mb-8 max-w-2xl mx-auto">
+              Plug Centilio into your business and watch the momentum kick in. We are ready when you are. Let us build your revenue engine today.
             </p>
-            <button className="inline-flex items-center gap-2 px-8 py-3 bg-black text-white font-semibold rounded-[50px] hover:bg-gray-800 transition-colors">
-              TALK TO A GROWTH EXPERT
-              <Image
-                src="/images/home page/cta-arrowVector.svg"
-                alt="Arrow"
-                width={14}
-                height={14}
-              />
-            </button>
+            <div className="inline-block rounded-[50px] p-[2px] bg-gradient-to-r from-[#4285F4] via-[#EA4335] via-[#FBBC05] to-[#34A853]">
+              <button className="inline-flex items-center gap-2 px-8 py-3 bg-black text-white font-semibold rounded-[50px] hover:bg-gray-800 transition-colors">
+                TALK TO A GROWTH EXPERT
+                <Image
+                  src="/images/home page/cta-arrowVector.svg"
+                  alt="Arrow"
+                  width={14}
+                  height={14}
+                />
+              </button>
+            </div>
           </div>
         </div>
       </section>

@@ -2,49 +2,67 @@
 
 import Image from 'next/image';
 import Link from 'next/link';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 export default function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isScrolled, setIsScrolled] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const scrollTop = window.scrollY;
+      setIsScrolled(scrollTop > 50);
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
 
   const navItems = [
     { name: 'Products', href: '#' },
     { name: 'Industries', href: '#' },
     { name: 'Customers', href: '#' },
     { name: 'Partners', href: '#' },
-    { name: 'About', href: '#' },
+    { name: 'About', href: '/about' },
   ];
 
   return (
-    <header className="w-full bg-[#181A1E] border-b border-[#2A2C30] sticky top-0 z-50">
+    <header className={`w-full bg-[#181A1E] border-b border-[#2A2C30] sticky top-0 z-50 transition-all duration-300 ${isScrolled ? 'shadow-lg' : ''}`}>
       <div className="container mx-auto px-4 lg:px-8">
-        <div className="flex items-center justify-between h-16 lg:h-20">
-          {/* Logo */}
-          <Link href="/" className="flex items-center gap-3">
-            <Image
-              src="/images/home page/centilio logo vERSION 1 (1).png"
-              alt="Centilio"
-              width={90}
-              height={30}
-              className="object-contain"
-            />
-          </Link>
+        <div className={`flex items-center justify-between transition-all duration-300 ${isScrolled ? 'py-2' : 'py-4 lg:py-5'}`}>
+          <div className='flex items-center gap-20'>
+            {/* Logo */}
+            <Link href="/" className="flex items-center gap-3">
+              <Image
+                src="/images/home page/centilio logo vERSION 1 (1).png"
+                alt="Centilio"
+                width={140}
+                height={80}
+                className={`object-contain transition-all duration-300 ${
+                  isScrolled 
+                    ? 'w-20 h-10 sm:w-22 sm:h-11 md:w-24 md:h-12 lg:w-32 lg:h-20' 
+                    : 'w-24 h-12 sm:w-28 sm:h-14 md:w-32 md:h-16 lg:w-48 lg:h-36'
+                }`}
+              />
+            </Link>
 
-          {/* Desktop Navigation */}
-          <nav className="hidden lg:flex items-center space-x-8">
-            {navItems.map((item) => (
-              <Link
-                key={item.name}
-                href={item.href}
-                className="text-base font-medium text-white hover:text-blue-400 transition-colors"
-              >
-                {item.name}
-              </Link>
-            ))}
-          </nav>
+            {/* Desktop Navigation */}
+            <nav className="hidden lg:flex items-center space-x-8">
+              {navItems.map((item) => (
+                <Link
+                  key={item.name}
+                  href={item.href}
+                  className="text-base font-normal text-white hover:text-blue-400 transition-colors"
+                >
+                  {item.name}
+                </Link>
+              ))}
+            </nav>
+          </div>
 
           {/* Right Side - Search and Auth Buttons */}
           <div className="hidden lg:flex items-center space-x-4">
+
             {/* Search Icon */}
             <button className="p-2 hover:bg-gray-700 rounded-lg transition-colors">
               <Image
@@ -52,14 +70,12 @@ export default function Header() {
                 alt="Search"
                 width={20}
                 height={20}
-                className="invert"
               />
-            </button>
-
+            </button>          
             {/* Sign In Button */}
             <Link
               href="#"
-              className="px-6 py-2 text-base font-semibold text-white hover:text-blue-400 transition-colors"
+              className="px-6 py-2 text-base font-normal text-white hover:text-blue-400 transition-colors"
             >
               Sign In
             </Link>
@@ -67,10 +83,12 @@ export default function Header() {
             {/* Sign Up Button */}
             <Link
               href="#"
-              className="px-6 py-2 text-base font-semibold text-black bg-white rounded-full hover:bg-gray-100 transition-colors"
+              className="px-6 py-2 text-base text-black bg-white rounded-full hover:bg-gray-100 transition-colors"
             >
               Sign Up
             </Link>
+
+
           </div>
 
           {/* Mobile Menu Button */}

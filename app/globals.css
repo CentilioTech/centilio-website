@@ -10,6 +10,10 @@
   --accent-red: #EF4444;
   --text-light: #ffffff;
   --text-dark: #000000;
+  
+  /* Sparkles Animation Colors */
+  --gradient-color: #8350e8;
+  --sparkles-color: #8350e8;
 }
 
 @theme inline {
@@ -25,10 +29,61 @@
   --color-accent-red: var(--accent-red);
   --color-text-light: var(--text-light);
   --color-text-dark: var(--text-dark);
+
+  /* Animation utilities */
+  --animate-marquee: marquee var(--duration, 30s) linear infinite;
+  --animate-marquee-vertical: marquee-vertical var(--duration, 30s) linear infinite;
+  --animate-fade-in-up: fade-in-up 0.6s ease-out forwards;
+  --animate-aurora: aurora 60s linear infinite;
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: var(--font-inter), sans-serif;
+  font-family: "Inter", sans-serif;
+}
+
+@layer base {
+  .dark {
+    --gradient-color: #8350e8;
+    --sparkles-color: #ffffff;
+  }
+}
+
+@keyframes marquee {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-100%);
+  }
+}
+
+@keyframes marquee-vertical {
+  from {
+    transform: translateY(0);
+  }
+  to {
+    transform: translateY(-100%);
+  }
+}
+
+@keyframes fade-in-up {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes aurora {
+  from {
+    background-position: 50% 50%, 50% 50%;
+  }
+  to {
+    background-position: 350% 50%, 350% 50%;
+  }
 }

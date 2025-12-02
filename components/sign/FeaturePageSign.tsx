@@ -3,13 +3,18 @@
 import React from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
+import { BeamsBackground } from '@/components/ui/beams-background'
+import BackgroundGradient from '@/components/ui/background-gradient'
+import { AnimatedGridPattern } from '@/components/ui/animated-grid-pattern'
+import { motion } from 'framer-motion'
+import { cn } from '@/lib/utils'
 
 export default function FeaturePageSign() {
   return (
     <div className="min-h-screen bg-white">
       {/* Header */}
       <header className="bg-[#181A1E] border-b border-[#5B5858]">
-        <nav className="max-w-7xl mx-auto px-6 py-6 flex items-center justify-between">
+        <nav className="container mx-auto px-6 py-6 flex items-center justify-between">
           {/* Logo */}
           <Link href="/" className="flex items-center gap-2">
             <Image
@@ -32,10 +37,15 @@ export default function FeaturePageSign() {
       </header>
 
       {/* First Fold - Powerful Features */}
-      <section className="bg-[#181A1E] py-24">
-        <div className="max-w-7xl mx-auto px-6">
+      <section className="relative overflow-hidden">
+        <BeamsBackground 
+          intensity="strong" 
+          className="absolute inset-0 bg-[#181A1E]"
+        />
+        <div className="relative z-10 py-24">
+          <div className="container mx-auto px-6">
           {/* Section Title */}
-          <h1 className="text-5xl font-bold text-center mb-20">
+          <h1 className="text-2xl sm:text-3xl md:text-5xl lg:text-6xl font-bold text-center mb-20">
             <span className="text-white">Powerful features that </span>
             <span className="bg-gradient-to-r from-[#4285F4] to-[#34A853] bg-clip-text text-transparent">simplify every step</span>
           </h1>
@@ -91,120 +101,287 @@ export default function FeaturePageSign() {
             </div>
 
             {/* Right Side - Product Showcase */}
-            <div className="relative flex justify-center items-start">
+            <div className="relative flex justify-center items-start rounded-2xl">
               {/* Background Gradient Effect */}
-              <div className="absolute inset-0 bg-gradient-to-br from-[#4285F4]/20 via-transparent to-[#34A853]/20 blur-3xl"></div>
+              {/* <div className="absolute inset-0 bg-gradient-to-br from-[#4285F4]/20 via-transparent to-[#34A853]/20 blur-3xl"></div> */}
 
               {/* Product Image Container */}
-              <div
-                className="relative bg-[#000000] rounded-2xl p-8 shadow-2xl"
+              <motion.div
+                whileHover={{ scale: 0.95, rotate: "-1deg" }}
+                className="relative bg-[#000000] p-8 shadow-2xl cursor-pointer group"
                 style={{
                   width: '620px',
                   height: '498px'
                 }}
               >
+                <BackgroundGradient/>
                 {/* Product Showcase Image */}
-                <Image
-                  src="/images/feature page - sign/first fold/product image 1.png"
-                  alt="Document upload interface with cloud storage integration"
-                  width={604}
-                  height={482}
-                  className="w-full h-full object-contain"
-                />
-              </div>
+                <motion.div
+                  className="relative w-full h-full"
+                  whileHover={{ 
+                    scale: 1.05, 
+                    rotate: "2deg",
+                    transition: { duration: 0.25 }
+                  }}
+                >
+                  <Image
+                    src="/images/feature page - sign/first fold/product image 1.png"
+                    alt="Document upload interface with cloud storage integration"
+                    width={604}
+                    height={482}
+                    className="w-full h-full object-contain"
+                  />
+                </motion.div>
+              </motion.div>
             </div>
           </div>
+        </div>
         </div>
       </section>
 
       {/* Second Fold - Who Can Benefit */}
-      <section className="bg-white py-24">
-        <div className="max-w-7xl mx-auto px-6">
+      <section className="relative bg-white py-10 lg:py-24 overflow-hidden">
+        {/* Animated Grid Pattern Background */}
+        <AnimatedGridPattern
+          numSquares={15}
+          maxOpacity={0.08}
+          duration={4}
+          repeatDelay={3}
+          className={cn(
+            "[mask-image:radial-gradient(ellipse_60%_80%_at_center,white,transparent)]",
+            "absolute inset-0 h-full w-full skew-y-12",
+          )}
+        />
+        
+        <div className="relative z-10 max-w-7xl mx-auto px-6">
           {/* Section Title */}
-          <h2 className="text-5xl font-bold text-center mb-16">
+          <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-center mb-6 lg:mb-16">
             <span className="text-black">Who can benefit from </span>
             <span className="bg-gradient-to-r from-[#4285F4] to-[#34A853] bg-clip-text text-transparent">Centilio Sign?</span>
           </h2>
 
           {/* Benefits Grid */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 items-stretch">
             {/* Card 1 - Sales & Business Development */}
-            <div className="bg-[#181A1E] border border-[#ABA5A5] rounded-xl p-8 text-center hover:transform hover:scale-105 transition-transform">
-              <div className="mb-6 flex justify-center">
-                <Image src="/images/feature page - sign/second fold/icon 1.png" alt="Sales" width={56} height={56} />
+            <motion.div
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.98 }}
+              transition={{ type: "spring", stiffness: 200, damping: 12 }}
+              className="relative h-full"
+            >
+              {/* Glow Effect */}
+              <motion.div
+                className="absolute -inset-6 rounded-3xl blur-3xl -z-20 bg-blue-500/40"
+                animate={{
+                  scale: [1, 1.1, 1],
+                  opacity: [0.2, 0.4, 0.2],
+                }}
+                transition={{
+                  repeat: Infinity,
+                  duration: 8,
+                  ease: "easeInOut",
+                }}
+              />
+              
+              <div className="relative bg-[#181A1E] border border-[#ABA5A5] rounded-xl p-4 md:p-8 text-center h-full flex flex-col min-h-[280px]">
+                <div className="flex flex-col h-full">
+                  <div className="mb-6 flex justify-center">
+                    <Image src="/images/feature page - sign/second fold/icon 1.png" alt="Sales" width={56} height={56} />
+                  </div>
+                  <h3 className="text-white text-xl font-semibold mb-4">
+                    Sales & Business Development
+                  </h3>
+                  <p className="text-gray-300 leading-relaxed mt-2 md:mt-auto">
+                    Close deals faster with instant contract approvals and CRM integration. No more chasing signatures.
+                  </p>
+                </div>
               </div>
-              <h3 className="text-white text-xl font-semibold mb-4">
-                Sales & Business Development
-              </h3>
-              <p className="text-gray-300 leading-relaxed">
-                Close deals faster with instant contract approvals and CRM integration. No more chasing signatures.
-              </p>
-            </div>
+            </motion.div>
 
             {/* Card 2 - Human Resources */}
-            <div className="bg-[#181A1E] border border-[#ABA5A5] rounded-xl p-8 text-center hover:transform hover:scale-105 transition-transform">
-              <div className="mb-6 flex justify-center">
-                <Image src="/images/feature page - sign/second fold/icon 2.png" alt="HR" width={56} height={56} />
+            <motion.div
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.98 }}
+              transition={{ type: "spring", stiffness: 200, damping: 12 }}
+              className="relative h-full"
+            >
+              {/* Glow Effect */}
+              <motion.div
+                className="absolute -inset-6 rounded-3xl blur-3xl -z-20 bg-emerald-500/40"
+                animate={{
+                  scale: [1, 1.1, 1],
+                  opacity: [0.2, 0.4, 0.2],
+                }}
+                transition={{
+                  repeat: Infinity,
+                  duration: 8,
+                  ease: "easeInOut",
+                  delay: 2,
+                }}
+              />
+              
+              <div className="relative bg-[#181A1E] border border-[#ABA5A5] rounded-xl p-4 md:p-8 text-center h-full flex flex-col min-h-[280px]">
+                <div className="flex flex-col h-full">
+                  <div className="mb-6 flex justify-center">
+                    <Image src="/images/feature page - sign/second fold/icon 2.png" alt="HR" width={56} height={56} />
+                  </div>
+                  <h3 className="text-white text-xl font-semibold mb-4">
+                    Human Resources
+                  </h3>
+                  <p className="text-gray-300 leading-relaxed mt-2 md:mt-auto">
+                    Simplify onboarding, policy sign-offs, and employee documents with reusable templates and bulk send.
+                  </p>
+                </div>
               </div>
-              <h3 className="text-white text-xl font-semibold mb-4">
-                Human Resources
-              </h3>
-              <p className="text-gray-300 leading-relaxed">
-                Simplify onboarding, policy sign-offs, and employee documents with reusable templates and bulk send.
-              </p>
-            </div>
+            </motion.div>
 
             {/* Card 3 - Legal Teams & Law Firms */}
-            <div className="bg-[#181A1E] border border-[#ABA5A5] rounded-xl p-8 text-center hover:transform hover:scale-105 transition-transform">
-              <div className="mb-6 flex justify-center">
-                <Image src="/images/feature page - sign/second fold/icon 3.png" alt="Legal" width={56} height={56} />
+            <motion.div
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.98 }}
+              transition={{ type: "spring", stiffness: 200, damping: 12 }}
+              className="relative h-full"
+            >
+              {/* Glow Effect */}
+              <motion.div
+                className="absolute -inset-6 rounded-3xl blur-3xl -z-20 bg-violet-500/40"
+                animate={{
+                  scale: [1, 1.1, 1],
+                  opacity: [0.2, 0.4, 0.2],
+                }}
+                transition={{
+                  repeat: Infinity,
+                  duration: 8,
+                  ease: "easeInOut",
+                  delay: 4,
+                }}
+              />
+              
+              <div className="relative bg-[#181A1E] border border-[#ABA5A5] rounded-xl p-4 md:p-8 text-center h-full flex flex-col min-h-[280px]">
+                <div className="flex flex-col h-full">
+                  <div className="mb-6 flex justify-center">
+                    <Image src="/images/feature page - sign/second fold/icon 3.png" alt="Legal" width={56} height={56} />
+                  </div>
+                  <h3 className="text-white text-xl font-semibold mb-4">
+                    Legal Teams & Law Firms
+                  </h3>
+                  <p className="text-gray-300 leading-relaxed mt-2 md:mt-auto">
+                    Get airtight audit trails and legally binding signatures. Ensure confidentiality and compliance on every agreement.
+                  </p>
+                </div>
               </div>
-              <h3 className="text-white text-xl font-semibold mb-4">
-                Legal Teams & Law Firms
-              </h3>
-              <p className="text-gray-300 leading-relaxed">
-                Get airtight audit trails and legally binding signatures. Ensure confidentiality and compliance on every agreement.
-              </p>
-            </div>
+            </motion.div>
 
             {/* Card 4 - Real Estate Professionals */}
-            <div className="bg-[#181A1E] border border-[#ABA5A5] rounded-xl p-8 text-center hover:transform hover:scale-105 transition-transform">
-              <div className="mb-6 flex justify-center">
-                <Image src="/images/feature page - sign/second fold/icon 4.png" alt="Real Estate" width={56} height={56} />
+            <motion.div
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.98 }}
+              transition={{ type: "spring", stiffness: 200, damping: 12 }}
+              className="relative h-full"
+            >
+              {/* Glow Effect */}
+              <motion.div
+                className="absolute -inset-6 rounded-3xl blur-3xl -z-20 bg-pink-500/40"
+                animate={{
+                  scale: [1, 1.1, 1],
+                  opacity: [0.2, 0.4, 0.2],
+                }}
+                transition={{
+                  repeat: Infinity,
+                  duration: 8,
+                  ease: "easeInOut",
+                  delay: 1,
+                }}
+              />
+              
+              <div className="relative bg-[#181A1E] border border-[#ABA5A5] rounded-xl p-4 md:p-8 text-center h-full flex flex-col min-h-[280px]">
+                <div className="flex flex-col h-full">
+                  <div className="mb-6 flex justify-center">
+                    <Image src="/images/feature page - sign/second fold/icon 4.png" alt="Real Estate" width={56} height={56} />
+                  </div>
+                  <h3 className="text-white text-xl font-semibold mb-4">
+                    Real Estate Professionals
+                  </h3>
+                  <p className="text-gray-300 leading-relaxed mt-2 md:mt-auto">
+                    Accelerate deals with remote signing of lease agreements, purchase contracts, and disclosures—anytime, anywhere.
+                  </p>
+                </div>
               </div>
-              <h3 className="text-white text-xl font-semibold mb-4">
-                Real Estate Professionals
-              </h3>
-              <p className="text-gray-300 leading-relaxed">
-                Accelerate deals with remote signing of lease agreements, purchase contracts, and disclosures—anytime, anywhere.
-              </p>
-            </div>
+            </motion.div>
 
             {/* Card 5 - Procurement & Vendor Management */}
-            <div className="bg-[#181A1E] border border-[#ABA5A5] rounded-xl p-8 text-center hover:transform hover:scale-105 transition-transform">
-              <div className="mb-6 flex justify-center">
-                <Image src="/images/feature page - sign/second fold/icon 5.png" alt="Procurement" width={56} height={56} />
+            <motion.div
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.98 }}
+              transition={{ type: "spring", stiffness: 200, damping: 12 }}
+              className="relative h-full"
+            >
+              {/* Glow Effect */}
+              <motion.div
+                className="absolute -inset-6 rounded-3xl blur-3xl -z-20 bg-cyan-500/40"
+                animate={{
+                  scale: [1, 1.1, 1],
+                  opacity: [0.2, 0.4, 0.2],
+                }}
+                transition={{
+                  repeat: Infinity,
+                  duration: 8,
+                  ease: "easeInOut",
+                  delay: 3,
+                }}
+              />
+              
+              <div className="relative bg-[#181A1E] border border-[#ABA5A5] rounded-xl p-4 md:p-8 text-center h-full flex flex-col min-h-[280px]">
+                <div className="flex flex-col h-full">
+                  <div className="mb-6 flex justify-center">
+                    <Image src="/images/feature page - sign/second fold/icon 5.png" alt="Procurement" width={56} height={56} />
+                  </div>
+                  <h3 className="text-white text-xl font-semibold mb-4">
+                    Procurement & Vendor Management
+                  </h3>
+                  <p className="text-gray-300 leading-relaxed mt-2 md:mt-auto">
+                    Send, track, and store supplier agreements and purchase orders at scale with complete visibility and control.
+                  </p>
+                </div>
               </div>
-              <h3 className="text-white text-xl font-semibold mb-4">
-                Procurement & Vendor Management
-              </h3>
-              <p className="text-gray-300 leading-relaxed">
-                Send, track, and store supplier agreements and purchase orders at scale with complete visibility and control.
-              </p>
-            </div>
+            </motion.div>
 
             {/* Card 6 - IT & Compliance Officers */}
-            <div className="bg-[#181A1E] border border-[#ABA5A5] rounded-xl p-8 text-center hover:transform hover:scale-105 transition-transform">
-              <div className="mb-6 flex justify-center">
-                <Image src="/images/feature page - sign/second fold/icon 6.png" alt="IT & Compliance" width={56} height={56} />
+            <motion.div
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.98 }}
+              transition={{ type: "spring", stiffness: 200, damping: 12 }}
+              className="relative h-full"
+            >
+              {/* Glow Effect */}
+              <motion.div
+                className="absolute -inset-6 rounded-3xl blur-3xl -z-20 bg-orange-500/40"
+                animate={{
+                  scale: [1, 1.1, 1],
+                  opacity: [0.2, 0.4, 0.2],
+                }}
+                transition={{
+                  repeat: Infinity,
+                  duration: 8,
+                  ease: "easeInOut",
+                  delay: 5,
+                }}
+              />
+              
+              <div className="relative bg-[#181A1E] border border-[#ABA5A5] rounded-xl p-4 md:p-8 text-center h-full flex flex-col min-h-[280px]">
+                <div className="flex flex-col h-full">
+                  <div className="mb-6 flex justify-center">
+                    <Image src="/images/feature page - sign/second fold/icon 6.png" alt="IT & Compliance" width={56} height={56} />
+                  </div>
+                  <h3 className="text-white text-xl font-semibold mb-4">
+                    IT & Compliance Officers
+                  </h3>
+                  <p className="text-gray-300 leading-relaxed mt-2 md:mt-auto">
+                    Deploy with confidence using enterprise-grade security, SSO support, and full audit logs for regulatory compliance.
+                  </p>
+                </div>
               </div>
-              <h3 className="text-white text-xl font-semibold mb-4">
-                IT & Compliance Officers
-              </h3>
-              <p className="text-gray-300 leading-relaxed">
-                Deploy with confidence using enterprise-grade security, SSO support, and full audit logs for regulatory compliance.
-              </p>
-            </div>
+            </motion.div>
           </div>
         </div>
       </section>
