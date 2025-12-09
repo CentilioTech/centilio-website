@@ -2,7 +2,8 @@
 
 import React, { useState } from 'react'
 import Image from 'next/image'
-import Link from 'next/link'
+import SeobotHeader from '@/components/layout/SeobotHeader'
+import SeobotFooter from '@/components/layout/SeobotFooter'
 
 export default function SeoBotContactPage() {
   const [formData, setFormData] = useState({
@@ -28,29 +29,7 @@ export default function SeoBotContactPage() {
 
   return (
     <div className="min-h-screen bg-[#0E0F18]">
-      {/* Header */}
-      <header className="bg-[#181A1E] border-b border-[#2A3142]">
-        <nav className="max-w-7xl mx-auto px-6 py-6 flex items-center justify-between">
-          {/* Logo */}
-          <Link href="/" className="flex items-center gap-3">
-            <Image
-              src="/images/seobotcontactpage/header/logo_Vector.svg"
-              alt="SEO Bot Logo"
-              width={48}
-              height={48}
-            />
-            <span className="text-white text-xl font-semibold">SEO Bot</span>
-          </Link>
-
-          {/* Navigation */}
-          <div className="flex items-center gap-8">
-            <Link href="/features" className="text-white hover:text-gray-300 transition-colors">Features</Link>
-            <Link href="/integrations" className="text-white hover:text-gray-300 transition-colors">Integrations</Link>
-            <Link href="/pricing" className="text-white hover:text-gray-300 transition-colors">Pricing</Link>
-            <Link href="/contact" className="text-white hover:text-gray-300 transition-colors">Contact Us</Link>
-          </div>
-        </nav>
-      </header>
+      <SeobotHeader />
 
       {/* Main Content */}
       <section className="py-20 relative overflow-hidden">
@@ -218,110 +197,7 @@ export default function SeoBotContactPage() {
       </section>
 
       {/* Footer */}
-      <footer className="bg-[#181A1E] border-t border-[#2A3142] py-16">
-        <div className="max-w-7xl mx-auto px-6">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-12 mb-12">
-            {/* Logo Section */}
-            <div>
-              <Image
-                src="/images/seobotcontactpage/footer/logo_white Vector.svg"
-                alt="Centilio Logo"
-                width={80}
-                height={80}
-                className="opacity-90"
-              />
-            </div>
-
-            {/* Product Links */}
-            <div>
-              <h4 className="text-white font-semibold mb-6 text-lg">Product</h4>
-              <ul className="space-y-3">
-                <li>
-                  <Link href="/sign" className="text-gray-400 hover:text-white transition-colors">
-                    Sign
-                  </Link>
-                </li>
-                <li>
-                  <Link href="/seo-bot" className="text-gray-400 hover:text-white transition-colors">
-                    SEO Bot
-                  </Link>
-                </li>
-              </ul>
-            </div>
-
-            {/* Legal Links */}
-            <div>
-              <h4 className="text-white font-semibold mb-6 text-lg">Legal</h4>
-              <ul className="space-y-3">
-                <li>
-                  <Link href="/terms" className="text-gray-400 hover:text-white transition-colors">
-                    Terms of use
-                  </Link>
-                </li>
-                <li>
-                  <Link href="/privacy" className="text-gray-400 hover:text-white transition-colors">
-                    Privacy Policy
-                  </Link>
-                </li>
-                <li>
-                  <Link href="/cookies" className="text-gray-400 hover:text-white transition-colors">
-                    Cookies Policy
-                  </Link>
-                </li>
-                <li>
-                  <Link href="/gdpr" className="text-gray-400 hover:text-white transition-colors">
-                    GDPR Policy
-                  </Link>
-                </li>
-              </ul>
-            </div>
-          </div>
-
-          {/* Social Media Icons */}
-          <div className="flex items-center justify-end pt-8 border-t border-[#2A3142] gap-4">
-            <a href="#" className="hover:opacity-70 transition-opacity">
-              <Image
-                src="/images/seobotcontactpage/footer/social media icons/facebook.svg"
-                alt="Facebook"
-                width={30}
-                height={30}
-              />
-            </a>
-            <a href="#" className="hover:opacity-70 transition-opacity">
-              <Image
-                src="/images/seobotcontactpage/footer/social media icons/insta.svg"
-                alt="Instagram"
-                width={30}
-                height={30}
-              />
-            </a>
-            <a href="#" className="hover:opacity-70 transition-opacity">
-              <Image
-                src="/images/seobotcontactpage/footer/social media icons/youtube.svg"
-                alt="YouTube"
-                width={30}
-                height={30}
-              />
-            </a>
-            <a href="#" className="hover:opacity-70 transition-opacity">
-              <Image
-                src="/images/seobotcontactpage/footer/social media icons/link in (1).svg"
-                alt="LinkedIn"
-                width={30}
-                height={30}
-              />
-            </a>
-            <a href="#" className="hover:opacity-70 transition-opacity">
-              <Image
-                src="/images/seobotcontactpage/footer/social media icons/twitter.svg"
-                alt="Twitter"
-                width={30}
-                height={30}
-              />
-            </a>
-          </div>
-        </div>
-      </footer>
+      <SeobotFooter />
     </div>
   )
 }

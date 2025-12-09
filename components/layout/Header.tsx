@@ -7,14 +7,24 @@ import { useState, useEffect } from 'react';
 export default function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
+  const [hasMounted, setHasMounted] = useState(false);
 
   useEffect(() => {
+    setHasMounted(true);
+    let ticking = false;
+    
     const handleScroll = () => {
-      const scrollTop = window.scrollY;
-      setIsScrolled(scrollTop > 50);
+      if (!ticking) {
+        requestAnimationFrame(() => {
+          const scrollTop = window.scrollY;
+          setIsScrolled(scrollTop > 50);
+          ticking = false;
+        });
+        ticking = true;
+      }
     };
 
-    window.addEventListener('scroll', handleScroll);
+    window.addEventListener('scroll', handleScroll, { passive: true });
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
@@ -27,9 +37,17 @@ export default function Header() {
   ];
 
   return (
-    <header className={`w-full bg-[#181A1E] border-b border-[#2A2C30] sticky top-0 z-50 transition-all duration-300 ${isScrolled ? 'shadow-lg' : ''}`}>
+    <header className={`w-full bg-[#181A1E] border-b border-[#2A2C30] sticky top-0 z-50 transition-shadow duration-500 ease-in-out ${
+      hasMounted && isScrolled ? 'shadow-lg backdrop-blur-sm' : ''
+    }`}>
       <div className="container mx-auto px-4 lg:px-8">
-        <div className={`flex items-center justify-between transition-all duration-300 ${isScrolled ? 'py-2' : 'py-4 lg:py-5'}`}>
+        <div className={`flex items-center justify-between transition-all duration-500 ease-in-out ${
+          !hasMounted 
+            ? 'py-4 lg:py-5' // SSR fallback - original padding
+            : isScrolled 
+            ? 'py-3' // Reduced padding when scrolled
+            : 'py-4 lg:py-5' // Original padding
+        }`}>
           <div className='flex items-center gap-20'>
             {/* Logo */}
             <Link href="/" className="flex items-center gap-3">
@@ -38,10 +56,12 @@ export default function Header() {
                 alt="Centilio"
                 width={140}
                 height={80}
-                className={`object-contain transition-all duration-300 ${
-                  isScrolled 
-                    ? 'w-20 h-10 sm:w-22 sm:h-11 md:w-24 md:h-12 lg:w-32 lg:h-20' 
-                    : 'w-24 h-12 sm:w-28 sm:h-14 md:w-32 md:h-16 lg:w-48 lg:h-36'
+                className={`object-contain transition-all duration-500 ease-in-out ${
+                  !hasMounted
+                    ? 'w-32 h-16 sm:w-36 sm:h-18 md:w-40 md:h-20 lg:w-48 lg:h-28' // SSR fallback
+                    : isScrolled 
+                    ? 'w-28 h-14 sm:w-32 sm:h-16 md:w-36 md:h-18 lg:w-40 lg:h-24' 
+                    : 'w-32 h-16 sm:w-36 sm:h-18 md:w-40 md:h-20 lg:w-48 lg:h-28'
                 }`}
               />
             </Link>

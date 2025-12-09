@@ -8,33 +8,13 @@ import BackgroundGradient from '@/components/ui/background-gradient'
 import { AnimatedGridPattern } from '@/components/ui/animated-grid-pattern'
 import { motion } from 'framer-motion'
 import { cn } from '@/lib/utils'
+import SignHeader from '@/components/layout/SignHeader'
+import SignFooter from '@/components/layout/SignFooter'
 
 export default function FeaturePageSign() {
   return (
     <div className="min-h-screen bg-white">
-      {/* Header */}
-      <header className="bg-[#181A1E] border-b border-[#5B5858]">
-        <nav className="container mx-auto px-6 py-6 flex items-center justify-between">
-          {/* Logo */}
-          <Link href="/" className="flex items-center gap-2">
-            <Image
-              src="/images/feature page - sign/Layer 1.svg"
-              alt="Sign Logo"
-              width={43}
-              height={51}
-            />
-            <span className="text-white text-lg font-semibold">Sign</span>
-          </Link>
-
-          {/* Navigation */}
-          <div className="flex items-center gap-8">
-            <Link href="/features" className="text-white hover:text-gray-300 transition-colors">Features</Link>
-            <Link href="/integrations" className="text-white hover:text-gray-300 transition-colors">Integrations</Link>
-            <Link href="/pricing" className="text-white hover:text-gray-300 transition-colors">Pricing</Link>
-            <Link href="/contact" className="text-white hover:text-gray-300 transition-colors">Contact Us</Link>
-          </div>
-        </nav>
-      </header>
+      <SignHeader />
 
       {/* First Fold - Powerful Features */}
       <section className="relative overflow-hidden">
@@ -42,7 +22,7 @@ export default function FeaturePageSign() {
           intensity="strong" 
           className="absolute inset-0 bg-[#181A1E]"
         />
-        <div className="relative z-10 py-24">
+        <div className="relative z-10 pt-[100px] sm:pt-[110px] md:pt-[120px] lg:pt-[140px] pb-24">
           <div className="container mx-auto px-6">
           {/* Section Title */}
           <h1 className="text-2xl sm:text-3xl md:text-5xl lg:text-6xl font-bold text-center mb-20">
@@ -386,94 +366,7 @@ export default function FeaturePageSign() {
         </div>
       </section>
 
-      {/* Footer */}
-      <footer className="bg-[#181A1E] border-t border-[#5B5858] py-12">
-        <div className="max-w-7xl mx-auto px-6">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-12">
-            {/* Logo Section */}
-            <div>
-              <div className="flex items-center gap-2 mb-6">
-                <Image
-                  src="/images/feature page - sign/Vector1.svg"
-                  alt="Sign Logo"
-                  width={62}
-                  height={77}
-                  className="opacity-90"
-                />
-              </div>
-            </div>
-
-            {/* Product Links */}
-            <div>
-              <h4 className="text-white font-semibold mb-4">Product</h4>
-              <ul className="space-y-2">
-                <li><Link href="/sign" className="text-gray-400 hover:text-white transition-colors">Sign</Link></li>
-                <li><Link href="/seo-bot" className="text-gray-400 hover:text-white transition-colors">SEO Bot</Link></li>
-              </ul>
-            </div>
-
-            {/* Legal Links */}
-            <div>
-              <h4 className="text-white font-semibold mb-4">Legal</h4>
-              <ul className="space-y-2">
-                <li><Link href="/terms" className="text-gray-400 hover:text-white transition-colors">Terms of use</Link></li>
-                <li><Link href="/privacy" className="text-gray-400 hover:text-white transition-colors">Privacy Policy</Link></li>
-                <li><Link href="/cookies" className="text-gray-400 hover:text-white transition-colors">Cookies Policy</Link></li>
-                <li><Link href="/gdpr" className="text-gray-400 hover:text-white transition-colors">GDPR Policy</Link></li>
-              </ul>
-            </div>
-          </div>
-
-          {/* Social Media Icons */}
-          <div className="flex items-center justify-end mt-12 pt-8 border-t border-[#5B5858]" style={{ gap: '14px' }}>
-            {/* Facebook */}
-            <a href="#" className="hover:opacity-70 transition-opacity" style={{ width: '30px', height: '30px' }}>
-              <Image
-                src="/images/home page/footer/facebook.svg"
-                alt="Facebook"
-                width={30}
-                height={30}
-              />
-            </a>
-            {/* Instagram */}
-            <a href="#" className="hover:opacity-70 transition-opacity" style={{ width: '30px', height: '30px' }}>
-              <Image
-                src="/images/home page/footer/insta.svg"
-                alt="Instagram"
-                width={30}
-                height={30}
-              />
-            </a>
-            {/* YouTube */}
-            <a href="#" className="hover:opacity-70 transition-opacity" style={{ width: '30px', height: '30px' }}>
-              <Image
-                src="/images/home page/footer/youtube.svg"
-                alt="YouTube"
-                width={30}
-                height={30}
-              />
-            </a>
-            {/* LinkedIn */}
-            <a href="#" className="hover:opacity-70 transition-opacity" style={{ width: '30px', height: '30px' }}>
-              <Image
-                src="/images/home page/footer/link in (1).svg"
-                alt="LinkedIn"
-                width={30}
-                height={30}
-              />
-            </a>
-            {/* Twitter */}
-            <a href="#" className="hover:opacity-70 transition-opacity" style={{ width: '30px', height: '30px' }}>
-              <Image
-                src="/images/home page/footer/twitter.svg"
-                alt="Twitter"
-                width={30}
-                height={30}
-              />
-            </a>
-          </div>
-        </div>
-      </footer>
+      <SignFooter />
     </div>
   )
 }

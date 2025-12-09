@@ -14,6 +14,17 @@
   /* Sparkles Animation Colors */
   --gradient-color: #8350e8;
   --sparkles-color: #8350e8;
+  
+  /* Moving Border Colors */
+  --sky-500: #0ea5e9;
+  --google-blue: #4285F4;
+  --google-red: #EA4335;
+  --google-yellow: #FBBC05;
+  --google-green: #34A853;
+  
+  /* Aurora Background Colors */
+  --aurora-color1: rgba(168,85,247,0.2);
+  --aurora-color2: rgba(79,70,229,0.2);
 }
 
 @theme inline {
@@ -35,6 +46,7 @@
   --animate-marquee-vertical: marquee-vertical var(--duration, 30s) linear infinite;
   --animate-fade-in-up: fade-in-up 0.6s ease-out forwards;
   --animate-aurora: aurora 60s linear infinite;
+  --animate-star-btn: star-btn calc(var(--duration)*1s) linear infinite;
 }
 
 body {
@@ -85,5 +97,25 @@ body {
   }
   to {
     background-position: 350% 50%, 350% 50%;
+  }
+}
+
+@keyframes star-btn {
+  0% {
+    offset-distance: 0%;
+  }
+  100% {
+    offset-distance: 100%;
+  }
+}
+
+@keyframes pulse {
+  0%, 100% {
+    opacity: 0.5;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.7;
+    transform: scale(1.05);
   }
 }

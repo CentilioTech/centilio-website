@@ -38,7 +38,7 @@ export const AuroraHero = () => {
       className="relative overflow-hidden bg-gray-950 px-4 py-20 text-gray-200"
     >
       <div className="max-w-7xl mx-auto text-center relative z-10">
-        <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold mb-6 bg-gradient-to-br from-white to-gray-400 bg-clip-text text-transparent">
+        <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl 2xl:text-7xl font-bold mb-6 bg-gradient-to-br from-white to-gray-400 bg-clip-text text-transparent">
           Get documents{' '}
           <span
             className="bg-clip-text text-transparent"
@@ -55,7 +55,7 @@ export const AuroraHero = () => {
           </span>
           , not days
         </h1>
-        <p className="text-lg md:text-xl text-gray-300 max-w-4xl mx-auto mb-10">
+        <p className="text-sm sm:text-base md:text-lg lg:text-xl text-gray-300 max-w-4xl mx-auto mb-10 px-4">
           Centilio Sign is your all-in-one electronic signature and document workflow platform.
           From contracts and HR forms to sales agreements and legal documents, streamline every step,
           create, send, sign, and track without the paperwork hassle.
@@ -91,13 +91,12 @@ export const AuroraHero = () => {
         </div>
 
         {/* Sign-up Form Mockup */}
-        <div className="max-w-6xl mx-auto relative flex justify-center overflow-visible">
+        <div className="max-w-6xl mx-auto relative flex justify-center overflow-visible px-4">
           <div
-            className="relative rounded-lg shadow-2xl overflow-visible"
-            style={{ width: '1109.33px', height: '624px' }}
+            className="relative rounded-lg shadow-2xl overflow-visible w-full max-w-[1109.33px] lg:h-[624px] h-auto"
           >
             {/* Background Image with Blur */}
-            <div className="absolute inset-0">
+            <div className="absolute inset-0 lg:block hidden">
               <Image
                 src="/images/Sign page/first fold/Image 1.2.1.jpg"
                 alt="Document Interface"
@@ -109,45 +108,44 @@ export const AuroraHero = () => {
             </div>
 
             {/* Form with Brand Color Frame - Right Side Position */}
-            <div className="absolute shadow-2xl md:right-[-50px] right-1/2 md:translate-x-0 translate-x-1/2" style={{ 
-              top: '50%', 
-              transform: 'translateY(-50%)', 
+            <div className="lg:absolute relative lg:shadow-2xl lg:right-[-50px] lg:top-1/2 lg:-translate-y-1/2 mx-auto w-fit" style={{ 
               border: '3px solid',
               borderImage: 'linear-gradient(to right, #4285F4, #EA4335, #FBBC05, #34A853) 1',
               borderRadius: '20px',
               background: 'transparent',
               padding: '20px'
             }}>
-              <div className="bg-white rounded-lg p-10 w-[30rem]" style={{ marginTop: '0' }}>
-                <h3 className="text-xl font-semibold text-black mb-6">Start a 28-day free trial</h3>
-                  <form className="space-y-6">
+              <div className="bg-white rounded-lg p-6 sm:p-8 lg:p-10 w-full max-w-[30rem] lg:w-[30rem]" style={{ marginTop: '0' }}>
+                <h3 className="text-lg sm:text-xl font-semibold text-black mb-4 sm:mb-6">Start a 28-day free trial</h3>
+                  <form className="space-y-4 sm:space-y-6">
                     <div>
                       <input
                         type="email"
                         placeholder="Email *"
-                        className="w-full px-4 py-3 border border-gray-300 rounded-lg text-black focus:outline-none focus:border-blue-500"
+                        className="w-full px-3 sm:px-4 py-2.5 sm:py-3 border border-gray-300 rounded-lg text-black text-sm sm:text-base focus:outline-none focus:border-blue-500"
                       />
                     </div>
                     <div className="relative">
                       <input
                         type={showPassword ? "text" : "password"}
                         placeholder="Password *"
-                        className="w-full px-4 py-3 border border-gray-300 rounded-lg text-black focus:outline-none focus:border-blue-500"
+                        className="w-full px-3 sm:px-4 py-2.5 sm:py-3 border border-gray-300 rounded-lg text-black text-sm sm:text-base focus:outline-none focus:border-blue-500"
                       />
                       <button
                         type="button"
                         onClick={() => setShowPassword(!showPassword)}
-                        className="absolute right-4 top-1/2 -translate-y-1/2"
+                        className="absolute right-3 sm:right-4 top-1/2 -translate-y-1/2"
                       >
                         <Image
                           src="/images/Sign page/first fold/eyeVector.svg"
                           alt="Toggle password visibility"
                           width={23}
                           height={22}
+                          className="w-5 h-5 sm:w-6 sm:h-6"
                         />
                       </button>
                     </div>
-                    <p className="text-xs text-gray-600 text-left">
+                    <p className="text-xs text-gray-600 text-left leading-relaxed">
                       By clicking, you&apos;re accepting the{' '}
                       <a href="#" className="text-red-500 hover:underline">terms of use</a>,{' '}
                       <a href="#" className="text-red-500 hover:underline">Privacy Policy</a> and{' '}
@@ -155,7 +153,7 @@ export const AuroraHero = () => {
                     </p>
                     <button
                       type="submit"
-                      className="w-full py-3 bg-black text-white font-medium rounded-full hover:bg-gray-800 transition-colors"
+                      className="w-full py-2.5 sm:py-3 bg-black text-white font-medium text-sm sm:text-base rounded-full hover:bg-gray-800 transition-colors"
                     >
                       SIGN UP
                     </button>

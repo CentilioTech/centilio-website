@@ -2,50 +2,51 @@
 
 import React from 'react'
 import Image from 'next/image'
-import Link from 'next/link'
+import SeobotHeader from '@/components/layout/SeobotHeader'
+import SeobotFooter from '@/components/layout/SeobotFooter'
+import AuroraBackground from '@/components/ui/aurora-background'
 
 export default function SeoBotIntegrationPage() {
   return (
     <div className="min-h-screen bg-white">
-      {/* Header */}
-      <header className="bg-[#181A1E] border-b border-[#2A3142]">
-        <nav className="max-w-7xl mx-auto px-6 py-6 flex items-center justify-between">
-          {/* Logo */}
-          <Link href="/" className="flex items-center gap-3">
-            <Image
-              src="/images/seobotintegrationpage/header/logo_Vector.svg"
-              alt="SEO Bot Logo"
-              width={48}
-              height={48}
-            />
-            <span className="text-white text-xl font-semibold">SEO Bot</span>
-          </Link>
-
-          {/* Navigation */}
-          <div className="flex items-center gap-8">
-            <Link href="/features" className="text-white hover:text-gray-300 transition-colors">Features</Link>
-            <Link href="/integrations" className="text-white hover:text-gray-300 transition-colors">Integrations</Link>
-            <Link href="/pricing" className="text-white hover:text-gray-300 transition-colors">Pricing</Link>
-            <Link href="/contact" className="text-white hover:text-gray-300 transition-colors">Contact Us</Link>
-          </div>
-        </nav>
-      </header>
+      <SeobotHeader />
 
       {/* Hero Section with Integrations */}
       <section className="bg-[#0E0F18] py-20 relative overflow-hidden">
-        {/* Background blur effects */}
-        <div
-          className="absolute top-0 left-0 w-[600px] h-[600px] opacity-30 blur-[120px]"
-          style={{
-            background: 'radial-gradient(circle, #407BFF 0%, #4285F4 50%, transparent 70%)'
-          }}
-        />
-        <div
-          className="absolute bottom-0 right-0 w-[500px] h-[500px] opacity-30 blur-[120px]"
-          style={{
-            background: 'radial-gradient(circle, #ED4C78 0%, #407BFF 50%, transparent 70%)'
-          }}
-        />
+        {/* Aurora Background Animation */}
+        <div className="absolute inset-0 overflow-hidden" aria-hidden="true">
+          {/* Pulsing radial gradients */}
+          <div
+            className="absolute inset-0 opacity-50"
+            style={{
+              backgroundImage: `
+                radial-gradient(circle, rgba(64,123,255,0.3) 0%, transparent 80%),
+                radial-gradient(circle, rgba(237,76,120,0.3) 0%, transparent 80%)
+              `,
+              backgroundSize: "100% 100%",
+              animation: `pulse 8s infinite`,
+            }}
+          />
+
+          {/* Animated color blobs */}
+          <div className="absolute -top-1/4 -left-1/4 w-1/2 h-1/2 bg-purple-600 rounded-full filter blur-3xl opacity-40 animate-pulse" />
+          <div className="absolute -bottom-1/4 -right-1/4 w-1/2 h-1/2 bg-fuchsia-600 rounded-full filter blur-3xl opacity-40 animate-pulse" />
+          <div className="absolute top-1/3 left-1/3 w-1/3 h-1/3 bg-indigo-700 rounded-full filter blur-3xl opacity-30 animate-pulse" />
+
+          {/* Twinkling stars */}
+          {Array.from({ length: 80 }).map((_, i) => (
+            <div
+              key={i}
+              className="absolute w-0.5 h-0.5 bg-white rounded-full animate-pulse"
+              style={{
+                left: `${Math.random() * 100}%`,
+                top: `${Math.random() * 100}%`,
+                animationDelay: `${Math.random() * 5}s`,
+                animationDuration: `${Math.random() * 3 + 2}s`,
+              }}
+            />
+          ))}
+        </div>
 
         <div className="relative z-10 max-w-7xl mx-auto px-6">
           {/* Title */}
@@ -67,9 +68,9 @@ export default function SeoBotIntegrationPage() {
           </div>
 
           {/* Integration Cards Grid */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto justify-items-center">
             {/* Instagram Card */}
-            <div className="bg-[#181A1E] rounded-xl p-6 border border-[#5A5858]" style={{ width: '353px', height: '250px' }}>
+            <div className="bg-[#181A1E] rounded-xl p-4 sm:p-6 border border-[#5A5858] w-full max-w-[345px] h-auto min-h-[200px] sm:min-h-[250px] flex flex-col">
               <div className="flex items-center gap-3 mb-5">
                 <Image
                   src="/images/seobotintegrationpage/first fold group2/instaVector.png"
@@ -85,7 +86,7 @@ export default function SeoBotIntegrationPage() {
             </div>
 
             {/* Wix Card */}
-            <div className="bg-[#181A1E] rounded-xl p-6 border border-[#5A5858]" style={{ width: '353px', height: '250px' }}>
+            <div className="bg-[#181A1E] rounded-xl p-4 sm:p-6 border border-[#5A5858] w-full max-w-[345px] h-auto min-h-[200px] sm:min-h-[250px] flex flex-col">
               <div className="flex items-center gap-3 mb-5">
                 <Image
                   src="/images/seobotintegrationpage/first fold group2/wixVector.png"
@@ -101,7 +102,7 @@ export default function SeoBotIntegrationPage() {
             </div>
 
             {/* LinkedIn Card */}
-            <div className="bg-[#181A1E] rounded-xl p-6 border border-[#5A5858]" style={{ width: '353px', height: '250px' }}>
+            <div className="bg-[#181A1E] rounded-xl p-4 sm:p-6 border border-[#5A5858] w-full max-w-[345px] h-auto min-h-[200px] sm:min-h-[250px] flex flex-col">
               <div className="flex items-center gap-3 mb-5">
                 <Image
                   src="/images/seobotintegrationpage/first fold group2/linkeinVector.png"
@@ -117,7 +118,7 @@ export default function SeoBotIntegrationPage() {
             </div>
 
             {/* Twitter Card */}
-            <div className="bg-[#181A1E] rounded-xl p-6 border border-[#5A5858]" style={{ width: '353px', height: '250px' }}>
+            <div className="bg-[#181A1E] rounded-xl p-4 sm:p-6 border border-[#5A5858] w-full max-w-[345px] h-auto min-h-[200px] sm:min-h-[250px] flex flex-col">
               <div className="flex items-center gap-3 mb-5">
                 <Image
                   src="/images/seobotintegrationpage/first fold group2/twitterVector.png"
@@ -133,7 +134,7 @@ export default function SeoBotIntegrationPage() {
             </div>
 
             {/* Facebook Card */}
-            <div className="bg-[#181A1E] rounded-xl p-6 border border-[#5A5858]" style={{ width: '353px', height: '250px' }}>
+            <div className="bg-[#181A1E] rounded-xl p-4 sm:p-6 border border-[#5A5858] w-full max-w-[345px] h-auto min-h-[200px] sm:min-h-[250px] flex flex-col">
               <div className="flex items-center gap-3 mb-5">
                 <Image
                   src="/images/seobotintegrationpage/first fold group2/facebookVector.png"
@@ -149,7 +150,7 @@ export default function SeoBotIntegrationPage() {
             </div>
 
             {/* WordPress Card */}
-            <div className="bg-[#181A1E] rounded-xl p-6 border border-[#5A5858]" style={{ width: '353px', height: '250px' }}>
+            <div className="bg-[#181A1E] rounded-xl p-4 sm:p-6 border border-[#5A5858] w-full max-w-[345px] h-auto min-h-[200px] sm:min-h-[250px] flex flex-col">
               <div className="flex items-center gap-3 mb-5">
                 <Image
                   src="/images/seobotintegrationpage/first fold group2/wordpressVector.png"
@@ -165,7 +166,7 @@ export default function SeoBotIntegrationPage() {
             </div>
 
             {/* Zoho CRM Card */}
-            <div className="bg-[#181A1E] rounded-xl p-6 border border-[#5A5858]" style={{ width: '353px', height: '250px' }}>
+            <div className="bg-[#181A1E] rounded-xl p-4 sm:p-6 border border-[#5A5858] w-full max-w-[345px] h-auto min-h-[200px] sm:min-h-[250px] flex flex-col">
               <div className="flex items-center gap-3 mb-5">
                 <Image
                   src="/images/seobotintegrationpage/first fold group2/Zoho_Corporation-Logo.wine 1.png"
@@ -182,7 +183,7 @@ export default function SeoBotIntegrationPage() {
             </div>
 
             {/* Custom Site Card */}
-            <div className="bg-[#181A1E] rounded-xl p-6 border border-[#5A5858]" style={{ width: '353px', height: '250px' }}>
+            <div className="bg-[#181A1E] rounded-xl p-4 sm:p-6 border border-[#5A5858] w-full max-w-[345px] h-auto min-h-[200px] sm:min-h-[250px] flex flex-col">
               <div className="flex items-center gap-3 mb-5">
                 <Image
                   src="/images/seobotintegrationpage/first fold group2/custom_site 1.png"
@@ -201,110 +202,7 @@ export default function SeoBotIntegrationPage() {
       </section>
 
       {/* Footer */}
-      <footer className="bg-[#181A1E] border-t border-[#2A3142] py-16">
-        <div className="max-w-7xl mx-auto px-6">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-12 mb-12">
-            {/* Logo Section */}
-            <div>
-              <Image
-                src="/images/seobotintegrationpage/footer/logo_white Vector.svg"
-                alt="Centilio Logo"
-                width={80}
-                height={80}
-                className="opacity-90"
-              />
-            </div>
-
-            {/* Product Links */}
-            <div>
-              <h4 className="text-white font-semibold mb-6 text-lg">Product</h4>
-              <ul className="space-y-3">
-                <li>
-                  <Link href="/sign" className="text-gray-400 hover:text-white transition-colors">
-                    Sign
-                  </Link>
-                </li>
-                <li>
-                  <Link href="/seo-bot" className="text-gray-400 hover:text-white transition-colors">
-                    SEO Bot
-                  </Link>
-                </li>
-              </ul>
-            </div>
-
-            {/* Legal Links */}
-            <div>
-              <h4 className="text-white font-semibold mb-6 text-lg">Legal</h4>
-              <ul className="space-y-3">
-                <li>
-                  <Link href="/terms" className="text-gray-400 hover:text-white transition-colors">
-                    Terms of use
-                  </Link>
-                </li>
-                <li>
-                  <Link href="/privacy" className="text-gray-400 hover:text-white transition-colors">
-                    Privacy Policy
-                  </Link>
-                </li>
-                <li>
-                  <Link href="/cookies" className="text-gray-400 hover:text-white transition-colors">
-                    Cookies Policy
-                  </Link>
-                </li>
-                <li>
-                  <Link href="/gdpr" className="text-gray-400 hover:text-white transition-colors">
-                    GDPR Policy
-                  </Link>
-                </li>
-              </ul>
-            </div>
-          </div>
-
-          {/* Social Media Icons */}
-          <div className="flex items-center justify-end pt-8 border-t border-[#2A3142] gap-4">
-            <a href="#" className="hover:opacity-70 transition-opacity">
-              <Image
-                src="/images/seobotintegrationpage/footer/social media icons/facebook.svg"
-                alt="Facebook"
-                width={30}
-                height={30}
-              />
-            </a>
-            <a href="#" className="hover:opacity-70 transition-opacity">
-              <Image
-                src="/images/seobotintegrationpage/footer/social media icons/insta.svg"
-                alt="Instagram"
-                width={30}
-                height={30}
-              />
-            </a>
-            <a href="#" className="hover:opacity-70 transition-opacity">
-              <Image
-                src="/images/seobotintegrationpage/footer/social media icons/youtube.svg"
-                alt="YouTube"
-                width={30}
-                height={30}
-              />
-            </a>
-            <a href="#" className="hover:opacity-70 transition-opacity">
-              <Image
-                src="/images/seobotintegrationpage/footer/social media icons/link in (1).svg"
-                alt="LinkedIn"
-                width={30}
-                height={30}
-              />
-            </a>
-            <a href="#" className="hover:opacity-70 transition-opacity">
-              <Image
-                src="/images/seobotintegrationpage/footer/social media icons/twitter.svg"
-                alt="Twitter"
-                width={30}
-                height={30}
-              />
-            </a>
-          </div>
-        </div>
-      </footer>
+      <SeobotFooter />
     </div>
   )
 }

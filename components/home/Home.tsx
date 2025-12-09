@@ -7,10 +7,49 @@ import { GlowCard } from '@/components/ui/spotlight-card';
 import { GlobalHoverCard } from '@/components/ui/global-hover-card';
 import { useState, useEffect, useRef } from 'react';
 
+function useCountAnimation(targetValue: number, duration: number = 2000, shouldStart: boolean = false) {
+  const [currentValue, setCurrentValue] = useState(0)
+  const [hasStarted, setHasStarted] = useState(false)
+
+  useEffect(() => {
+    if (!shouldStart || hasStarted) return
+
+    setHasStarted(true)
+    let startTime: number | null = null
+    const startValue = 0
+
+    const animate = (timestamp: number) => {
+      if (startTime === null) startTime = timestamp
+      const progress = Math.min((timestamp - startTime) / duration, 1)
+      
+      // Easing function for smooth animation
+      const easeOutCubic = 1 - Math.pow(1 - progress, 3)
+      const value = Math.floor(startValue + (targetValue - startValue) * easeOutCubic)
+      
+      setCurrentValue(value)
+
+      if (progress < 1) {
+        requestAnimationFrame(animate)
+      }
+    }
+
+    requestAnimationFrame(animate)
+  }, [targetValue, duration, shouldStart, hasStarted])
+
+  return currentValue
+}
+
 export default function Home() {
   const [activeTab, setActiveTab] = useState<'manufacturer' | 'business' | 'promoter'>('promoter');
   const [trustedByVisible, setTrustedByVisible] = useState(false);
+  const [statsVisible, setStatsVisible] = useState(false);
   const trustedByRef = useRef<HTMLElement>(null);
+  const statsRef = useRef<HTMLElement>(null);
+
+  // Animation values for Tamil Nadu stats
+  const businessesCount = useCountAnimation(100, 2000, statsVisible);
+  const countriesCount = useCountAnimation(10, 2000, statsVisible);
+  const crmSetupsCount = useCountAnimation(50, 2000, statsVisible);
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -29,12 +68,33 @@ export default function Home() {
     return () => observer.disconnect();
   }, []);
 
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setStatsVisible(true);
+        }
+      },
+      { threshold: 0.3 }
+    );
+
+    if (statsRef.current) {
+      observer.observe(statsRef.current);
+    }
+
+    return () => {
+      if (statsRef.current) {
+        observer.unobserve(statsRef.current);
+      }
+    };
+  }, []);
+
   return (
     <div className="min-h-screen">
       <Header />
 
       {/* FIRST FOLD - Hero Section with Grid */}
-      <section className="w-full bg-[#181A1E] py-16 lg:py-24">
+      <section className="w-full bg-[#181A1E] py-8 lg:py-24">
         <div className="container mx-auto px-4 lg:px-8">
           <div className="max-w-6xl mx-auto text-center mb-12 lg:mb-16">
             <h1 className="text-2xl sm:text-3xl md:text-5xl lg:text-6xl font-bold text-white mb-6 lg:mb-12">
@@ -58,8 +118,103 @@ export default function Home() {
             </div>
           </div>
 
-          {/* Product Grid - Mixed size tiles with centered 2x2 feature cards */}
-          <div className="flex flex-col gap-3 lg:gap-4 max-w-7xl mx-auto overflow-x-auto">
+          {/* Mobile Only - 2x2 Feature Cards */}
+          <div className="lg:hidden mt-12 max-w-md mx-auto px-4">
+            <div className="grid grid-cols-2 gap-4">
+              {/* Sign */}
+              <div 
+                className="cursor-pointer"
+                onClick={() => window.location.href = '/sign'}
+              >
+                <GlowCard 
+                  customSize={true}
+                  glowColor="blue"
+                  width={160}
+                  height={140}
+                  className="bg-[#1F2125] p-4 flex flex-col items-center justify-center hover:bg-[#2A2D35] transition-colors"
+                >
+                  <div className="flex flex-col items-center justify-center hover:scale-110 transition-transform duration-200">
+                    <Image
+                      src="/images/home page/first fold/Vector1.svg"
+                      alt="Sign"
+                      width={40}
+                      height={40}
+                      className="mb-2"
+                    />
+                    <span className="text-white text-sm font-semibold text-center">Sign</span>
+                  </div>
+                </GlowCard>
+              </div>
+
+              {/* SEO Agent */}
+              <div 
+                className="cursor-pointer"
+                onClick={() => window.location.href = '/seo-bot'}
+              >
+                <GlowCard 
+                  customSize={true}
+                  glowColor="blue"
+                  width={160}
+                  height={140}
+                  className="bg-[#1F2125] p-4 flex flex-col items-center justify-center hover:bg-[#2A2D35] transition-colors"
+                >
+                  <div className="flex flex-col items-center justify-center hover:scale-110 transition-transform duration-200">
+                    <Image
+                      src="/images/home page/first fold/Vector2.svg"
+                      alt="SEO Agent"
+                      width={40}
+                      height={40}
+                      className="mb-2"
+                    />
+                    <span className="text-white text-sm font-semibold text-center">SEO Agent</span>
+                  </div>
+                </GlowCard>
+              </div>
+
+              {/* HR Agent */}
+              <GlowCard 
+                customSize={true}
+                glowColor="purple"
+                width={160}
+                height={140}
+                className="bg-[#1F2125] p-4 flex flex-col items-center justify-center"
+              >
+                <div className="w-[40px] h-[40px] flex items-center justify-center mb-2">
+                  <Image
+                    src="/images/home page/first fold/HR Agent logo - white.png"
+                    alt="HR Agent"
+                    width={40}
+                    height={40}
+                    className="object-contain"
+                  />
+                </div>
+                <span className="text-white text-sm font-semibold text-center">HR Agent</span>
+              </GlowCard>
+
+              {/* Email Outreach */}
+              <GlowCard 
+                customSize={true}
+                glowColor="orange"
+                width={160}
+                height={140}
+                className="bg-[#1F2125] p-4 flex flex-col items-center justify-center"
+              >
+                <div className="w-[40px] h-[40px] flex items-center justify-center mb-2">
+                  <Image
+                    src="/images/home page/first fold/email logo white.png"
+                    alt="Email Outreach"
+                    width={40}
+                    height={40}
+                    className="object-contain"
+                  />
+                </div>
+                <span className="text-white text-sm font-semibold text-center">Email<br />Outreach</span>
+              </GlowCard>
+            </div>
+          </div>
+
+          {/* Desktop Product Grid - Mixed size tiles with centered 2x2 feature cards */}
+          <div className="hidden lg:flex flex-col gap-3 lg:gap-4 max-w-7xl mx-auto overflow-x-auto">
             {/* Row 1 - Small boxes */}
             <div className="flex justify-center gap-3 lg:gap-4 flex-nowrap min-w-min">
               {Array.from({ length: 9 }).map((_, i) => (
@@ -95,40 +250,54 @@ export default function Home() {
                 {/* Row 1 of feature cards */}
                 <div className="flex gap-3 lg:gap-4">
                   {/* Sign - Large feature card */}
-                  <GlowCard 
-                    customSize={true}
-                    glowColor="blue"
-                    width={189}
-                    height={182}
-                    className="flex-shrink-0 bg-[#1F2125] p-5 flex flex-col items-center justify-center"
+                  <div 
+                    className="cursor-pointer"
+                    onClick={() => window.location.href = '/sign'}
                   >
-                    <Image
-                      src="/images/home page/first fold/Vector1.svg"
-                      alt="Sign"
-                      width={60}
-                      height={60}
-                      className="mb-3"
-                    />
-                    <span className="text-white text-sm font-semibold text-center">Sign</span>
-                  </GlowCard>
+                    <GlowCard 
+                      customSize={true}
+                      glowColor="blue"
+                      width={189}
+                      height={182}
+                      className="flex-shrink-0 bg-[#1F2125] p-5 flex flex-col items-center justify-center hover:bg-[#2A2D35] transition-colors"
+                    >
+                      <div className="flex flex-col items-center justify-center hover:scale-110 transition-transform duration-200">
+                        <Image
+                          src="/images/home page/first fold/Vector1.svg"
+                          alt="Sign"
+                          width={60}
+                          height={60}
+                          className="mb-3"
+                        />
+                        <span className="text-white text-sm font-semibold text-center">Sign</span>
+                      </div>
+                    </GlowCard>
+                  </div>
 
                   {/* SEO Agent - Large feature card */}
-                  <GlowCard 
-                    customSize={true}
-                    glowColor="blue"
-                    width={189}
-                    height={182}
-                    className="flex-shrink-0 bg-[#1F2125] p-5 flex flex-col items-center justify-center"
+                  <div 
+                    className="cursor-pointer"
+                    onClick={() => window.location.href = '/seo-bot'}
                   >
-                    <Image
-                      src="/images/home page/first fold/Vector2.svg"
-                      alt="SEO Agent"
-                      width={60}
-                      height={60}
-                      className="mb-3"
-                    />
-                    <span className="text-white text-sm font-semibold text-center">SEO Agent</span>
-                  </GlowCard>
+                    <GlowCard 
+                      customSize={true}
+                      glowColor="blue"
+                      width={189}
+                      height={182}
+                      className="flex-shrink-0 bg-[#1F2125] p-5 flex flex-col items-center justify-center hover:bg-[#2A2D35] transition-colors"
+                    >
+                      <div className="flex flex-col items-center justify-center hover:scale-110 transition-transform duration-200">
+                        <Image
+                          src="/images/home page/first fold/Vector2.svg"
+                          alt="SEO Agent"
+                          width={60}
+                          height={60}
+                          className="mb-3"
+                        />
+                        <span className="text-white text-sm font-semibold text-center">SEO Agent</span>
+                      </div>
+                    </GlowCard>
+                  </div>
                 </div>
 
                 {/* Row 2 of feature cards */}
@@ -209,7 +378,7 @@ export default function Home() {
       </section>
 
       {/* SECOND FOLD - Why We Exist */}
-      <section className="w-full bg-white py-16 lg:py-24">
+      <section className="w-full bg-white py-8 lg:py-24">
         <div className="container mx-auto px-4 lg:px-8">
           <div className="max-w-4xl mx-auto text-center">
             <span className="inline-block text-red-600 text-2xl font-light mb-4">
@@ -291,38 +460,102 @@ export default function Home() {
       </section>
 
       {/* THIRD FOLD - Trusted By */}
-      <section ref={trustedByRef} className="w-full bg-[#181A1E] pt-16 lg:pt-24 pb-0 trusted-section h-[80vh]">
+      <section ref={trustedByRef} className="w-full bg-[#181A1E] pt-8 lg:pt-24 pb-8 lg:pb-0 trusted-section lg:h-[80vh]">
         <div className="w-full mx-auto px-4 lg:px-8 h-full flex flex-col">
-          <h2 className="text-3xl lg:text-4xl font-bold text-white text-center mb-12">
+          <h2 className="text-3xl lg:text-4xl font-bold text-white text-center mb-8 lg:mb-12">
             Trusted by
           </h2>
+
+          {/* Mobile/Small Screen Layout */}
+          <div className="lg:hidden grid grid-cols-2 sm:grid-cols-3 gap-6 max-w-4xl mx-auto mobile-logo-grid">
+            <div className="mobile-logo-item p-4 flex items-center justify-center">
+              <Image src="/images/home page/third fold/logo10.png" alt="mēkā" width={120} height={65} className="mobile-logo-image" />
+            </div>
+            <div className="mobile-logo-item p-4 flex items-center justify-center">
+              <Image src="/images/home page/third fold/logo9.png" alt="ProtonMail" width={120} height={65} className="mobile-logo-image" />
+            </div>
+            <div className="mobile-logo-item p-4 flex items-center justify-center">
+              <Image src="/images/home page/third fold/logo8.png" alt="STRATOS" width={120} height={65} className="mobile-logo-image" />
+            </div>
+            <div className="mobile-logo-item p-4 flex items-center justify-center">
+              <Image src="/images/home page/third fold/logo7.png" alt="monday.com" width={120} height={65} className="mobile-logo-image" />
+            </div>
+            <div className="mobile-logo-item p-4 flex items-center justify-center">
+              <Image src="/images/home page/third fold/logo1.png" alt="AWS" width={120} height={65} className="mobile-logo-image" />
+            </div>
+            <div className="mobile-logo-item p-4 flex items-center justify-center">
+              <Image src="/images/home page/third fold/logo2.png" alt="DigitalOcean" width={120} height={65} className="mobile-logo-image" />
+            </div>
+            <div className="mobile-logo-item p-4 flex items-center justify-center">
+              <Image src="/images/home page/third fold/logo3.png" alt="Google Cloud" width={120} height={65} className="mobile-logo-image" />
+            </div>
+            <div className="mobile-logo-item p-4 flex items-center justify-center">
+              <Image src="/images/home page/third fold/logo4.png" alt="G.S.C" width={120} height={65} className="mobile-logo-image" />
+            </div>
+            <div className="mobile-logo-item p-4 flex items-center justify-center">
+              <Image src="/images/home page/third fold/logo5.png" alt="ions" width={120} height={65} className="mobile-logo-image" />
+            </div>
+            <div className="mobile-logo-item p-4 flex items-center justify-center">
+              <Image src="/images/home page/third fold/logo6.png" alt="pipedrive" width={120} height={65} className="mobile-logo-image" />
+            </div>
+          </div>
           <style jsx>{`
-            .logo-item {
-              opacity: 0;
-              transform: translateY(-400px) rotate(0deg) scale(0.8);
-              animation: none;
+            /* Mobile styles - clean and straight */
+            @media (max-width: 1023px) {
+              .mobile-logo-grid {
+                filter: none !important;
+              }
+              .mobile-logo-item {
+                transform: none !important;
+                opacity: 1 !important;
+                animation: none !important;
+              }
+              .mobile-logo-image {
+                transform: none !important;
+                opacity: 0.8 !important;
+                transition: opacity 0.3s ease !important;
+                filter: none !important;
+                object-fit: contain !important;
+              }
+              .mobile-logo-image:hover {
+                opacity: 1 !important;
+              }
             }
-            .logo-item.animate {
-              animation: smoothFall 1.5s ease-out forwards;
+            
+            /* Desktop styles - only apply on lg screens and up */
+            @media (min-width: 1024px) {
+              .logo-item {
+                opacity: 0;
+                transform: translateY(-400px) rotate(0deg) scale(0.8);
+                animation: none;
+              }
+              .logo-item.animate {
+                animation: smoothFall 1.5s ease-out forwards;
+              }
+              .logo-item.animate:nth-child(1) { animation-delay: 0.1s; }
+              .logo-item.animate:nth-child(2) { animation-delay: 0.2s; }
+              .logo-item.animate:nth-child(3) { animation-delay: 0.4s; }
+              .logo-item.animate:nth-child(4) { animation-delay: 0.3s; }
+              .logo-item.animate:nth-child(5) { animation-delay: 0.5s; }
+              .logo-item.animate:nth-child(6) { animation-delay: 0.6s; }
+              
+              .logo-row-1 .logo-item.animate:nth-child(1) { animation-delay: 0.1s; }
+              .logo-row-1 .logo-item.animate:nth-child(2) { animation-delay: 0.3s; }
+              .logo-row-1 .logo-item.animate:nth-child(3) { animation-delay: 0.5s; }
+              .logo-row-1 .logo-item.animate:nth-child(4) { animation-delay: 0.2s; }
+              
+              .logo-row-2 .logo-item.animate:nth-child(1) { animation-delay: 0.7s; }
+              .logo-row-2 .logo-item.animate:nth-child(2) { animation-delay: 0.4s; }
+              .logo-row-2 .logo-item.animate:nth-child(3) { animation-delay: 0.9s; }
+              .logo-row-2 .logo-item.animate:nth-child(4) { animation-delay: 0.6s; }
+              .logo-row-2 .logo-item.animate:nth-child(5) { animation-delay: 0.8s; }
+              .logo-row-2 .logo-item.animate:nth-child(6) { animation-delay: 1.0s; }
+              
+              .trusted-section {
+                position: relative;
+                overflow: hidden;
+              }
             }
-            .logo-item.animate:nth-child(1) { animation-delay: 0.1s; }
-            .logo-item.animate:nth-child(2) { animation-delay: 0.2s; }
-            .logo-item.animate:nth-child(3) { animation-delay: 0.4s; }
-            .logo-item.animate:nth-child(4) { animation-delay: 0.3s; }
-            .logo-item.animate:nth-child(5) { animation-delay: 0.5s; }
-            .logo-item.animate:nth-child(6) { animation-delay: 0.6s; }
-            
-            .logo-row-1 .logo-item.animate:nth-child(1) { animation-delay: 0.1s; }
-            .logo-row-1 .logo-item.animate:nth-child(2) { animation-delay: 0.3s; }
-            .logo-row-1 .logo-item.animate:nth-child(3) { animation-delay: 0.5s; }
-            .logo-row-1 .logo-item.animate:nth-child(4) { animation-delay: 0.2s; }
-            
-            .logo-row-2 .logo-item.animate:nth-child(1) { animation-delay: 0.7s; }
-            .logo-row-2 .logo-item.animate:nth-child(2) { animation-delay: 0.4s; }
-            .logo-row-2 .logo-item.animate:nth-child(3) { animation-delay: 0.9s; }
-            .logo-row-2 .logo-item.animate:nth-child(4) { animation-delay: 0.6s; }
-            .logo-row-2 .logo-item.animate:nth-child(5) { animation-delay: 0.8s; }
-            .logo-row-2 .logo-item.animate:nth-child(6) { animation-delay: 1.0s; }
             
             @keyframes smoothFall {
               0% {
@@ -334,13 +567,9 @@ export default function Home() {
                 transform: translateY(0) scale(1);
               }
             }
-            
-            .trusted-section {
-              position: relative;
-              overflow: hidden;
-            }
           `}</style>
-          <div className="relative w-full flex-1 flex justify-center items-end pb-8">
+          {/* Desktop/Large Screen Layout */}
+          <div className="hidden lg:flex relative w-full flex-1 justify-center items-end pb-8">
             {/* Scattered logos at bottom like fallen cards */}
             <div className="relative w-full h-80">
               {/* mēkā - top left */}
@@ -538,7 +767,7 @@ export default function Home() {
       </section>
 
       {/* FOURTH FOLD - From Thought to Thrive */}
-      <section className="w-full bg-white py-16 lg:py-24">
+      <section className="w-full bg-white py-8 lg:py-24">
         <div className="container mx-auto px-4 lg:px-8">
           <div className="container mx-auto grid lg:grid-cols-2 gap-12 items-center">
             <div className='max-w-lg'>
@@ -571,24 +800,29 @@ export default function Home() {
                 </button>
               </div>
             </div>
-            <div className="bg-gray-200 rounded-[20px] aspect-video flex items-center justify-center">
-              <span className="text-gray-500">Content Image/Video</span>
+            <div className="rounded-[20px] aspect-video flex items-center justify-center overflow-hidden">
+              <Image
+                src="/images/home page/From thought to thrive.gif"
+                alt="From Thought to Thrive Animation"
+                width={640}
+                height={360}
+                className="w-full h-full object-cover rounded-[20px]"
+                unoptimized
+              />
             </div>
           </div>
         </div>
       </section>
 
       {/* FIFTH FOLD - Testimonials */}
-      <section className="w-full bg-white py-16 lg:py-24">
+      <section className="w-full bg-white py-8 lg:py-24">
         <div className="container mx-auto px-4 lg:px-8">
           <div className="max-w-4xl mx-auto">
             <h2 className="text-2xl sm:text-3xl md:text-5xl font-bold text-black text-center mb-6 leading-tight">
-              Your business needs growth. We<br className="hidden sm:inline" /> make it happen.
+              Real Results, Real Stories
             </h2>
             <p className="text-lg text-gray-700 text-center mb-8">
-              Most growing businesses struggle to manage everything from marketing to operations with the
-              right tools and support. Centilio exists to simplify growth by giving you ready-to-use digital tools
-              and systems all in one place, so you can scale faster, smarter, and with less hassle.
+              Discover the inspiring success stories of businesses that have partnered with Centilio to unlock their true potential. Our clients share how Centilio’s innovative solutions have empowered them to overcome obstacles, simplify their processes, and achieve their dreams. These heartfelt stories reflect the real, life-changing impact we've made, helping businesses grow stronger, thrive, and reach new heights, no matter the challenges they face.
             </p>
 
             {/* Tabs */}
@@ -640,7 +874,54 @@ export default function Home() {
             </div>
 
             {/* Testimonial Section with Background Frame */}
-            <div className="relative flex justify-center items-center">
+            
+            {/* Mobile Layout */}
+            <div className="lg:hidden px-4">
+              {/* Customer photo with multicolor halo */}
+              <div className="flex justify-center mb-8">
+                <div className="relative w-32 h-32 sm:w-40 sm:h-40">
+                  {/* Multicolor gradient halo */}
+                  <div
+                    className="absolute inset-0 rounded-full blur-2xl sm:blur-3xl"
+                    style={{
+                      background: 'linear-gradient(135deg, #FFD700 0%, #FFA500 25%, #00FF7F 50%, #40E0D0 75%, #1E90FF 100%)',
+                      opacity: 0.6
+                    }}
+                  ></div>
+                  <Image
+                    src="/images/home page/fifthfoldimage.png"
+                    alt="Testimonial"
+                    width={160}
+                    height={160}
+                    className="rounded-full relative z-10 w-full h-full object-cover"
+                  />
+                </div>
+              </div>
+
+              {/* Testimonial card */}
+              <div className="bg-[#181A1E] rounded-xl p-6 sm:p-8 mx-auto max-w-md">
+                <p className="text-base sm:text-lg text-white mb-6 text-center leading-relaxed">
+                  "We were exploring ways to streamline operations and drive consistent growth. Centilio delivered on both. The
+                  platform is intuitive, reliable, and packed with tools that actually work. It's like having a growth team built into our
+                  business."
+                </p>
+                <div className="flex flex-col items-center">
+                  <p className="font-bold text-white text-base sm:text-lg text-center">
+                    Prathesh Kumar, <span className='font-thin'>Owner</span>
+                  </p>
+                  <Image
+                    src="/images/home page/fifth fold/logo - transparent- vkv white 1.svg"
+                    alt="VEG TRON"
+                    width={80}
+                    height={32}
+                    className="object-contain mt-2"
+                  />
+                </div>
+              </div>
+            </div>
+
+            {/* Desktop Layout */}
+            <div className="hidden lg:block relative flex justify-center items-center">
               {/* Background gradient frame */}
               <div
                 className="absolute rounded-[40px] p-[2px]"
@@ -705,7 +986,7 @@ export default function Home() {
       </section>
 
       {/* SIXTH FOLD - Tamil Nadu Stats */}
-      <section className="w-full bg-[#181A1E] py-16 lg:py-30 relative overflow-hidden">
+      <section ref={statsRef} className="w-full bg-[#181A1E] py-8 lg:py-30 relative overflow-hidden">
         <div className="container px-4 lg:px-8">
           <div className="max-w-6xl mx-auto relative z-10">
             <h2 className="text-2xl sm:text-3xl md:text-5xl font-bold text-white mb-16 leading-tight">
@@ -713,22 +994,22 @@ export default function Home() {
             </h2>
             <div className="grid grid-cols-3 gap-8 max-w-2xl">
               <div className="text-left">
-                <h3 className="text-2xl lg:text-5xl font-semibold text-white mb-2">100+</h3>
+                <h3 className="text-2xl lg:text-5xl font-semibold text-white mb-2">{businessesCount}+</h3>
                 <p className="text-sm lg:text-base text-gray-300">Businesses<br />Served</p>
               </div>
               <div className="text-left">
-                <h3 className="text-2xl lg:text-5xl font-semibold text-white mb-2">10+</h3>
+                <h3 className="text-2xl lg:text-5xl font-semibold text-white mb-2">{countriesCount}+</h3>
                 <p className="text-sm lg:text-base text-gray-300">Countries<br />Supported</p>
               </div>
               <div className="text-left">
-                <h3 className="text-2xl lg:text-5xl font-semibold text-white mb-2">50+</h3>
+                <h3 className="text-2xl lg:text-5xl font-semibold text-white mb-2">{crmSetupsCount}+</h3>
                 <p className="text-sm lg:text-base text-gray-300">CRM Setups<br />Done</p>
               </div>
             </div>
           </div>
         </div>
-        {/* Large illustration on the right spanning full height */}
-        <div className="absolute right-0 top-0 bottom-0 flex items-center justify-end">
+        {/* Large illustration on the right spanning full height - Desktop only */}
+        <div className="hidden lg:flex absolute right-0 top-0 bottom-0 items-center justify-end">
           <Image
             src="/images/home page/mapimage-sixthfold.png"
             alt="Tamil Nadu Illustration"
@@ -740,7 +1021,7 @@ export default function Home() {
       </section>
 
       {/* SEVENTH FOLD - Your Growth */}
-      <section className="w-full bg-white py-16 lg:py-24">
+      <section className="w-full bg-white py-8 lg:py-24">
         <div className="container mx-auto px-4 lg:px-8">
           <div className=" mx-auto grid lg:grid-cols-2 gap-12 items-center">
             <div className='max-w-lg'>
@@ -759,71 +1040,81 @@ export default function Home() {
                 measurable results that move your business forward.
               </p>
             </div>
-            <div className="bg-gray-200 rounded-[20px] aspect-video flex items-center justify-center">
-              <span className="text-gray-500">Content Image/Video</span>
+            <div className="rounded-[20px] aspect-video flex items-center justify-center overflow-hidden">
+              <Image
+                src="/images/home page/Your Growth Is Our Responsibility..gif"
+                alt="Your Growth Is Our Responsibility Animation"
+                width={640}
+                height={360}
+                className="w-full h-full object-cover rounded-[20px]"
+                unoptimized
+              />
             </div>
           </div>
         </div>
       </section>
 
       {/* EIGHTH FOLD - Values */}
-      <section className="w-full bg-[#181A1E] py-16 lg:py-24">
+      <section className="w-full bg-[#181A1E] py-8 lg:py-24">
         <div className="container mx-auto px-4 lg:px-8">
           <div className="max-w-6xl mx-auto">
             <h2 className="text-2xl sm:text-3xl md:text-5xl font-bold text-white text-center mb-12 lg:mb-24">
               The values that drive Centilio
             </h2>
-            <div className="grid md:grid-cols-3 gap-8">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8">
               {/* Value 1 - Accountability */}
-              <div className="bg-[#1F2125] border border-[#5B5858] rounded-[20px] p-8 hover:border-gray-400 transition-colors flex flex-col items-center text-center">
-                <div className="w-16 h-16 mb-6 flex items-center justify-center">
+              <div className="bg-[#1F2125] border border-[#5B5858] rounded-[20px] p-6 md:p-8 hover:border-gray-400 transition-colors flex flex-col items-center text-center">
+                <div className="w-12 h-12 md:w-16 md:h-16 mb-4 md:mb-6 flex items-center justify-center">
                   <Image
                     src="/images/home page/eightth fold/Vector1.svg"
                     alt="Accountability"
                     width={48}
                     height={48}
+                    className="w-8 h-8 md:w-12 md:h-12"
                   />
                 </div>
-                <h3 className="text-2xl font-bold text-white mb-4">
+                <h3 className="text-lg md:text-2xl font-bold text-white mb-3 md:mb-4 leading-tight">
                   Accountability for Growth
                 </h3>
-                <p className="text-gray-300">
+                <p className="text-gray-300 text-sm md:text-base leading-relaxed">
                   We don't just advise, we own the outcome. Your goals become our responsibility, and we stand behind our results.
                 </p>
               </div>
 
               {/* Value 2 - Plug-and-Play */}
-              <div className="bg-[#1F2125] border border-[#5B5858] rounded-[20px] p-8 hover:border-gray-400 transition-colors flex flex-col items-center text-center">
-                <div className="w-16 h-16 mb-6 flex items-center justify-center">
+              <div className="bg-[#1F2125] border border-[#5B5858] rounded-[20px] p-6 md:p-8 hover:border-gray-400 transition-colors flex flex-col items-center text-center">
+                <div className="w-12 h-12 md:w-16 md:h-16 mb-4 md:mb-6 flex items-center justify-center">
                   <Image
                     src="/images/home page/eightth fold/Vector2.svg"
                     alt="Plug-and-Play"
                     width={48}
                     height={48}
+                    className="w-8 h-8 md:w-12 md:h-12"
                   />
                 </div>
-                <h3 className="text-2xl font-bold text-white mb-4">
+                <h3 className="text-lg md:text-2xl font-bold text-white mb-3 md:mb-4 leading-tight">
                   Plug-and-Play Excellence
                 </h3>
-                <p className="text-gray-300">
+                <p className="text-gray-300 text-sm md:text-base leading-relaxed">
                   We bring a full team to your table researchers, tech experts, recruiters, marketers, all ready to execute.
                 </p>
               </div>
 
               {/* Value 3 - Customer-Led */}
-              <div className="bg-[#1F2125] border border-[#5B5858] rounded-[20px] p-8 hover:border-gray-400 transition-colors flex flex-col items-center text-center">
-                <div className="w-16 h-16 mb-6 flex items-center justify-center">
+              <div className="bg-[#1F2125] border border-[#5B5858] rounded-[20px] p-6 md:p-8 hover:border-gray-400 transition-colors flex flex-col items-center text-center">
+                <div className="w-12 h-12 md:w-16 md:h-16 mb-4 md:mb-6 flex items-center justify-center">
                   <Image
                     src="/images/home page/eightth fold/Vector3.svg"
                     alt="Customer-Led"
                     width={48}
                     height={48}
+                    className="w-8 h-8 md:w-12 md:h-12"
                   />
                 </div>
-                <h3 className="text-2xl font-bold text-white mb-4">
+                <h3 className="text-lg md:text-2xl font-bold text-white mb-3 md:mb-4 leading-tight">
                   Customer-Led Innovation
                 </h3>
-                <p className="text-gray-300">
+                <p className="text-gray-300 text-sm md:text-base leading-relaxed">
                   We listen, we understand, and we build solutions around your real challenges not templates or assumptions.
                 </p>
               </div>
@@ -833,7 +1124,7 @@ export default function Home() {
       </section>
 
       {/* NINTH FOLD - Final CTA */}
-      <section className="w-full bg-white py-16 lg:py-24">
+      <section className="w-full bg-white py-8 lg:py-24">
         <div className="container mx-auto px-4 lg:px-8">
           <div className="max-w-4xl mx-auto text-center">
             <h2 className="text-2xl sm:text-3xl md:text-5xl font-bold text-black mb-6">

@@ -94,7 +94,7 @@ export default function ContactPageSign() {
             <form onSubmit={handleSubmit} className="flex flex-col gap-4">
               {/* First Name */}
               <div>
-                <label className="block text-white text-sm font-medium mb-2.5" style={{ fontFamily: 'Figtree', letterSpacing: '0.2px' }}>
+                <label className="block text-white text-sm font-medium mb-2.5" style={{ fontFamily: 'var(--font-inter)', letterSpacing: '0.2px' }}>
                   First name <span className="text-[#FF0000]">*</span>
                 </label>
                 <input
@@ -111,7 +111,7 @@ export default function ContactPageSign() {
 
               {/* Last Name */}
               <div>
-                <label className="block text-white text-sm font-medium mb-2.5" style={{ fontFamily: 'Figtree', letterSpacing: '0.2px' }}>
+                <label className="block text-white text-sm font-medium mb-2.5" style={{ fontFamily: 'var(--font-inter)', letterSpacing: '0.2px' }}>
                   Last name
                 </label>
                 <input
@@ -127,7 +127,7 @@ export default function ContactPageSign() {
 
               {/* Company Name */}
               <div>
-                <label className="block text-white text-sm font-medium mb-2.5" style={{ fontFamily: 'Figtree', letterSpacing: '0.2px' }}>
+                <label className="block text-white text-sm font-medium mb-2.5" style={{ fontFamily: 'var(--font-inter)', letterSpacing: '0.2px' }}>
                   Company name
                 </label>
                 <input
@@ -143,7 +143,7 @@ export default function ContactPageSign() {
 
               {/* Email Address */}
               <div>
-                <label className="block text-white text-sm font-medium mb-2.5" style={{ fontFamily: 'Figtree', letterSpacing: '0.2px' }}>
+                <label className="block text-white text-sm font-medium mb-2.5" style={{ fontFamily: 'var(--font-inter)', letterSpacing: '0.2px' }}>
                   Email Address <span className="text-[#FF0000]">*</span>
                 </label>
                 <input
@@ -160,7 +160,7 @@ export default function ContactPageSign() {
 
               {/* Mobile */}
               <div>
-                <label className="block text-white text-sm font-medium mb-2.5" style={{ fontFamily: 'Figtree', letterSpacing: '0.2px' }}>
+                <label className="block text-white text-sm font-medium mb-2.5" style={{ fontFamily: 'var(--font-inter)', letterSpacing: '0.2px' }}>
                   Mobile
                 </label>
                 <div className="flex gap-4">
@@ -193,7 +193,7 @@ export default function ContactPageSign() {
 
               {/* Description */}
               <div>
-                <label className="block text-white text-sm font-medium mb-2.5" style={{ fontFamily: 'Figtree', letterSpacing: '0.2px' }}>
+                <label className="block text-white text-sm font-medium mb-2.5" style={{ fontFamily: 'var(--font-inter)', letterSpacing: '0.2px' }}>
                   Description <span className="text-[#FF0000]">*</span>
                 </label>
                 <textarea
