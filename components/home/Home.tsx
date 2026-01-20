@@ -7,6 +7,7 @@ import Footer from '@/components/layout/Footer';
 import { GlowCard } from '@/components/ui/spotlight-card';
 import { GlobalHoverCard } from '@/components/ui/global-hover-card';
 import { useState, useEffect, useRef } from 'react';
+import { testimonialData } from '@/lib/testimonials';
 
 function useCountAnimation(targetValue: number, duration: number = 2000, shouldStart: boolean = false) {
   const [currentValue, setCurrentValue] = useState(0)
@@ -170,7 +171,7 @@ export default function Home() {
                       height={40}
                       className="mb-2"
                     />
-                    <span className="text-white text-sm font-semibold text-center">SEO Agent</span>
+                    <span className="text-white text-sm font-semibold text-center">SEO Bot</span>
                   </div>
                 </GlowCard>
               </div>
@@ -298,7 +299,7 @@ export default function Home() {
                           height={60}
                           className="mb-3"
                         />
-                        <span className="text-white text-sm font-semibold text-center">SEO Agent</span>
+                        <span className="text-white text-sm font-semibold text-center">SEO Bot</span>
                       </div>
                     </GlowCard>
                   </div>
@@ -819,11 +820,18 @@ export default function Home() {
             <div className="flex flex-wrap justify-center gap-8 mb-16 border-b border-[#7F8394] max-w-xl mx-auto">
               <button
                 onClick={() => setActiveTab('manufacturer')}
-                className={`pb-2 text-base transition-colors ${
+                className={`pb-2 text-base font-semibold transition-colors ${
                   activeTab === 'manufacturer'
-                    ? 'text-black border-b-2 border-black'
+                    ? 'border-b-2'
                     : 'text-gray-500 hover:text-gray-700'
                 }`}
+                style={activeTab === 'manufacturer' ? {
+                  background: 'linear-gradient(to right, #4285F4, #083987)',
+                  WebkitBackgroundClip: 'text',
+                  WebkitTextFillColor: 'transparent',
+                  backgroundClip: 'text',
+                  borderImage: 'linear-gradient(to right, #4285F4, #083987) 1'
+                } : {}}
               >
                 I&apos;M A MANUFACTURER
               </button>
@@ -864,7 +872,21 @@ export default function Home() {
             </div>
 
             {/* Testimonial Section with Background Frame */}
-            
+            {/* Get current testimonial based on active tab */}
+            {(() => {
+              const currentTestimonial = testimonialData[activeTab];
+
+              // Image mapping for each testimonial
+              const testimonialImages = {
+                manufacturer: "/images/home page/fifth fold/Rajesh Mehta,.png",
+                business: "/images/home page/fifth fold/priya sharma.png",
+                promoter: "/images/home page/fifthfoldimage.png"
+              };
+
+              const currentImage = testimonialImages[activeTab];
+
+              return (
+                <>
             {/* Mobile Layout */}
             <div className="lg:hidden px-4 group">
               {/* Customer photo with multicolor halo */}
@@ -878,8 +900,8 @@ export default function Home() {
                     }}
                   ></div>
                   <Image
-                    src="/images/home page/fifthfoldimage.png"
-                    alt="Testimonial"
+                    src={currentImage}
+                    alt={currentTestimonial.name}
                     width={160}
                     height={160}
                     className="rounded-full relative z-10 w-full h-full object-cover"
@@ -890,21 +912,20 @@ export default function Home() {
               {/* Testimonial card */}
               <div className="bg-[#181A1E] rounded-xl p-6 sm:p-8 mx-auto max-w-md transition-transform duration-300 group-hover:scale-105">
                 <p className="text-base sm:text-lg text-white mb-6 text-center leading-relaxed">
-                  &quot;We were exploring ways to streamline operations and drive consistent growth. Centilio delivered on both. The
-                  platform is intuitive, reliable, and packed with tools that actually work. It&apos;s like having a growth team built into our
-                  business.&quot;
+                  &quot;{currentTestimonial.quote}&quot;
                 </p>
                 <div className="flex flex-col items-center">
                   <p className="font-bold text-white text-base sm:text-lg text-center">
-                    Prathesh Kumar, <span className='font-thin'>Owner</span>
+                    {currentTestimonial.name}, <span className='font-thin'>{currentTestimonial.title}</span>
                   </p>
-                  <Image
+                  <span className='font-thin text-white'>{currentTestimonial.company}</span>
+                  {/* <Image
                     src="/images/home page/fifth fold/logo - transparent- vkv white 1.svg"
                     alt="VEG TRON"
                     width={80}
                     height={32}
                     className="object-contain mt-2"
-                  />
+                  /> */}
                 </div>
               </div>
             </div>
@@ -966,8 +987,8 @@ export default function Home() {
                       }}
                     ></div>
                     <Image
-                      src="/images/home page/fifthfoldimage.png"
-                      alt="Testimonial"
+                      src={currentImage}
+                      alt={currentTestimonial.name}
                       width={160}
                       height={160}
                       className="rounded-full relative z-10"
@@ -979,24 +1000,26 @@ export default function Home() {
                 <div className="relative z-10 bg-[#181A1E] rounded-xl mx-auto transition-transform duration-300 group-hover:scale-105" style={{ width: '480px', height: '441px' }}>
                   <div className="flex flex-col items-center text-center justify-center h-full px-8 pt-24 pb-8">
                     <p className="text-lg text-white mb-8 max-w-md mx-auto mt-[40px] text-justify leading-6">
-                      &quot;We were exploring ways to streamline operations and drive consistent growth. Centilio delivered on both. The
-                      platform is intuitive, reliable, and packed with tools that actually work. It&apos;s like having a growth team built into our
-                      business.&quot;
+                      &quot;{currentTestimonial.quote}&quot;
                     </p>
                     <div className="flex flex-col items-center">
-                      <p className="font-bold text-white text-lg">Prathesh Kumar, <span className='font-thin'>Owner</span></p>
-                      <Image
+                      <p className="font-bold text-white text-lg">{currentTestimonial.name}, <span className='font-thin'>{currentTestimonial.title}</span></p>
+                      <span className='font-thin text-white'>{currentTestimonial.company}</span>
+                      {/* <Image
                         src="/images/home page/fifth fold/logo - transparent- vkv white 1.svg"
                         alt="VEG TRON"
                         width={100}
                         height={40}
                         className="object-contain"
-                      />
+                      /> */}
                     </div>
                   </div>
                 </div>
               </div>
             </div>
+                </>
+              );
+            })()}
           </div>
         </div>
       </section>
