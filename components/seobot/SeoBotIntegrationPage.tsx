@@ -2,6 +2,7 @@
 
 import React from 'react'
 import Image from 'next/image'
+import WhiteHeader from '@/components/layout/WhiteHeader'
 import SeobotHeader from '@/components/layout/SeobotHeader'
 import SeobotFooter from '@/components/layout/SeobotFooter'
 import AuroraBackground from '@/components/ui/aurora-background'
@@ -9,10 +10,11 @@ import AuroraBackground from '@/components/ui/aurora-background'
 export default function SeoBotIntegrationPage() {
   return (
     <div className="min-h-screen bg-white">
+      <WhiteHeader />
       <SeobotHeader />
 
       {/* Hero Section with Integrations */}
-      <section className="bg-[#0E0F18] pt-20 md:pt-32 pb-20 relative overflow-hidden">
+      <section className="bg-[#0E0F18] pt-8 pb-10 md:pb-20 relative overflow-hidden">
         {/* Aurora Background Animation */}
         <div className="absolute inset-0 overflow-hidden" aria-hidden="true">
           {/* Pulsing radial gradients */}
@@ -50,14 +52,14 @@ export default function SeoBotIntegrationPage() {
 
         <div className="relative z-10 max-w-7xl mx-auto px-6 sm:pt-20">
           {/* Title */}
-          <h1 className="text-5xl font-bold text-center mb-16 text-white">
+          <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold text-center mb-16 text-white">
             Connect with the apps
             <br />
             you use every day
           </h1>
 
           {/* Integration Logos Row */}
-          <div className="flex items-center justify-center gap-8 mb-20">
+          <div className="flex items-center justify-center gap-8 mb-10 md:mb-20">
             <Image
               src="/images/seobotintegrationpage/first fold group1/logos.png"
               alt="Integration Logos"

@@ -4,6 +4,7 @@ import React, { useState, useEffect } from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
 import { motion } from 'framer-motion'
+import { useRouter } from 'next/navigation'
 import Header from '../layout/Header'
 import Footer from '@/components/layout/Footer'
 import { BlogPost } from '@/types/blog'
@@ -14,9 +15,18 @@ interface BlogDetailProps {
 }
 
 export default function BlogDetail({ slug }: BlogDetailProps) {
+  const router = useRouter()
   const [blog, setBlog] = useState<BlogPost | null>(null)
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
+
+  const handleBack = () => {
+    if (window.history.length > 1) {
+      router.back()
+    } else {
+      router.push('/blog')
+    }
+  }
 
   useEffect(() => {
     const fetchBlogData = async () => {
@@ -102,9 +112,12 @@ export default function BlogDetail({ slug }: BlogDetailProps) {
                   </svg>
                 </li>
                 <li>
-                  <Link href="/blog" className="hover:text-white transition-colors">
+                  <button
+                    onClick={handleBack}
+                    className="hover:text-white transition-colors cursor-pointer"
+                  >
                     Blog
-                  </Link>
+                  </button>
                 </li>
                 <li>
                   <svg className="w-4 h-4 mx-2" fill="currentColor" viewBox="0 0 20 20">
@@ -124,15 +137,15 @@ export default function BlogDetail({ slug }: BlogDetailProps) {
             <p className="text-gray-300 mb-8 text-lg">
               {error || "The blog post you're looking for doesn't exist."}
             </p>
-            <Link 
-              href="/blog"
+            <button
+              onClick={handleBack}
               className="inline-flex items-center px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white font-medium rounded-lg transition-colors duration-300"
             >
               <svg className="w-4 h-4 mr-2" fill="currentColor" viewBox="0 0 20 20">
                 <path fillRule="evenodd" d="M9.707 16.707a1 1 0 01-1.414 0l-6-6a1 1 0 010-1.414l6-6a1 1 0 011.414 1.414L5.414 9H17a1 1 0 110 2H5.414l4.293 4.293a1 1 0 010 1.414z" clipRule="evenodd" />
               </svg>
               Back to Blog
-            </Link>
+            </button>
           </motion.div>
         </div>
         <Footer />
@@ -164,9 +177,12 @@ export default function BlogDetail({ slug }: BlogDetailProps) {
               </svg>
             </li>
             <li>
-              <Link href="/blog" className="hover:text-white transition-colors">
+              <button
+                onClick={handleBack}
+                className="hover:text-white transition-colors cursor-pointer"
+              >
                 Blog
-              </Link>
+              </button>
             </li>
             <li>
               <svg className="w-4 h-4 mx-2" fill="currentColor" viewBox="0 0 20 20">
@@ -178,15 +194,15 @@ export default function BlogDetail({ slug }: BlogDetailProps) {
         </nav>
 
         {/* Back to Blog */}
-        <Link 
-          href="/blog"
+        <button
+          onClick={handleBack}
           className="inline-flex items-center text-gray-300 hover:text-white transition-colors mb-8 group"
         >
           <svg className="w-4 h-4 mr-2 group-hover:-translate-x-1 transition-transform duration-300" fill="currentColor" viewBox="0 0 20 20">
             <path fillRule="evenodd" d="M9.707 16.707a1 1 0 01-1.414 0l-6-6a1 1 0 010-1.414l6-6a1 1 0 011.414 1.414L5.414 9H17a1 1 0 110 2H5.414l4.293 4.293a1 1 0 010 1.414z" clipRule="evenodd" />
           </svg>
           Back to Blog
-        </Link>
+        </button>
 
         {/* Featured Image */}
         {/* {blog.Preview_Url && (
@@ -285,19 +301,19 @@ export default function BlogDetail({ slug }: BlogDetailProps) {
         )}
 
         {/* Navigation */}
-        <div className="mt-12 pt-8 border-t border-gray-700">
+        {/* <div className="mt-12 pt-8 border-t border-gray-700">
           <div className="flex justify-center">
-            <Link 
-              href="/blog"
+            <button
+              onClick={handleBack}
               className="inline-flex items-center px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white font-medium rounded-lg transition-colors duration-300"
             >
               <svg className="w-4 h-4 mr-2" fill="currentColor" viewBox="0 0 20 20">
                 <path fillRule="evenodd" d="M9.707 16.707a1 1 0 01-1.414 0l-6-6a1 1 0 010-1.414l6-6a1 1 0 011.414 1.414L5.414 9H17a1 1 0 110 2H5.414l4.293 4.293a1 1 0 010 1.414z" clipRule="evenodd" />
               </svg>
               Back to All Posts
-            </Link>
+            </button>
           </div>
-        </div>
+        </div> */}
       </motion.article>
 
       <Footer />

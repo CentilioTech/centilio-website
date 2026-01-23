@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect, useRef } from 'react'
 import Image from 'next/image'
+import WhiteHeader from '@/components/layout/WhiteHeader'
 import SeobotHeader from '@/components/layout/SeobotHeader'
 import SeobotFooter from '@/components/layout/SeobotFooter'
 import { TextRevealCard } from '@/components/ui/text-reveal-card'
@@ -124,10 +125,11 @@ export default function SeoBotHomePage() {
 
   return (
     <div className="min-h-screen bg-white">
+      <WhiteHeader />
       <SeobotHeader />
 
       {/* First Fold - Hero Section */}
-      <section className="relative bg-gradient-to-b from-[#0E0F18] to-[#4285F4] pt-16 sm:pt-20 md:pt-24 lg:h-[750px] overflow-visible">
+      <section className="relative bg-gradient-to-b from-[#0E0F18] to-[#4285F4] pt-8 lg:h-[750px] overflow-visible">
         <div className="container relative w-full h-full mx-auto px-4 lg:px-0">
           
           {/* Desktop Layout */}
@@ -315,9 +317,9 @@ export default function SeoBotHomePage() {
       </section>
 
       {/* Second Fold - Trusted By Section */}
-      <section className="bg-white pt-32 sm:pt-40 lg:pt-60 pb-12 sm:pb-16 lg:pb-20">
+      <section className="bg-white pt-12 sm:pt-40 lg:pt-60 pb-12 sm:pb-16 lg:pb-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6">
-          <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-center text-black mb-8 sm:mb-12 lg:mb-16">Trusted by</h2>
+          <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-center text-black mb-8 sm:mb-12 lg:mb-16">Trusted by</h2>
 
           {/* Desktop Layout - Hidden on mobile/tablet */}
           <div className="hidden lg:flex flex-wrap items-center justify-center gap-16">
@@ -406,19 +408,19 @@ export default function SeoBotHomePage() {
         <div className="max-w-7xl mx-auto px-6">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-12 text-center">
             <div>
-              <h2 className="text-5xl font-bold text-white mb-4">
+              <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-white mb-4">
                 +{Math.floor(documentsCount / 1000)}k
               </h2>
               <p className="text-gray-300 text-lg">Uploaded Documents</p>
             </div>
             <div>
-              <h2 className="text-5xl font-bold text-white mb-4">
+              <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-white mb-4">
                 +{Math.floor(signedCount / 1000)}k
               </h2>
               <p className="text-gray-300 text-lg">Documents Signed</p>
             </div>
             <div>
-              <h2 className="text-5xl font-bold text-white mb-4">
+              <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-white mb-4">
                 +{Math.floor(minutesSaved / 1000)}k
               </h2>
               <p className="text-gray-300 text-lg">Minutes Saved on Paperwork</p>
@@ -428,13 +430,13 @@ export default function SeoBotHomePage() {
       </section>
 
       {/* Fourth Fold - Why Teams Choose Section */}
-      <section className="bg-white py-20">
+      <section className="bg-white py-10 md:py-20">
         <div className="max-w-[1440px] mx-auto px-6">
-          <div className="text-center mb-24">
-            <h2 className="text-5xl font-bold text-black mb-6" style={{ fontSize: '48px', lineHeight: '58px' }}>
+          <div className="text-center mb-10 lg:mb-24">
+            <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-black mb-6 tight" >
               Why teams choose<br />Centilio SEO Bot
             </h2>
-            <p className="text-xl" style={{ fontSize: '20px', lineHeight: '30px', color: '#181A1E' }}>Get ranked faster. Post smarter. Save time.</p>
+            <p className="text-xl" style={{ lineHeight: '30px', color: '#181A1E' }}>Get ranked faster. Post smarter. Save time.</p>
           </div>
 
           {/* Desktop Two Column Layout with Absolute Positioning */}
@@ -602,13 +604,13 @@ export default function SeoBotHomePage() {
           <div className="lg:hidden space-y-8">
             {/* Feature 1 - Instant Content Discovery */}
             <div className="bg-white border border-gray-200 rounded-2xl p-8 shadow-sm">
-              <div className="flex items-start gap-6">
+              <div className="flex-col items-start gap-6">
                 <Image
                   src="/images/seobothomepage/fourth fold/icon image/icon1.png"
                   alt="Instant Content Discovery"
                   width={50}
                   height={50}
-                  className="flex-shrink-0 rounded-lg"
+                  className="flex-shrink-0 rounded-lg mb-6"
                 />
                 <div>
                   <h3 className="text-2xl font-semibold text-gray-800 mb-4">Instant Content Discovery</h3>
@@ -621,13 +623,13 @@ export default function SeoBotHomePage() {
 
             {/* Feature 2 - Complete Content Control */}
             <div className="bg-white border border-gray-200 rounded-2xl p-8 shadow-sm">
-              <div className="flex items-start gap-6">
+              <div className="flex-col items-start gap-6">
                 <Image
                   src="/images/seobothomepage/fourth fold/icon image/icon2.png"
                   alt="Complete Content Control"
                   width={50}
                   height={50}
-                  className="flex-shrink-0 rounded-lg"
+                  className="flex-shrink-0 rounded-lg mb-6"
                 />
                 <div>
                   <h3 className="text-2xl font-semibold text-gray-800 mb-4">Complete Content Control</h3>
@@ -640,13 +642,13 @@ export default function SeoBotHomePage() {
 
             {/* Feature 3 - One-Click Scheduling */}
             <div className="bg-white border border-gray-200 rounded-2xl p-8 shadow-sm">
-              <div className="flex items-start gap-6">
+              <div className="flex-col items-start gap-6">
                 <Image
                   src="/images/seobothomepage/fourth fold/icon image/icon3.png"
                   alt="One-Click Scheduling"
                   width={50}
                   height={50}
-                  className="flex-shrink-0 rounded-lg"
+                  className="flex-shrink-0 rounded-lg mb-6"
                 />
                 <div>
                   <h3 className="text-2xl font-semibold text-gray-800 mb-4">One-Click Scheduling</h3>
@@ -659,13 +661,13 @@ export default function SeoBotHomePage() {
 
             {/* Feature 4 - Built-In Review Flow */}
             <div className="bg-white border border-gray-200 rounded-2xl p-8 shadow-sm">
-              <div className="flex items-start gap-6">
+              <div className="flex-col items-start gap-6">
                 <Image
                   src="/images/seobothomepage/fourth fold/icon image/icon4.png"
                   alt="Built-In Review Flow"
                   width={50}
                   height={50}
-                  className="flex-shrink-0 rounded-lg"
+                  className="flex-shrink-0 rounded-lg mb-6"
                 />
                 <div>
                   <h3 className="text-2xl font-semibold text-gray-800 mb-4">Built-In Review Flow</h3>
@@ -678,13 +680,13 @@ export default function SeoBotHomePage() {
 
             {/* Feature 5 - Boost Your Website SEO */}
             <div className="bg-white border border-gray-200 rounded-2xl p-8 shadow-sm">
-              <div className="flex items-start gap-6">
+              <div className="flex-col items-start gap-6">
                 <Image
                   src="/images/seobothomepage/fourth fold/icon image/icon5.png"
                   alt="Boost Your Website SEO"
                   width={50}
                   height={50}
-                  className="flex-shrink-0 rounded-lg"
+                  className="flex-shrink-0 rounded-lg mb-6"
                 />
                 <div>
                   <h3 className="text-2xl font-semibold text-gray-800 mb-4">Boost Your Website SEO</h3>
@@ -699,9 +701,9 @@ export default function SeoBotHomePage() {
       </section>
 
       {/* Fifth Fold - Testimonials Section */}
-      <section className="bg-[#181A1E] py-20">
+      <section className="bg-[#181A1E] py-10 md:-20">
         <div className="max-w-5xl mx-auto px-6">
-          <h2 className="text-4xl font-bold text-center text-white mb-16">What our users say</h2>
+          <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-center text-white mb-10 md:mb-16">What our users say</h2>
 
           <div className="border-2 border-[#5A5858] rounded-2xl p-12 relative">
             <div className="flex items-start justify-between mb-6">
@@ -735,10 +737,10 @@ export default function SeoBotHomePage() {
       </section>
 
       {/* Sixth Fold - CTA Section */}
-      <section className="bg-[#181A1E] py-20">
+      <section className="bg-[#181A1E] py-10 md:py-20">
         <div className="max-w-7xl mx-auto px-6">
-          <div className="text-center mb-12">
-            <h2 className="text-5xl font-bold text-white mb-6">Ready to Automate Your Blog?</h2>
+          <div className="text-center ">
+            <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-white mb-6">Ready to Automate Your Blog?</h2>
             <p className="text-xl text-gray-300 mb-4">
               Let Centilio SEO Bot do the heavy lifting from finding content ideas to publishing them live.
             </p>
@@ -756,7 +758,7 @@ export default function SeoBotHomePage() {
             </div>
 
             {/* Feature Checkmarks */}
-            <div className="flex items-center justify-center gap-16 mb-16">
+            <div className="flex flex-col sm:flex-row items-center justify-center gap-4 sm:gap-16 mb-10 md:mb-16">
               <div className="flex items-center gap-2">
                 <Image
                   src="/images/seobothomepage/sixth fold/tick_Vector.svg"

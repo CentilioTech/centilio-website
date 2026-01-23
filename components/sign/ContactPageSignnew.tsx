@@ -2,6 +2,7 @@
 
 import Image from 'next/image'
 import { useState, useEffect, useRef } from 'react'
+import WhiteHeader from '@/components/layout/WhiteHeader'
 import SignHeader from '@/components/layout/SignHeader'
 import SignFooter from '@/components/layout/SignFooter'
 
@@ -63,13 +64,14 @@ export default function ContactPageSign() {
 
   return (
     <div className="min-h-screen bg-[#0E0F18]">
+      <WhiteHeader />
       <SignHeader />
 
       {/* Divider between Header and First Fold */}
       <div className="w-full h-[1px] bg-white opacity-20" />
 
       {/* First Fold - Hero Section with Form */}
-      <section className="relative min-h-[500px] xs:min-h-[500px] sm:min-h-[600px] md:min-h-[900px] lg:min-h-[1200px] flex flex-col items-center pt-16 xs:pt-16 sm:pt-20 md:pt-[120px] lg:pt-[140px] pb-4 xs:pb-4 sm:pb-6 md:pb-12 lg:pb-16 px-4">
+      <section className="relative min-h-[500px] xs:min-h-[500px] sm:min-h-[600px] md:min-h-[900px] lg:min-h-[1200px] flex flex-col items-center pt-12 pb-4 xs:pb-4 sm:pb-6 md:pb-12 lg:pb-16 px-4">
         {/* Red Blur Background Effect */}
         <div
           className="absolute top-0 left-0 w-full h-[270px]"

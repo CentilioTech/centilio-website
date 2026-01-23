@@ -2,32 +2,11 @@
 
 import Image from 'next/image';
 import Link from 'next/link';
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 
-export default function Header() {
+export default function WhiteHeader() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [isScrolled, setIsScrolled] = useState(false);
-  const [hasMounted, setHasMounted] = useState(false);
 
-  useEffect(() => {
-    setHasMounted(true);
-    let ticking = false;
-
-    const handleScroll = () => {
-      if (!ticking) {
-        requestAnimationFrame(() => {
-          const scrollTop = window.scrollY;
-          setIsScrolled(scrollTop > 50);
-          ticking = false;
-        });
-        ticking = true;
-      }
-    };
-
-    window.addEventListener('scroll', handleScroll, { passive: true });
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
-  // Tittle//
   const productItems = [
     { name: 'Sign', href: '/sign', description: 'Digital signature solution' },
     { name: 'SEO Bot', href: '/seo-bot', description: 'Content automation tool' },
@@ -41,32 +20,18 @@ export default function Header() {
   ];
 
   return (
-    <header className={`w-full bg-[#181A1E] border-b border-[#2A2C30] sticky top-0 z-50 transition-shadow duration-500 ease-in-out ${
-      hasMounted && isScrolled ? 'shadow-lg backdrop-blur-sm' : ''
-    }`}>
-      <div className="container mx-auto px-4 lg:px-8">
-        <div className={`flex items-center justify-between transition-all duration-500 ease-in-out ${
-          !hasMounted 
-            ? 'py-4 lg:py-5' // SSR fallback - original padding
-            : isScrolled 
-            ? 'py-3' // Reduced padding when scrolled
-            : ' lg:py-5' // Original padding
-        }`}>
+    <header className="w-full bg-white border-b border-[#E5E7EB]">
+      <div className="w-full mx-auto px-4 sm:px-6 md:px-20">
+        <div className="flex items-center justify-between py-2">
           <div className='flex items-center gap-20'>
             {/* Logo */}
             <Link href="/" className="flex items-center gap-3">
               <Image
-                src="/images/home page/centilio logo vERSION 1 (1).png"
+                src="/images/home page/centilio logo - black primary logo.png"
                 alt="Centilio"
                 width={140}
                 height={80}
-                className={`object-contain transition-all duration-500 ease-in-out ${
-                  !hasMounted
-                    ? 'w-32 h-16 sm:w-36 sm:h-18 md:w-40 md:h-20 lg:w-48 lg:h-28' // SSR fallback
-                    : isScrolled 
-                    ? 'w-28 h-14 sm:w-32 sm:h-16 md:w-36 md:h-18 lg:w-40 lg:h-24' 
-                    : 'w-32 h-16 sm:w-36 sm:h-18 md:w-40 md:h-20 lg:w-48 lg:h-28'
-                }`}
+                className="object-contain w-24 h-12 sm:w-28 sm:h-14 md:w-32 md:h-16 lg:w-36 lg:h-20"
               />
             </Link>
 
@@ -74,7 +39,7 @@ export default function Header() {
             <nav className="hidden lg:flex items-center space-x-8">
               {/* Products Dropdown */}
               <div className="relative group">
-                <button className="text-base font-normal text-white hover:text-blue-400 transition-colors flex items-center gap-1">
+                <button className="text-base font-normal text-black hover:text-blue-600 transition-colors flex items-center gap-1">
                   Products
                   <svg
                     className="w-4 h-4 transition-transform group-hover:rotate-180"
@@ -87,16 +52,16 @@ export default function Header() {
                 </button>
 
                 {/* Dropdown Menu */}
-                <div className="absolute left-0 top-full mt-2 w-64 bg-[#1A1D28] border border-[#2A2C30] rounded-lg shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50">
+                <div className="absolute left-0 top-full mt-2 w-64 bg-white border border-gray-200 rounded-lg shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50">
                   <div className="py-2">
                     {productItems.map((product) => (
                       <Link
                         key={product.name}
                         href={product.href}
-                        className="block px-4 py-3 hover:bg-[#2A2C30] transition-colors"
+                        className="block px-4 py-3 hover:bg-gray-50 transition-colors"
                       >
-                        <div className="font-medium text-white">{product.name}</div>
-                        <div className="text-sm text-gray-400">{product.description}</div>
+                        <div className="font-medium text-black">{product.name}</div>
+                        <div className="text-sm text-gray-600">{product.description}</div>
                       </Link>
                     ))}
                   </div>
@@ -108,7 +73,7 @@ export default function Header() {
                 <Link
                   key={item.name}
                   href={item.href}
-                  className="text-base font-normal text-white hover:text-blue-400 transition-colors"
+                  className="text-base font-normal text-black hover:text-blue-600 transition-colors"
                 >
                   {item.name}
                 </Link>
@@ -116,14 +81,12 @@ export default function Header() {
             </nav>
           </div>
 
-          {/* Right Side - Search and Auth Buttons */}
+          {/* Right Side - Auth Buttons */}
           <div className="hidden lg:flex items-center space-x-4">
-
-           
             {/* Sign In Button */}
             <Link
               href="https://account.centilio.com/#/login"
-              className="px-6 py-2 text-base font-normal text-white hover:text-blue-400 transition-colors"
+              className="px-6 py-2 text-base font-normal text-black hover:text-blue-600 transition-colors"
             >
               Sign In
             </Link>
@@ -139,13 +102,11 @@ export default function Header() {
             >
               Sign Up
             </Link>
-
-
           </div>
 
           {/* Mobile Menu Button */}
           <button
-            className="lg:hidden p-2 text-white"
+            className="lg:hidden p-2 text-black"
             onClick={() => setIsMenuOpen(!isMenuOpen)}
             aria-label="Toggle menu"
           >
@@ -176,16 +137,16 @@ export default function Header() {
 
         {/* Mobile Menu */}
         {isMenuOpen && (
-          <div className="lg:hidden py-4 border-t border-[#2A2C30]">
+          <div className="lg:hidden py-4 border-t border-[#E5E7EB]">
             <nav className="flex flex-col space-y-4">
               {/* Products Section */}
               <div className="space-y-2">
-                <div className="text-sm font-semibold text-gray-400 px-2">Products</div>
+                <div className="text-sm font-semibold text-gray-500 px-2">Products</div>
                 {productItems.map((product) => (
                   <Link
                     key={product.name}
                     href={product.href}
-                    className="block text-base font-medium text-white hover:text-blue-400 transition-colors px-2"
+                    className="block text-base font-medium text-black hover:text-blue-600 transition-colors px-2"
                     onClick={() => setIsMenuOpen(false)}
                   >
                     {product.name}
@@ -198,22 +159,22 @@ export default function Header() {
                 <Link
                   key={item.name}
                   href={item.href}
-                  className="text-base font-medium text-white hover:text-blue-400 transition-colors"
+                  className="text-base font-medium text-black hover:text-blue-600 transition-colors"
                   onClick={() => setIsMenuOpen(false)}
                 >
                   {item.name}
                 </Link>
               ))}
-              <div className="flex flex-col space-y-3 pt-4 border-t border-[#2A2C30]">
+              <div className="flex flex-col space-y-3 pt-4 border-t border-[#E5E7EB]">
                 <Link
                   href="https://account.centilio.com/#/login"
-                  className="text-base font-semibold text-white hover:text-blue-400 transition-colors"
+                  className="text-base font-semibold text-black hover:text-blue-600 transition-colors"
                 >
                   Sign In
                 </Link>
                 <Link
                   href="/signup"
-                  className="px-6 py-2 text-base font-semibold text-black bg-white rounded-full hover:bg-gray-100 transition-colors text-center"
+                  className="px-6 py-2 text-base font-semibold text-black bg-white rounded-full hover:bg-gray-100 transition-colors text-center border border-gray-300"
                 >
                   Sign Up
                 </Link>

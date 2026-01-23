@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
+import WhiteHeader from '../layout/WhiteHeader';
 import SignHeader from '../layout/SignHeader';
 import SignFooter from '../layout/SignFooter';
 
@@ -88,11 +89,12 @@ export default function PricingPageSign() {
 
   return (
     <div className="min-h-screen bg-[#0A0B0D]">
+      <WhiteHeader />
       {/* Header */}
       <SignHeader/>
 
       {/* Hero Section with Red Gradient */}
-      <section className="relative bg-[#181A1E] pt-[100px] sm:pt-[110px] md:pt-[120px] lg:pt-[140px] pb-8 sm:pb-12 lg:pb-16 overflow-hidden">
+      <section className="relative bg-[#181A1E] pt-12 pb-8 sm:pb-12 lg:pb-16 overflow-hidden">
         {/* Red gradient blur background - SVG */}
         <div className="absolute inset-0 flex items-start justify-center">
           <Image

@@ -4,16 +4,24 @@ import React, { useState, useEffect } from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
 import { motion } from 'framer-motion'
+import { useRouter, useSearchParams } from 'next/navigation'
 import Header from '../layout/Header'
 import Footer from '@/components/layout/Footer'
 import { BlogPost } from '@/types/blog'
 import { fetchBlogs, formatBlogDate, extractExcerpt, parseKeywords } from '@/lib/blogApi'
 
 export default function Blog() {
+  const router = useRouter()
+  const searchParams = useSearchParams()
+
   const [blogs, setBlogs] = useState<BlogPost[]>([])
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
-  const [currentPage, setCurrentPage] = useState(1)
+  const [currentPage, setCurrentPage] = useState(() => {
+    // Initialize from URL parameter or default to 1
+    const pageParam = searchParams.get('page')
+    return pageParam ? parseInt(pageParam, 10) : 1
+  })
   const [hasNextPage, setHasNextPage] = useState(false)
   const [totalRecords, setTotalRecords] = useState(0)
 
@@ -44,8 +52,20 @@ export default function Blog() {
 
   const handlePageChange = (newPage: number) => {
     setCurrentPage(newPage)
+    // Update URL without page reload
+    router.push(`/blog?page=${newPage}`, { scroll: false })
     window.scrollTo({ top: 0, behavior: 'smooth' })
   }
+
+  // Sync pagination state with URL changes (for browser back/forward)
+  useEffect(() => {
+    const pageParam = searchParams.get('page')
+    const pageNumber = pageParam ? parseInt(pageParam, 10) : 1
+
+    if (pageNumber !== currentPage) {
+      setCurrentPage(pageNumber)
+    }
+  }, [searchParams])
 
   const fadeInUp = {
     hidden: { opacity: 0, y: 60 },

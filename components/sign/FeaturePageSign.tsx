@@ -8,6 +8,7 @@ import BackgroundGradient from '@/components/ui/background-gradient'
 import { AnimatedGridPattern } from '@/components/ui/animated-grid-pattern'
 import { motion } from 'framer-motion'
 import { cn } from '@/lib/utils'
+import WhiteHeader from '@/components/layout/WhiteHeader'
 import SignHeader from '@/components/layout/SignHeader'
 import SignFooter from '@/components/layout/SignFooter'
 
@@ -55,6 +56,7 @@ export default function FeaturePageSign() {
 
   return (
     <div className="min-h-screen bg-white">
+      <WhiteHeader />
       <SignHeader />
 
       {/* First Fold - Powerful Features */}
@@ -63,7 +65,7 @@ export default function FeaturePageSign() {
           intensity="strong" 
           className="absolute inset-0 bg-[#181A1E]"
         />
-        <div className="relative z-10 pt-[100px] sm:pt-[110px] md:pt-[120px] lg:pt-[140px] pb-24">
+        <div className="relative z-10 pt-12 pb-24">
           <div className="container mx-auto px-6">
           {/* Section Title */}
           <h1 className="text-2xl sm:text-3xl md:text-5xl lg:text-6xl font-bold text-center mb-20">

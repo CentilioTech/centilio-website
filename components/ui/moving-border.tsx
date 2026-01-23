@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useRef, useState, useEffect } from "react";
+import React, { useRef, useState, useEffect, useCallback } from "react";
 import {
   motion,
   useAnimationFrame,
@@ -97,6 +97,21 @@ export const MovingBorder = ({
   const progress = useMotionValue(0);
   const [isReady, setIsReady] = useState(false);
 
+  // Helper to validate SVG element is rendered and has dimensions
+  const isElementReady = useCallback(() => {
+    if (!pathRef.current) return false;
+
+    try {
+      const length = pathRef.current.getTotalLength();
+      const bbox = pathRef.current.getBBox();
+
+      // Validate: length > 0 AND element has actual dimensions
+      return length > 0 && bbox.width > 0 && bbox.height > 0;
+    } catch {
+      return false;
+    }
+  }, []);
+
   useEffect(() => {
     const check = () => {
       if (!pathRef.current) return;
@@ -112,18 +127,37 @@ export const MovingBorder = ({
   }, []);
 
   useAnimationFrame((time) => {
-    if (!pathRef.current || !isReady) return;
-    const length = pathRef.current.getTotalLength();
-    progress.set((time * (length / duration)) % length);
+    // Continuous validation - check every frame
+    if (!isElementReady()) return;
+
+    try {
+      const length = pathRef.current!.getTotalLength();
+      if (length > 0) {
+        progress.set((time * (length / duration)) % length);
+      }
+    } catch (error) {
+      // Silently fail - element not ready yet
+      return;
+    }
   });
 
-  const x = useTransform(progress, (v) =>
-    pathRef.current?.getPointAtLength(v).x ?? 0
-  );
+  const x = useTransform(progress, (v) => {
+    try {
+      if (!pathRef.current || !isElementReady()) return 0;
+      return pathRef.current.getPointAtLength(v).x;
+    } catch {
+      return 0;
+    }
+  });
 
-  const y = useTransform(progress, (v) =>
-    pathRef.current?.getPointAtLength(v).y ?? 0
-  );
+  const y = useTransform(progress, (v) => {
+    try {
+      if (!pathRef.current || !isElementReady()) return 0;
+      return pathRef.current.getPointAtLength(v).y;
+    } catch {
+      return 0;
+    }
+  });
 
   const transform = useMotionTemplate`
     translateX(${x}px)

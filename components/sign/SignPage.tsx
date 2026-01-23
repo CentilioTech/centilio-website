@@ -8,6 +8,7 @@ import { Sparkles } from '@/components/ui/sparkles'
 import BackgroundGradient from '@/components/ui/background-gradient'
 import { VerticalMarquee } from '@/components/ui/cta-with-text-marquee'
 import { ShootingStars } from '@/components/ui/shooting-stars'
+import WhiteHeader from '@/components/layout/WhiteHeader'
 import SignHeader from '@/components/layout/SignHeader'
 import SignFooter from '@/components/layout/SignFooter'
 
@@ -107,13 +108,12 @@ export default function SignPage() {
 
   return (
     <div className="min-h-screen bg-white">
+      <WhiteHeader />
       <SignHeader />
 
       {/* Hero Section */}
-      <div className="pt-[80px] sm:pt-[90px] md:pt-[100px] lg:pt-[120px]">
-        <div className="-mt-20">
-          <AuroraHero />
-        </div>
+      <div>
+        <AuroraHero />
       </div>
 
       {/* Stats Section */}

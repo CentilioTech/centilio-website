@@ -28,8 +28,8 @@ export default function SeobotHeader() {
   }, [])
 
   return (
-    <header className="fixed top-0 left-0 right-0 z-50 bg-[#181A1E] border-b border-[#2A3142] transition-all duration-300">
-      <nav className={`w-full mx-auto px-4 sm:px-6 md:px-20 flex items-center justify-between transition-all duration-300 ${
+    <header className="sticky top-0 left-0 right-0 z-40 bg-[#181A1E] border-b border-[#2A3142] transition-all duration-300">
+      <nav className={`container mx-auto px-4 sm:px-6 md:px-20 flex items-center justify-between transition-all duration-300 ${
         !hasMounted 
           ? 'py-3 sm:py-4 md:py-10' // SSR fallback - original padding
           : isScrolled 

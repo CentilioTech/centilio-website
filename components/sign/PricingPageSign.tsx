@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
+import WhiteHeader from '@/components/layout/WhiteHeader';
 
 export default function PricingPageSign() {
   const [billingCycle, setBillingCycle] = useState<'monthly' | 'yearly'>('monthly');
@@ -83,6 +84,7 @@ export default function PricingPageSign() {
 
   return (
     <div className="min-h-screen bg-[#0A0B0D]">
+      <WhiteHeader />
       {/* Header */}
       <header className="bg-[#181A1E] border-b border-[#5B5858]">
         <div className="max-w-7xl mx-auto px-6 py-4">

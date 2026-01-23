@@ -5,6 +5,7 @@ import Image from 'next/image'
 import Link from 'next/link'
 import RadialOrbitalTimeline from '@/components/ui/radial-orbital-timeline'
 import AuroraBackground from '@/components/ui/aurora-background_seo_feature'
+import WhiteHeader from '@/components/layout/WhiteHeader'
 import SeobotHeader from '../layout/SeobotHeader'
 import SeobotFooter from '../layout/SeobotFooter'
 
@@ -80,6 +81,7 @@ export default function SeoBotFeaturePage() {
 
   return (
     <div className="min-h-screen bg-white">
+      <WhiteHeader />
       {/* Header */}
       <SeobotHeader/>
 
@@ -100,7 +102,7 @@ export default function SeoBotFeaturePage() {
 
         <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 sm:pt-20">
           {/* Section Title */}
-          <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-center text-white mb-8 sm:mb-12 md:mb-16 lg:mb-20 pt-8 sm:pt-12 md:pt-16 lg:pt-[60px] pb-6 sm:pb-8 md:pb-12 lg:pb-[60px]" >
+          <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-center text-white mb-8 sm:mb-12 md:mb-16 lg:mb-20 pt-8 pb-6 sm:pb-8 md:pb-12 lg:pb-[60px]" >
             Powerful Features Built for Content Automation
           </h1>
 

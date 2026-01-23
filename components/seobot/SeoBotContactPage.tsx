@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect, useRef } from 'react'
 import Image from 'next/image'
+import WhiteHeader from '@/components/layout/WhiteHeader'
 import SeobotHeader from '@/components/layout/SeobotHeader'
 import SeobotFooter from '@/components/layout/SeobotFooter'
 
@@ -63,10 +64,11 @@ export default function SeoBotContactPage() {
 
   return (
     <div className="min-h-screen bg-[#0E0F18]">
+      <WhiteHeader />
       <SeobotHeader />
 
       {/* Main Content */}
-      <section className="pt-20 md:pt-32 pb-20 relative overflow-hidden">
+      <section className="pt-8 pb-20 relative overflow-hidden">
         {/* Background blur effects */}
         <div
           className="absolute top-0 left-0 w-[600px] h-[600px] opacity-30 blur-[120px]"

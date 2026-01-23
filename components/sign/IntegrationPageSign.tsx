@@ -3,6 +3,7 @@
 import Image from 'next/image'
 import { useState, useRef } from 'react'
 import AnimatedIntegrationsSection from '@/components/ui/animated-integrations'
+import WhiteHeader from '@/components/layout/WhiteHeader'
 import SignHeader from '@/components/layout/SignHeader'
 import SignFooter from '@/components/layout/SignFooter'
 
@@ -97,10 +98,11 @@ export default function IntegrationPageSign() {
 
   return (
     <div className="min-h-screen bg-black text-white overflow-x-hidden">
+      <WhiteHeader />
       <SignHeader />
 
       {/* Hero Section */}
-      <section className="pt-[90px] sm:pt-[100px] md:pt-[110px] lg:pt-[120px] pb-10 sm:pb-[70px] lg:pb-[80px] px-2 sm:px-4 md:px-8 lg:px-[120px]">
+      <section className="pt-12 pb-10 sm:pb-[70px] lg:pb-[80px] px-2 sm:px-4 md:px-8 lg:px-[120px]">
         <div className="w-full max-w-[1440px] mx-auto text-center">
           <h1 className="text-xl sm:text-2xl md:text-3xl lg:text-[56px] font-semibold leading-[1.2] mb-[30px] sm:mb-[40px] lg:mb-[80px] px-2 sm:px-4 lg:px-0">
             <span className="bg-gradient-to-r from-[#4285F4] via-[#00CEA1] to-[#00CEA1] bg-clip-text text-transparent">

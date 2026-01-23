@@ -2,6 +2,7 @@
 
 import Image from 'next/image'
 import { useState } from 'react'
+import WhiteHeader from '@/components/layout/WhiteHeader'
 
 export default function ContactPageSign() {
   const [formData, setFormData] = useState({
@@ -27,6 +28,7 @@ export default function ContactPageSign() {
 
   return (
     <div className="min-h-screen bg-[#0E0F18]">
+      <WhiteHeader />
       {/* Header */}
       <header className="h-[118px] bg-black flex items-center justify-between px-16 relative z-50">
         <div className="flex items-center gap-3">

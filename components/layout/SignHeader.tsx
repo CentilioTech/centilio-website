@@ -33,13 +33,13 @@ export default function SignHeader() {
   }, [pathname])
 
   return (
-    <header className="fixed top-0 left-0 right-0 z-50 bg-[#0E0F13]/95 backdrop-blur-sm border-b border-white/5">
-      <div className={`w-full mx-auto px-2 sm:px-4 md:px-8 lg:px-[120px] flex items-center justify-between transition-all duration-300 ${
+    <header className="sticky top-0 left-0 right-0 z-40 bg-[#0E0F13]/95 backdrop-blur-sm border-b border-white/5">
+      <div className={`container mx-auto px-2 sm:px-4 md:px-8 lg:px-[120px] flex items-center justify-between transition-all duration-300 ${
         !hasMounted 
-          ? 'py-3 sm:py-4 md:py-5 lg:py-6' // SSR fallback - original padding
+          ? 'py-3 sm:py-4 md:py-10' // SSR fallback - original padding
           : isScrolled 
-          ? 'py-2 sm:py-3 md:py-3 lg:py-4' // Reduced padding when scrolled
-          : 'py-3 sm:py-4 md:py-5 lg:py-6' // Original padding
+          ? 'py-2 sm:py-3 md:py-4' // Reduced padding when scrolled
+          : 'py-3 sm:py-4 md:py-10' // Original padding
       }`}>
         <a href="/sign" className="flex items-center gap-1.5 sm:gap-2 md:gap-2.5 lg:gap-3 hover:opacity-80 transition-opacity">
           <Image
