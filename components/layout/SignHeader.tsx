@@ -77,6 +77,17 @@ export default function SignHeader() {
             Integrations
           </a>
           <a
+            href="/sign/guide"
+            onClick={() => setActiveLink('/sign/guide')}
+            className={`text-sm xl:text-base font-medium transition-colors whitespace-nowrap ${
+              activeLink === '/sign/guide'
+                ? 'text-blue-400'
+                : 'text-white hover:text-blue-400'
+            }`}
+          >
+            Guide
+          </a>
+          <a
             href="/sign/pricing"
             onClick={() => setActiveLink('/sign/pricing')}
             className={`text-sm xl:text-base font-medium transition-colors whitespace-nowrap ${
@@ -138,11 +149,11 @@ export default function SignHeader() {
             >
               Features
             </a>
-            <a 
-              href="/sign/integrations" 
+            <a
+              href="/sign/integrations"
               className={`block py-2 px-3 text-sm sm:text-base font-medium text-white hover:text-blue-400 hover:bg-white/5 rounded-md transition-all duration-200 transform ${
-                isMobileMenuOpen 
-                  ? 'translate-x-0 opacity-100' 
+                isMobileMenuOpen
+                  ? 'translate-x-0 opacity-100'
                   : 'translate-x-4 opacity-0'
               }`}
               style={{transitionDelay: isMobileMenuOpen ? '150ms' : '0ms'}}
@@ -150,26 +161,38 @@ export default function SignHeader() {
             >
               Integrations
             </a>
-            <a 
-              href="/sign/pricing" 
+            <a
+              href="/sign/guide"
               className={`block py-2 px-3 text-sm sm:text-base font-medium text-white hover:text-blue-400 hover:bg-white/5 rounded-md transition-all duration-200 transform ${
-                isMobileMenuOpen 
-                  ? 'translate-x-0 opacity-100' 
+                isMobileMenuOpen
+                  ? 'translate-x-0 opacity-100'
                   : 'translate-x-4 opacity-0'
               }`}
               style={{transitionDelay: isMobileMenuOpen ? '200ms' : '0ms'}}
               onClick={() => setIsMobileMenuOpen(false)}
             >
-              Pricing
+              Guide
             </a>
-            <a 
-              href="/sign/contact" 
+            <a
+              href="/sign/pricing"
               className={`block py-2 px-3 text-sm sm:text-base font-medium text-white hover:text-blue-400 hover:bg-white/5 rounded-md transition-all duration-200 transform ${
-                isMobileMenuOpen 
-                  ? 'translate-x-0 opacity-100' 
+                isMobileMenuOpen
+                  ? 'translate-x-0 opacity-100'
                   : 'translate-x-4 opacity-0'
               }`}
               style={{transitionDelay: isMobileMenuOpen ? '250ms' : '0ms'}}
+              onClick={() => setIsMobileMenuOpen(false)}
+            >
+              Pricing
+            </a>
+            <a
+              href="/sign/contact"
+              className={`block py-2 px-3 text-sm sm:text-base font-medium text-white hover:text-blue-400 hover:bg-white/5 rounded-md transition-all duration-200 transform ${
+                isMobileMenuOpen
+                  ? 'translate-x-0 opacity-100'
+                  : 'translate-x-4 opacity-0'
+              }`}
+              style={{transitionDelay: isMobileMenuOpen ? '300ms' : '0ms'}}
               onClick={() => setIsMobileMenuOpen(false)}
             >
               Contact Us
