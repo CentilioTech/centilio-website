@@ -5,15 +5,7 @@ import Image from 'next/image'
 import WhiteHeader from '@/components/layout/WhiteHeader'
 import SignHeader from '@/components/layout/SignHeader'
 import SignFooter from '@/components/layout/SignFooter'
-
-const guideCategories = [
-  { id: 'getting-started', title: 'Getting Started Guide', icon: '/images/guide svgs/getting_started_guide.svg', active: true, href: '/sign/guide' },
-  { id: 'user-guide', title: 'User Guide', icon: '/images/guide svgs/userguide.svg', active: true, href: '/sign/guide/user-guide' },
-  { id: 'admin-guide', title: 'Admin Guide', icon: '/images/guide svgs/admin_guide.svg', active: true, href: '/sign/guide/admin-guide' },
-  { id: 'integration-guide', title: 'Integration Guide', icon: '/images/guide svgs/integration_guide.svg', active: true, href: '/sign/guide/integration-guide' },
-  { id: 'templates-guide', title: 'Templates Guide', icon: '/images/guide svgs/templateguide.svg', active: true, href: '/sign/guide/templates-guide' },
-  { id: 'security-compliance', title: 'Security & Compliance', icon: '/images/guide svgs/security&complianceguide.svg', active: true, href: '/sign/guide/security-compliance' },
-]
+import GuideSidebar from '../../GuideSidebar'
 
 const allArticles = [
   { id: 1, title: 'How do I upload a document for signing?', href: '/sign/guide/user-guide/article-ug-1' },
@@ -35,38 +27,8 @@ export default function ArticleUG5() {
       <div className="bg-[#181A1E] min-h-screen">
         <div className="max-w-[1600px] mx-auto px-4 sm:px-6 lg:px-8 py-8">
           <div className="flex flex-col lg:flex-row gap-8">
-            {/* Left Sidebar */}
-            <aside className="w-full lg:w-[280px] lg:sticky lg:top-24 h-fit">
-              <div className="bg-white/[0.03] border border-white/10 rounded-2xl p-6">
-                <h2 className="text-xl font-bold mb-6 bg-gradient-to-r from-[#4285F4] to-[#34A853] bg-clip-text text-transparent">
-                  Customer Guide
-                </h2>
-                <ul className="space-y-2">
-                  {guideCategories.map((category) => (
-                    <li key={category.id}>
-                      {category.href ? (
-                        <Link
-                          href={category.href}
-                          className={`flex items-center p-3 rounded-xl transition-all duration-300 ${
-                            category.active
-                              ? 'bg-[#3B82F6]/15 border border-[#3B82F6]/40 text-white'
-                              : 'bg-white/[0.03] border border-transparent text-white/80 hover:bg-white/[0.05] hover:text-white'
-                          }`}
-                        >
-                          <Image src={category.icon} alt={category.title} width={20} height={20} className="mr-3" />
-                          <span className="text-sm font-medium">{category.title}</span>
-                        </Link>
-                      ) : (
-                        <div className="flex items-center p-3 rounded-xl bg-white/[0.03] border border-transparent opacity-50 cursor-not-allowed">
-                          <Image src={category.icon} alt={category.title} width={20} height={20} className="mr-3" />
-                          <span className="text-sm font-medium text-white/60">{category.title}</span>
-                        </div>
-                      )}
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            </aside>
+            {/* Sidebar */}
+            <GuideSidebar variant="article" />
 
             {/* Main Content */}
             <main className="flex-1">
@@ -81,13 +43,13 @@ export default function ArticleUG5() {
                     User Guide
                   </Link>
                   <span>›</span>
-                  <span>How do I track the status of documents I've sent?</span>
+                  <span>How do I track the status of documents I&apos;ve sent?</span>
                 </div>
 
                 {/* Article Header */}
                 <div className="mb-8">
                   <h1 className="text-3xl lg:text-4xl font-extrabold mb-4 text-white">
-                    How do I track the status of documents I've sent?
+                    How do I track the status of documents I&apos;ve sent?
                   </h1>
                   <div className="flex items-center gap-4 text-sm text-white/60">
                     <span>👤 User Guide</span>
@@ -126,7 +88,10 @@ export default function ArticleUG5() {
 
                   <div className="bg-[#4285F4]/10 border border-[#4285F4]/30 rounded-xl p-6 mb-8">
                     <p className="text-white/90 text-base leading-relaxed">
-                      <strong className="text-white">📊 Real-Time Updates:</strong> The status updates automatically as recipients take action, so you always have the latest information.
+                      <strong className="text-white">
+                        <Image src="/images/guide svgs/quick_tip.svg" alt="Tip" width={24} height={24} className="inline-block mr-2" />
+                        Real-Time Updates:
+                      </strong> The status updates automatically as recipients take action, so you always have the latest information.
                     </p>
                   </div>
                 </div>
@@ -152,11 +117,10 @@ export default function ArticleUG5() {
                     <li key={article.id}>
                       <Link
                         href={article.href}
-                        className={`flex items-center gap-3 p-3 rounded-xl transition-all duration-300 ${
-                          article.id === currentArticleId
-                            ? 'bg-[#3B82F6]/15 border border-[#3B82F6]/40 text-white'
-                            : 'bg-white/[0.03] border border-transparent text-white/80 hover:bg-white/[0.05] hover:text-white'
-                        }`}
+                        className={`flex items-center gap-3 p-3 rounded-xl transition-all duration-300 ${article.id === currentArticleId
+                          ? 'bg-[#3B82F6]/15 border border-[#3B82F6]/40 text-white'
+                          : 'bg-white/[0.03] border border-transparent text-white/80 hover:bg-white/[0.05] hover:text-white'
+                          }`}
                       >
                         <div className="flex-shrink-0 w-5 h-5 rounded-full bg-gradient-to-br from-[#4285F4] to-[#34A853] flex items-center justify-center text-white text-xs font-bold">
                           {article.id}

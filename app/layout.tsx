@@ -1,7 +1,7 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Geist, Geist_Mono, Inter } from "next/font/google";
 import "./globals.css";
-import Script from 'next/script' 
+import Script from 'next/script'
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -22,25 +22,25 @@ const inter = Inter({
 export const metadata: Metadata = {
   title: "Centilio - Your Trusted Growth Engine",
   description: "Centilio is your growth partner. From strategy to execution, we deliver end-to-end solutions that scale your revenue and simplify your operations.",
-     keywords: ["growth engine", "business automation", "revenue scaling"],                                                                                      
-   authors: [{ name: "Centilio" }],                                                                                                                            
-   creator: "Centilio",                                                                                                                                        
-   publisher: "Centilio",                                                                                                                                      
-   robots: "index, follow",                                                                                                                                    
-   openGraph: {                                                                                                                                                
-     title: "Centilio - Your Trusted Growth Engine",                                                                                                           
-     description: "Growth partner for scaling revenue",                                                                                                        
-     url: "https://centilio.com",                                                                                                                              
-     siteName: "Centilio",                                                                                                                                     
-     images: [{ url: "/images/og-image.jpg" }],                                                                                                                
-     type: "website",                                                                                                                                          
-   },                                                                                                                                                          
-   twitter: {                                                                                                                                                  
-     card: "summary_large_image",                                                                                                                              
-     title: "Centilio - Your Trusted Growth Engine",                                                                                                           
-     description: "Growth partner for scaling revenue",                                                                                                        
-     images: ["/images/twitter-image.jpg"],                                                                                                                    
-   }, 
+  keywords: ["growth engine", "business automation", "revenue scaling"],
+  authors: [{ name: "Centilio" }],
+  creator: "Centilio",
+  publisher: "Centilio",
+  robots: "index, follow",
+  openGraph: {
+    title: "Centilio - Your Trusted Growth Engine",
+    description: "Growth partner for scaling revenue",
+    url: "https://centilio.com",
+    siteName: "Centilio",
+    images: [{ url: "/images/og-image.jpg" }],
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Centilio - Your Trusted Growth Engine",
+    description: "Growth partner for scaling revenue",
+    images: ["/images/twitter-image.jpg"],
+  },
   icons: {
     icon: [
       { url: '/images/favicon/centilio-favicon.png', sizes: '48x48', type: 'image/png' },
@@ -57,6 +57,9 @@ export const metadata: Metadata = {
     ]
   },
   manifest: '/images/favicon/site.webmanifest',
+};
+
+export const viewport: Viewport = {
   themeColor: '#0E0F18',
   colorScheme: 'dark',
 };
@@ -89,11 +92,11 @@ export default function RootLayout({
 
         {/* Google Tag Manager (noscript) */}
         <noscript>
-          <iframe 
+          <iframe
             src="https://www.googletagmanager.com/ns.html?id=GTM-KMJ8PPK"
-            height="0" 
-            width="0" 
-            style={{display: 'none', visibility: 'hidden'}}
+            height="0"
+            width="0"
+            style={{ display: 'none', visibility: 'hidden' }}
           />
         </noscript>
         {/* End Google Tag Manager (noscript) */}

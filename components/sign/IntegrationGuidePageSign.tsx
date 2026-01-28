@@ -5,15 +5,8 @@ import Link from 'next/link'
 import WhiteHeader from '@/components/layout/WhiteHeader'
 import SignHeader from '@/components/layout/SignHeader'
 import SignFooter from '@/components/layout/SignFooter'
+import GuideSidebar from './GuideSidebar'
 
-const guideCategories = [
-  { id: 'getting-started', title: 'Getting Started Guide', icon: '/images/guide svgs/getting_started_guide.svg', active: true, href: '/sign/guide' },
-  { id: 'user-guide', title: 'User Guide', icon: '/images/guide svgs/userguide.svg', active: true, href: '/sign/guide/user-guide' },
-  { id: 'admin-guide', title: 'Admin Guide', icon: '/images/guide svgs/admin_guide.svg', active: true, href: '/sign/guide/admin-guide' },
-  { id: 'integration-guide', title: 'Integration Guide', icon: '/images/guide svgs/integration_guide.svg', active: true, href: '/sign/guide/integration-guide' },
-  { id: 'templates-guide', title: 'Templates Guide', icon: '/images/guide svgs/templateguide.svg', active: true, href: '/sign/guide/templates-guide' },
-  { id: 'security-compliance', title: 'Security & Compliance', icon: '/images/guide svgs/security&complianceguide.svg', active: true, href: '/sign/guide/security-compliance' },
-]
 
 const integrationGuideArticles = [
   {
@@ -39,43 +32,7 @@ export default function IntegrationGuidePageSign() {
         <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8 py-8">
           <div className="flex flex-col lg:flex-row gap-8">
             {/* Sidebar */}
-            <aside className="w-full lg:w-[320px] lg:sticky lg:top-24 h-fit">
-              <div className="bg-white/[0.03] border border-white/10 rounded-2xl p-6 lg:p-8">
-                <h2 className="text-2xl font-bold mb-8 bg-gradient-to-r from-[#4285F4] to-[#34A853] bg-clip-text text-transparent">
-                  Customer Guide
-                </h2>
-                <ul className="space-y-2">
-                  {guideCategories.map((category) => (
-                    <li key={category.id}>
-                      {category.href ? (
-                        <Link
-                          href={category.href}
-                          className={`flex items-center p-4 rounded-xl transition-all duration-300 ${
-                            category.id === 'integration-guide'
-                              ? 'bg-[#3B82F6]/15 border border-[#3B82F6]/40'
-                              : 'bg-white/[0.03] border border-transparent hover:bg-white/[0.05]'
-                          }`}
-                        >
-                          <Image src={category.icon} alt={category.title} width={24} height={24} className="mr-4" />
-                          <span className="text-base font-medium text-white">
-                            {category.title}
-                          </span>
-                        </Link>
-                      ) : (
-                        <div
-                          className="flex items-center p-4 rounded-xl transition-all duration-300 bg-white/[0.03] border border-transparent opacity-50 cursor-not-allowed"
-                        >
-                          <Image src={category.icon} alt={category.title} width={24} height={24} className="mr-4" />
-                          <span className="text-base font-medium text-white/60">
-                            {category.title}
-                          </span>
-                        </div>
-                      )}
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            </aside>
+            <GuideSidebar variant="main" />
 
             {/* Main Content */}
             <main className="flex-1">
@@ -127,9 +84,8 @@ export default function IntegrationGuidePageSign() {
                         </div>
                       </div>
 
-                      {/* Arrow Icon */}
-                      <div className="ml-4 text-2xl text-[#4285F4] flex-shrink-0">
-                        →
+                      <div className="ml-4 flex-shrink-0">
+                        <Image src="/images/guide svgs/arrow.svg" alt="Go" width={20} height={20} />
                       </div>
                     </Link>
                   ))}
