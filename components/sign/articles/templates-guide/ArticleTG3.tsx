@@ -55,7 +55,10 @@ export default function ArticleTG3() {
                     How do I create my own custom template?
                   </h1>
                   <div className="flex items-center gap-4 text-sm text-white/60">
-                    <span>📄 Templates Guide</span>
+                    <span className="flex items-center gap-2">
+                      <Image src="/images/guide svgs/templateguide.svg" alt="Templates Guide" width={20} height={20} />
+                      Templates Guide
+                    </span>
                     <span>⏱️ 2 min read</span>
                   </div>
                 </div>
@@ -74,6 +77,24 @@ export default function ArticleTG3() {
                     <li><strong className="text-white">Add a description</strong> to help you remember what the template is for</li>
                     <li><strong className="text-white">Click &apos;Save&apos;</strong> - your template will now appear in the Templates tab</li>
                   </ol>
+
+                  <div className="my-8 p-6 bg-white/[0.05] border border-white/10 rounded-xl">
+                    <p className="mb-4 text-white/90 font-semibold text-base">
+                      Create Custom Template:
+                    </p>
+                    <div className="bg-white/[0.03] border border-[#EA4335]/30 rounded-lg overflow-hidden">
+                      <Image
+                        src="/images/guide_images/Templates_Guide/Template_Guide_3.png"
+                        alt="Centilio Log In Page"
+                        width={1200}
+                        height={700}
+                        className="w-full h-auto"
+                      />
+                    </div>
+                    <p className="mt-4 text-sm text-white/60 italic">
+                      Click the &apos;SAVE as TEMPLATE&apos; button in the top right corner to access your account.
+                    </p>
+                  </div>
 
                   <div className="bg-[#4285F4]/10 border border-[#4285F4]/30 rounded-xl p-6 mb-8">
                     <p className="text-white/90 text-lg italic mb-0">

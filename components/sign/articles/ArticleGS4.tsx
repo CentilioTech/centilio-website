@@ -56,7 +56,10 @@ export default function ArticleGS4() {
                     What are the key features of Centilio Sign?
                   </h1>
                   <div className="flex items-center gap-4 text-sm text-white/60">
-                    <span>🚀 Getting Started Guide</span>
+                    <span className="flex items-center gap-2">
+                      <Image src="/images/guide svgs/getting_started_guide.svg" alt="Getting Started" width={20} height={20} />
+                      Getting Started Guide
+                    </span>
                     <span>⏱️ 4 min read</span>
                   </div>
                 </div>

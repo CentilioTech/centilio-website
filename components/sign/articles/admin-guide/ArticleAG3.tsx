@@ -55,7 +55,10 @@ export default function ArticleAG3() {
                     How do I monitor document activity across my organization?
                   </h1>
                   <div className="flex items-center gap-4 text-sm text-white/60">
-                    <span>⚙️ Admin Guide</span>
+                    <span className="flex items-center gap-2">
+                      <Image src="/images/guide svgs/admin_guide.svg" alt="Admin Guide" width={20} height={20} />
+                      Admin Guide
+                    </span>
                     <span>⏱️ 2 min read</span>
                   </div>
                 </div>

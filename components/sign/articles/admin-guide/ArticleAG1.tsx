@@ -55,7 +55,10 @@ export default function ArticleAG1() {
                     What are the different user roles in Centilio Sign?
                   </h1>
                   <div className="flex items-center gap-4 text-sm text-white/60">
-                    <span>⚙️ Admin Guide</span>
+                    <span className="flex items-center gap-2">
+                      <Image src="/images/guide svgs/admin_guide.svg" alt="Admin Guide" width={20} height={20} />
+                      Admin Guide
+                    </span>
                     <span>⏱️ 8 min read</span>
                   </div>
                 </div>
@@ -128,6 +131,20 @@ export default function ArticleAG1() {
                   <p className="text-white/80 text-lg leading-relaxed mb-6">
                     Centilio Sign permissions are organized into five key modules, each with four permission types:
                   </p>
+                  <div className="my-8 p-6 bg-white/[0.05] border border-white/10 rounded-xl">
+                    <p className="mb-4 text-white/90 font-semibold text-base">
+                      Permission Structure:
+                    </p>
+                    <div className="bg-white/[0.03] border border-[#EA4335]/30 rounded-lg overflow-hidden">
+                      <Image
+                        src="/images/guide_images/Admin_Guide/Admin_Guide_1(1).png"
+                        alt="Centilio Log In Page"
+                        width={1200}
+                        height={700}
+                        className="w-full h-auto"
+                      />
+                    </div>
+                  </div>
 
                   <h3 className="text-[#EA4335] text-2xl font-bold mt-8 mb-4">Modules</h3>
 
@@ -151,6 +168,20 @@ export default function ArticleAG1() {
                     <li><strong className="text-white">Edit:</strong> Modify existing items</li>
                     <li><strong className="text-white">Delete:</strong> Remove items from the system</li>
                   </ul>
+                  <div className="my-8 p-6 bg-white/[0.05] border border-white/10 rounded-xl">
+                    <p className="mb-4 text-white/90 font-semibold text-base">
+                      Permission Types:
+                    </p>
+                    <div className="bg-white/[0.03] border border-[#EA4335]/30 rounded-lg overflow-hidden">
+                      <Image
+                        src="/images/guide_images/Admin_Guide/Admin_Guide_1(2).png"
+                        alt="Centilio Log In Page"
+                        width={1200}
+                        height={700}
+                        className="w-full h-auto"
+                      />
+                    </div>
+                  </div>
 
                   <h2 className="text-white text-2xl font-bold mt-8 mb-4">Creating a New Role</h2>
 

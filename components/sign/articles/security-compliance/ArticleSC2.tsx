@@ -56,7 +56,10 @@ export default function ArticleSC2() {
                     What information is included in the audit trail?
                   </h1>
                   <div className="flex items-center gap-4 text-sm text-white/60">
-                    <span>🔒 Security & Compliance</span>
+                    <span className="flex items-center gap-2">
+                      <Image src="/images/guide svgs/security&complianceguide.svg" alt="Security & Compliance" width={20} height={20} />
+                      Security & Compliance
+                    </span>
                     <span>⏱️ 2 min read</span>
                   </div>
                 </div>

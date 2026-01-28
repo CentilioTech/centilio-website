@@ -56,7 +56,10 @@ export default function ArticleGS3() {
                     How do I navigate the Centilio Sign dashboard?
                   </h1>
                   <div className="flex items-center gap-4 text-sm text-white/60">
-                    <span>🚀 Getting Started Guide</span>
+                    <span className="flex items-center gap-2">
+                      <Image src="/images/guide svgs/getting_started_guide.svg" alt="Getting Started" width={20} height={20} />
+                      Getting Started Guide
+                    </span>
                     <span>⏱️ 3 min read</span>
                   </div>
                 </div>
@@ -72,6 +75,25 @@ export default function ArticleGS3() {
                     <li><strong className="text-white">Select &apos;Centilio Sign&apos;</strong> from the list of available applications</li>
                     <li><strong className="text-white">You&apos;ll land on the Centilio Sign home page</strong></li>
                   </ol>
+
+                  {/* Preview Box - My Apps */}
+                  <div className="my-8 p-6 bg-white/[0.05] border border-white/10 rounded-xl">
+                    <p className="mb-4 text-white/90 font-semibold text-base">
+                      Centilio Dashboard - My Apps:
+                    </p>
+                    <div className="bg-white/[0.03] border border-[#EA4335]/30 rounded-lg overflow-hidden">
+                      <Image
+                        src="/images/guide_images/Getting_Started_Guide/GS_Guide_3(1).png"
+                        alt="Centilio My Apps - Select Centilio Sign"
+                        width={1200}
+                        height={700}
+                        className="w-full h-auto"
+                      />
+                    </div>
+                    <p className="mt-4 text-sm text-white/60 italic">
+                      Select &apos;Centilio Sign&apos; from the My Apps section to access the e-signature application.
+                    </p>
+                  </div>
 
                   <p className="text-white text-xl font-semibold mb-4">
                     The Centilio Sign dashboard features:
@@ -97,6 +119,25 @@ export default function ArticleGS3() {
                       <strong className="text-white">Quick Action Buttons:</strong> Located at the top for common tasks like uploading documents or creating from templates
                     </li>
                   </ul>
+
+                  {/* Preview Box - Dashboard */}
+                  <div className="my-8 p-6 bg-white/[0.05] border border-white/10 rounded-xl">
+                    <p className="mb-4 text-white/90 font-semibold text-base">
+                      Centilio Sign Dashboard Overview:
+                    </p>
+                    <div className="bg-white/[0.03] border border-[#EA4335]/30 rounded-lg overflow-hidden">
+                      <Image
+                        src="/images/guide_images/Getting_Started_Guide/GS_Guide_3(2).png"
+                        alt="Centilio Sign Dashboard"
+                        width={1200}
+                        height={700}
+                        className="w-full h-auto"
+                      />
+                    </div>
+                    <p className="mt-4 text-sm text-white/60 italic">
+                      The Centilio Sign dashboard shows your document statistics, sidebar navigation, and quick access to all features.
+                    </p>
+                  </div>
 
                   <div className="bg-[#4285F4]/10 border border-[#4285F4]/30 rounded-xl p-6 mb-8">
                     <p className="text-white/90 text-base leading-relaxed">

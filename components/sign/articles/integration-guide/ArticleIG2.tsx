@@ -54,7 +54,10 @@ export default function ArticleIG2() {
                     How do I integrate Centilio Sign with my CRM?
                   </h1>
                   <div className="flex items-center gap-4 text-sm text-white/60">
-                    <span>🔗 Integration Guide</span>
+                    <span className="flex items-center gap-2">
+                      <Image src="/images/guide svgs/integration_guide.svg" alt="Integration Guide" width={20} height={20} />
+                      Integration Guide
+                    </span>
                     <span>⏱️ 2 min read</span>
                   </div>
                 </div>

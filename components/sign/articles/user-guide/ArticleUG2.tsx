@@ -52,7 +52,10 @@ export default function ArticleUG2() {
                     How do I add recipients to my document?
                   </h1>
                   <div className="flex items-center gap-4 text-sm text-white/60">
-                    <span>👤 User Guide</span>
+                    <span className="flex items-center gap-2">
+                      <Image src="/images/guide svgs/userguide.svg" alt="User Guide" width={20} height={20} />
+                      User Guide
+                    </span>
                     <span>⏱️ 2 min read</span>
                   </div>
                 </div>
@@ -76,6 +79,21 @@ export default function ArticleUG2() {
                     </li>
                     <li><strong className="text-white">Click &apos;Add&apos; to confirm</strong></li>
                   </ol>
+                </div>
+
+                <div className="my-8 p-6 bg-white/[0.05] border border-white/10 rounded-xl">
+                  <p className="mb-4 text-white/90 font-semibold text-base">
+                    Add Recipients to my document:
+                  </p>
+                  <div className="bg-white/[0.03] border border-[#EA4335]/30 rounded-lg overflow-hidden">
+                    <Image
+                      src="/images/guide_images/User_Guide/User_Guide_2.png"
+                      alt="Centilio Log In Page"
+                      width={1200}
+                      height={700}
+                      className="w-full h-auto"
+                    />
+                  </div>
                 </div>
 
                 {/* Back Button */}

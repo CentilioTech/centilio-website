@@ -54,7 +54,10 @@ export default function ArticleIG1() {
                     How do I connect Google Drive to Centilio Sign?
                   </h1>
                   <div className="flex items-center gap-4 text-sm text-white/60">
-                    <span>🔗 Integration Guide</span>
+                    <span className="flex items-center gap-2">
+                      <Image src="/images/guide svgs/integration_guide.svg" alt="Integration Guide" width={20} height={20} />
+                      Integration Guide
+                    </span>
                     <span>⏱️ 2 min read</span>
                   </div>
                 </div>
@@ -92,6 +95,23 @@ export default function ArticleIG1() {
                   <p className="text-white/80 text-lg leading-relaxed mb-6">
                     You can disconnect or reconfigure this integration at any time from the Integrations settings page.
                   </p>
+                  <div className="my-8 p-6 bg-white/[0.05] border border-white/10 rounded-xl">
+                    <p className="mb-4 text-white/90 font-semibold text-base">
+                      Connect Google Drive:
+                    </p>
+                    <div className="bg-white/[0.03] border border-[#EA4335]/30 rounded-lg overflow-hidden">
+                      <Image
+                        src="/images/guide_images/Integration_Guide/Integ_guide_1.png"
+                        alt="Centilio Log In Page"
+                        width={1200}
+                        height={700}
+                        className="w-full h-auto"
+                      />
+                    </div>
+                    <p className="mt-4 text-sm text-white/60 italic">
+                      Click the &apos;CONNECT&apos; button in the top right corner of card to Connect your account.
+                    </p>
+                  </div>
                 </div>
 
                 {/* Back Button */}

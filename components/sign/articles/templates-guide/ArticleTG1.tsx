@@ -55,7 +55,10 @@ export default function ArticleTG1() {
                     What pre-built templates are available in Centilio Sign?
                   </h1>
                   <div className="flex items-center gap-4 text-sm text-white/60">
-                    <span>📄 Templates Guide</span>
+                    <span className="flex items-center gap-2">
+                      <Image src="/images/guide svgs/templateguide.svg" alt="Templates Guide" width={20} height={20} />
+                      Templates Guide
+                    </span>
                     <span>⏱️ 2 min read</span>
                   </div>
                 </div>
@@ -79,6 +82,20 @@ export default function ArticleTG1() {
                   <p className="text-white/80 text-lg leading-relaxed mb-6">
                     Each template comes with pre-defined signature fields and standard legal language that can be customized to fit your needs.
                   </p>
+                  <div className="my-8 p-6 bg-white/[0.05] border border-white/10 rounded-xl">
+                    <p className="mb-4 text-white/90 font-semibold text-base">
+                      Templates:
+                    </p>
+                    <div className="bg-white/[0.03] border border-[#EA4335]/30 rounded-lg overflow-hidden">
+                      <Image
+                        src="/images/guide_images/Templates_Guide/Templates_Guide_1.png"
+                        alt="Centilio Log In Page"
+                        width={1200}
+                        height={700}
+                        className="w-full h-auto"
+                      />
+                    </div>
+                  </div>
 
                   <div className="bg-[#4285F4]/10 border border-[#4285F4]/30 rounded-xl p-6 mb-8">
                     <p className="text-white/90 text-lg italic mb-0">

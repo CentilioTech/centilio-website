@@ -55,7 +55,10 @@ export default function ArticleTG2() {
                     How do I use a pre-built template?
                   </h1>
                   <div className="flex items-center gap-4 text-sm text-white/60">
-                    <span>📄 Templates Guide</span>
+                    <span className="flex items-center gap-2">
+                      <Image src="/images/guide svgs/templateguide.svg" alt="Templates Guide" width={20} height={20} />
+                      Templates Guide
+                    </span>
                     <span>⏱️ 2 min read</span>
                   </div>
                 </div>

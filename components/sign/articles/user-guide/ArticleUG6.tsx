@@ -52,7 +52,10 @@ export default function ArticleUG6() {
                     How do I sign a document that was sent to me?
                   </h1>
                   <div className="flex items-center gap-4 text-sm text-white/60">
-                    <span>👤 User Guide</span>
+                    <span className="flex items-center gap-2">
+                      <Image src="/images/guide svgs/userguide.svg" alt="User Guide" width={20} height={20} />
+                      User Guide
+                    </span>
                     <span>⏱️ 2 min read</span>
                   </div>
                 </div>
@@ -79,6 +82,60 @@ export default function ArticleUG6() {
                     <li><strong className="text-white">Complete any other required fields</strong> (name, date, text inputs, checkboxes)</li>
                     <li><strong className="text-white">Click &apos;Submit&apos;</strong> to finalize your signature</li>
                   </ol>
+
+                  <div className="my-8 p-6 bg-white/[0.05] border border-white/10 rounded-xl">
+                    <p className="mb-4 text-white/90 font-semibold text-base">
+                      E-Sign Request:
+                    </p>
+                    <div className="bg-white/[0.03] border border-[#EA4335]/30 rounded-lg overflow-hidden">
+                      <Image
+                        src="/images/guide_images/User_Guide/User_Guide_6(1).png"
+                        alt="Centilio Log In Page"
+                        width={1200}
+                        height={700}
+                        className="w-full h-auto"
+                      />
+                    </div>
+                    <p className="mt-4 text-sm text-white/60 italic">
+                      Click the &apos;Click to Sign&apos; button in the bottom.
+                    </p>
+                  </div>
+
+                  <div className="my-8 p-6 bg-white/[0.05] border border-white/10 rounded-xl">
+                    <p className="mb-4 text-white/90 font-semibold text-base">
+                      Review Document Info:
+                    </p>
+                    <div className="bg-white/[0.03] border border-[#EA4335]/30 rounded-lg overflow-hidden">
+                      <Image
+                        src="/images/guide_images/User_Guide/User_Guide_6(2).png"
+                        alt="Centilio Log In Page"
+                        width={1200}
+                        height={700}
+                        className="w-full h-auto"
+                      />
+                    </div>
+                    <p className="mt-4 text-sm text-white/60 italic">
+                      Click the &apos;ACCEPT&apos; button in the top bottom left corner.
+                    </p>
+                  </div>
+
+                  <div className="my-8 p-6 bg-white/[0.05] border border-white/10 rounded-xl">
+                    <p className="mb-4 text-white/90 font-semibold text-base">
+                      Choose Preferred Method:
+                    </p>
+                    <div className="bg-white/[0.03] border border-[#EA4335]/30 rounded-lg overflow-hidden">
+                      <Image
+                        src="/images/guide_images/User_Guide/User_Guide_6(3).png"
+                        alt="Centilio Log In Page"
+                        width={1200}
+                        height={700}
+                        className="w-full h-auto"
+                      />
+                    </div>
+                    <p className="mt-4 text-sm text-white/60 italic">
+                      Click the &apos;SUBMIT&apos; button in the bottom right corner to Sign the document.
+                    </p>
+                  </div>
 
                   <div className="bg-[#4285F4]/10 border border-[#4285F4]/30 rounded-xl p-6 mb-8">
                     <p className="text-white/90 text-base leading-relaxed">
