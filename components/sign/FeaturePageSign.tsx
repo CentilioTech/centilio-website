@@ -19,25 +19,25 @@ export default function FeaturePageSign() {
     {
       id: 0,
       title: "Easy Document Preparation",
-      description: "Import files from Google Drive, Dropbox, or your computer. Add fields with simple drag-and-drop.",
+      description: "Import files from Google Drive, Dropbox, or your computer. Add fields with simple drag and drop.",
       image: "/images/feature page - sign/first fold/product image 1.png"
     },
     {
       id: 1,
       title: "Flexible Signature Options",
-      description: "Sign using typed, drawn, or uploaded signatures—saved for one-click reuse.",
+      description: "Sign using typed, drawn, or uploaded signatures saved for one click reuse.",
       image: "/images/feature page - sign/first fold/product image 2.png"
     },
     {
       id: 2,
       title: "Multi-Party & Sequential Signing",
-      description: "Set signing order, assign roles, and track who needs to sign—perfect for contracts and approvals.",
+      description: "Set signing order, assign roles, and track who needs to sign perfect for contracts and approvals.",
       image: "/images/feature page - sign/first fold/product image 3.png"
     },
     {
       id: 3,
       title: "Real-Time Tracking & Smart Reminders",
-      description: "Know who's viewed, signed, or delayed. Automate follow-ups to keep workflows moving.",
+      description: "Know who's viewed, signed, or delayed. Automate follow ups to keep workflows moving.",
       image: "/images/feature page - sign/first fold/product image 4.png"
     },
     {

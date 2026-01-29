@@ -22,8 +22,15 @@ export default function GuideSidebar({ variant = 'main' }: GuideSidebarProps) {
 
     const isActive = (href: string) => {
         if (href === '/sign/guide') {
-            // For Getting Started, only active if it's the exact path or it's an article-gs-* page
-            return pathname === '/sign/guide' || pathname.includes('/sign/guide/article-gs-')
+            // For Getting Started, active if it's the exact path or it's an article-gs-* page
+            const isGettingStartedPath = pathname === '/sign/guide' || pathname.includes('/sign/guide/article-gs-')
+
+            // Also make it default active if no other category matches
+            const hasOtherMatch = guideCategories
+                .filter(cat => cat.href !== '/sign/guide')
+                .some(cat => pathname.startsWith(cat.href))
+
+            return isGettingStartedPath || (!hasOtherMatch && pathname.startsWith('/sign/guide'))
         }
         // For others, active if the pathname starts with the category href
         return pathname.startsWith(href)

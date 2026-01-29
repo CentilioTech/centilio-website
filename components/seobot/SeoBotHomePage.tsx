@@ -404,7 +404,7 @@ export default function SeoBotHomePage() {
       </section>
 
       {/* Third Fold - Stats Section */}
-      <section ref={statsRef} className="bg-[#181A1E] py-16">
+      {/* <section ref={statsRef} className="bg-[#181A1E] py-16">
         <div className="max-w-7xl mx-auto px-6">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-12 text-center">
             <div>
@@ -427,7 +427,7 @@ export default function SeoBotHomePage() {
             </div>
           </div>
         </div>
-      </section>
+      </section> */}
 
       {/* Fourth Fold - Why Teams Choose Section */}
       <section className="bg-white py-10 md:py-20">

@@ -112,6 +112,7 @@ export default function ContactPageSign() {
     mobile: '',
     description: ''
   })
+  const [showToast, setShowToast] = useState(false)
   const dropdownRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
@@ -258,6 +259,12 @@ export default function ContactPageSign() {
         message: 'Thank you for contacting us! We will get back to you soon.'
       })
 
+      // Show toast notification
+      setShowToast(true)
+      setTimeout(() => {
+        setShowToast(false)
+      }, 5000) // Hide after 5 seconds
+
       // Reset form on success
       setFormData({
         firstName: '',
@@ -341,7 +348,7 @@ export default function ContactPageSign() {
       <div className="w-full h-[1px] bg-white opacity-20" />
 
       {/* First Fold - Hero Section with Form */}
-      <section className="relative min-h-[500px] xs:min-h-[500px] sm:min-h-[600px] md:min-h-[900px] lg:min-h-[1200px] flex flex-col items-center pt-12 pb-4 xs:pb-4 sm:pb-6 md:pb-12 lg:pb-16 px-4">
+      <section className="relative min-h-[500px] xs:min-h-[500px] sm:min-h-[600px] md:min-h-[900px] lg:min-h-[1200px] flex flex-col items-center pt-12 pb-4 xs:pb-4 sm:pb-6 md:pb-12 lg:pb-16 px-4 overflow-hidden">
         {/* Red Blur Background Effect */}
         <div
           className="absolute top-0 left-0 w-full h-[270px]"
@@ -460,7 +467,7 @@ export default function ContactPageSign() {
                     <button
                       type="button"
                       onClick={() => setIsCountryDropdownOpen(!isCountryDropdownOpen)}
-                      className="w-16 xs:w-16 sm:w-20 md:w-24 h-10 xs:h-10 sm:h-11 md:h-12 bg-black border border-[#5A5858] rounded-[5px] flex items-center justify-center relative hover:border-[#6B5858] transition-colors"
+                      className="w-10 xs:w-16 sm:w-20 md:w-24 h-10 xs:h-10 sm:h-11 md:h-12 bg-black border border-[#5A5858] rounded-[5px] flex items-center justify-center relative hover:border-[#6B5858] transition-colors gap-1"
                     >
                       <span className="text-white text-sm font-medium">{selectedCountryFlag} {selectedCountryCode}</span>
                       <Image
@@ -468,7 +475,7 @@ export default function ContactPageSign() {
                         alt="Dropdown"
                         width={6}
                         height={6}
-                        className={`absolute bottom-1 right-1 transition-transform ${isCountryDropdownOpen ? 'rotate-180' : ''}`}
+                        className={`transition-transform ${isCountryDropdownOpen ? 'rotate-180' : ''}`}
                       />
                     </button>
                     
@@ -556,6 +563,29 @@ export default function ContactPageSign() {
       </section>
 
       <SignFooter />
+
+      {/* Toast Notification */}
+      {showToast && (
+        <div className="fixed top-4 right-4 z-50 animate-slide-in-right">
+          <div className="bg-[#34A853] text-white px-6 py-4 rounded-lg shadow-2xl flex items-center gap-3 min-w-[320px] border border-[#34A853]/30">
+            <svg className="w-6 h-6 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+              <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
+            </svg>
+            <div>
+              <p className="font-semibold text-sm">Success!</p>
+              <p className="text-sm">Thanks for reaching out! We&apos;ll respond as soon as possible.</p>
+            </div>
+            <button
+              onClick={() => setShowToast(false)}
+              className="ml-auto text-white/80 hover:text-white transition-colors"
+            >
+              <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+                <path fillRule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clipRule="evenodd" />
+              </svg>
+            </button>
+          </div>
+        </div>
+      )}
     </div>
   )
 }
