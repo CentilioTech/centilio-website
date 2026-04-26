@@ -19,23 +19,33 @@ export default function VaultFooter() {
             <span className="text-lg font-semibold text-white">Centilio Vault</span>
           </Link>
 
-          {/* Product cross-links */}
+          {/* Vault subpages */}
           <div className="text-center sm:text-left">
-            <h3 className="text-lg font-semibold mb-4 sm:mb-6 text-white">Product</h3>
+            <h3 className="text-lg font-semibold mb-4 sm:mb-6 text-white">Vault</h3>
             <ul className="space-y-3 sm:space-y-4">
               <li>
-                <Link href="/vault" className="text-base text-gray-400 hover:text-white transition-colors">
-                  Vault
+                <Link href="/vault/features" className="text-base text-gray-400 hover:text-white transition-colors">
+                  Features
                 </Link>
               </li>
               <li>
-                <Link href="/sign" className="text-base text-gray-400 hover:text-white transition-colors">
-                  Sign
+                <Link href="/vault/security" className="text-base text-gray-400 hover:text-white transition-colors">
+                  Security
                 </Link>
               </li>
               <li>
-                <Link href="/seo-bot" className="text-base text-gray-400 hover:text-white transition-colors">
-                  SEO Bot
+                <Link href="/vault/integrations" className="text-base text-gray-400 hover:text-white transition-colors">
+                  Integrations
+                </Link>
+              </li>
+              <li>
+                <Link href="/vault/pricing" className="text-base text-gray-400 hover:text-white transition-colors">
+                  Pricing
+                </Link>
+              </li>
+              <li>
+                <Link href="/contactpage" className="text-base text-gray-400 hover:text-white transition-colors">
+                  Contact
                 </Link>
               </li>
             </ul>

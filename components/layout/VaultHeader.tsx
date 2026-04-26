@@ -12,14 +12,14 @@ import { Lock } from 'lucide-react'
 // changes.
 
 const NAV = [
-  // /vault/features, /vault/pricing, /vault/security live in the codebase as
-  // skeleton routes-to-be — including them here so the nav is set up for when
-  // those pages ship. Until then they 404, same as the analogous pre-shipped
-  // Sign/SEO Bot subroutes did before their own pages landed.
-  { href: '/vault/features',  label: 'Features' },
-  { href: '/vault/security',  label: 'Security' },
-  { href: '/vault/pricing',   label: 'Pricing' },
-  { href: '/contactpage',     label: 'Contact' },
+  // All /vault/* subroutes ship as real pages. Order matches the typical
+  // marketing-site reading order: features (what), security (proof), how-it-
+  // plugs-in (integrations), what-it-costs (pricing), how-to-reach-us.
+  { href: '/vault/features',     label: 'Features' },
+  { href: '/vault/security',     label: 'Security' },
+  { href: '/vault/integrations', label: 'Integrations' },
+  { href: '/vault/pricing',      label: 'Pricing' },
+  { href: '/contactpage',        label: 'Contact' },
 ]
 
 const ACCENT = 'text-[#6366F1]'
