@@ -1,0 +1,27 @@
+# DigitalOcean App Platform Static Sites + Cloudflare Pages-compatible
+# headers config. Files in public/ are copied verbatim to out/ by Next.js
+# (output: 'export'), so this lands at the deployed root and is honored
+# by the CDN.
+#
+# Mirrors next.config.ts headers() — duplicated here only because
+# headers() is ignored when output: 'export' is set.
+#
+# Format: a `/path/pattern` line followed by indented `Header-Name: value`
+# lines. `/*` matches everything.
+
+/*
+  Strict-Transport-Security: max-age=31536000; includeSubDomains; preload
+  X-Content-Type-Options: nosniff
+  X-Frame-Options: SAMEORIGIN
+  Referrer-Policy: strict-origin-when-cross-origin
+  Permissions-Policy: geolocation=(), camera=(), microphone=(), payment=(), usb=(), interest-cohort=()
+
+# Static asset bundles can be cached forever — Next.js fingerprints filenames.
+/_next/static/*
+  Cache-Control: public, max-age=31536000, immutable
+
+/images/*
+  Cache-Control: public, max-age=31536000, immutable
+
+/fonts/*
+  Cache-Control: public, max-age=31536000, immutable
