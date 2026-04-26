@@ -9,6 +9,13 @@ const ROUTES: { path: string; changeFrequency: MetadataRoute.Sitemap[number]["ch
   { path: "/",          changeFrequency: "weekly",  priority: 1.0 },
   { path: "/about",     changeFrequency: "monthly", priority: 0.8 },
   { path: "/contactpage", changeFrequency: "monthly", priority: 0.8 },
+  // Phase 2 skeleton "Coming soon" pages (Apr 2026 audit). Lower priority
+  // than fully built pages until real content ships.
+  { path: "/products",     changeFrequency: "monthly", priority: 0.6 },
+  { path: "/pricing",      changeFrequency: "monthly", priority: 0.6 },
+  { path: "/demo",         changeFrequency: "monthly", priority: 0.6 },
+  { path: "/partners",     changeFrequency: "monthly", priority: 0.5 },
+  { path: "/case-studies", changeFrequency: "monthly", priority: 0.5 },
   { path: "/sign",      changeFrequency: "monthly", priority: 0.9 },
   { path: "/seo-bot",   changeFrequency: "monthly", priority: 0.9 },
   { path: "/blog",      changeFrequency: "weekly",  priority: 0.7 },
