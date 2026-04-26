@@ -1,0 +1,149 @@
+# Auto-build the Next.js static export and push the artifacts to the bridge
+# repo (centilio-website-build) that DigitalOcean App Platform deploys from.
+#
+# Why this exists: from Jan 29 2026 to Apr 26 2026 the live site was frozen
+# because the previous bridge repo went missing and there was no automation
+# to detect or recover from it. This workflow makes the full source → live
+# pipeline a single git push to `production`. See centilio-audit/
+# P3_DEPLOY_PIPELINE.md for the full incident write-up.
+#
+# REQUIREMENTS (one-time setup by repo admin):
+#   1. Create a GitHub fine-grained Personal Access Token with:
+#        Repository access: CentilioTech/centilio-website-build
+#        Permissions: Contents → Read and write
+#      Generate at https://github.com/settings/personal-access-tokens
+#   2. Add it as a repo secret on centilio-website named BRIDGE_REPO_TOKEN.
+#      https://github.com/CentilioTech/centilio-website/settings/secrets/actions
+#
+# Once those exist, every push to `production` runs this workflow automatically.
+
+name: Build and push to bridge repo
+
+on:
+  push:
+    branches: [production]
+  # Allow manual triggering from the Actions tab — useful for re-running
+  # builds without a code change (e.g., when a dependency updates).
+  workflow_dispatch:
+
+# Only one build at a time. If a new push lands while the previous build is
+# still running, the older one is cancelled — we want the latest commit live.
+concurrency:
+  group: build-and-push-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  build-and-push:
+    name: Build static export, push to centilio-website-build
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+
+    steps:
+      - name: Check out source repo
+        uses: actions/checkout@v4
+        with:
+          # We don't need full history for the build itself.
+          fetch-depth: 1
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          # Match the Node version used in local development. Bump together
+          # with the engines field in package.json (if/when one is added).
+          node-version: "20"
+          cache: "npm"
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build Next.js static export
+        run: npm run build
+        env:
+          # Belt and suspenders — the source already has output: 'export' in
+          # next.config.ts, but setting NODE_ENV=production explicitly avoids
+          # any per-machine surprises.
+          NODE_ENV: production
+
+      - name: Verify the build looks sane
+        run: |
+          set -e
+          test -f out/index.html       || (echo "out/index.html missing" && exit 1)
+          test -f out/robots.txt       || (echo "out/robots.txt missing" && exit 1)
+          test -f out/sitemap.xml      || (echo "out/sitemap.xml missing" && exit 1)
+          test -f out/_headers         || (echo "out/_headers missing" && exit 1)
+          test -f out/_redirects       || (echo "out/_redirects missing" && exit 1)
+          # Page count guard — under 30 means a build regression
+          PAGE_COUNT=$(find out -name "index.html" | wc -l)
+          if [ "$PAGE_COUNT" -lt 30 ]; then
+            echo "FAIL: only $PAGE_COUNT index.html files in build (expected 30+)"
+            exit 1
+          fi
+          echo "OK: $PAGE_COUNT pages built"
+          # Make sure no localhost URLs leaked into the og: tags
+          if grep -r "http://localhost" out/index.html; then
+            echo "FAIL: localhost URL leaked into homepage HTML"
+            exit 1
+          fi
+          echo "OK: no localhost URLs in homepage"
+
+      - name: Push out/ to centilio-website-build
+        env:
+          BRIDGE_REPO_TOKEN: ${{ secrets.BRIDGE_REPO_TOKEN }}
+          SOURCE_SHA: ${{ github.sha }}
+          SOURCE_MSG: ${{ github.event.head_commit.message }}
+        run: |
+          set -e
+          if [ -z "$BRIDGE_REPO_TOKEN" ]; then
+            echo "ERROR: BRIDGE_REPO_TOKEN secret is not set."
+            echo "See header comment in this workflow file for setup instructions."
+            exit 1
+          fi
+
+          cd out
+
+          # Re-add the README and config files that explain what this repo is
+          # (otherwise they get clobbered by the build output every time).
+          cat > README.md <<'EOF'
+          # centilio-website-build
+
+          Pre-built static export of [`centilio-website`](https://github.com/CentilioTech/centilio-website).
+          DigitalOcean App Platform deploys every push to `main` here.
+
+          **Do NOT edit files by hand.** The build pipeline overwrites this
+          repo on every push to `centilio-website/production`. Make changes
+          in the source repo instead.
+
+          See `centilio-audit/P3_DEPLOY_PIPELINE.md` for the full pipeline
+          documentation.
+          EOF
+
+          git init -q -b main
+          git config user.email "actions@github.com"
+          git config user.name  "centilio-website CI"
+          git add -A
+
+          # First-line of the source commit message becomes the build commit
+          # subject. Full SHA + message in the body.
+          SUBJECT=$(echo "$SOURCE_MSG" | head -n1)
+          git commit -q -m "build: $SUBJECT" -m "Source commit: $SOURCE_SHA" -m "$SOURCE_MSG" || {
+            echo "Nothing changed in build output — skipping push."
+            exit 0
+          }
+
+          REMOTE="https://x-access-token:${BRIDGE_REPO_TOKEN}@github.com/CentilioTech/centilio-website-build.git"
+          git remote add origin "$REMOTE"
+
+          # Force push — the bridge repo is regenerated entirely from the
+          # build output, no merge history.
+          git push -f origin main
+
+          echo "Pushed build for $SOURCE_SHA to centilio-website-build."
+
+      - name: Summary
+        run: |
+          echo "### Deploy build pushed" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "Source commit: \`${{ github.sha }}\`" >> $GITHUB_STEP_SUMMARY
+          echo "Bridge repo: https://github.com/CentilioTech/centilio-website-build" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "DO App Platform should pick this up in ~3 min and deploy to centilio.com." >> $GITHUB_STEP_SUMMARY

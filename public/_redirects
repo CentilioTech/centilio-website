@@ -1,0 +1,15 @@
+# DigitalOcean App Platform Static Sites + Cloudflare Pages-compatible
+# redirects config. See public/_headers for the same rationale.
+#
+# Format: from-pattern  to-target  status-code
+
+# /home is an accidental duplicate of / — both render the Home component.
+# 301 so search engines consolidate signal on /.
+/home   /   301
+/home/  /   301
+
+# /contact was rewritten in Phase 1 (Apr 2026 audit) but the live nav uses
+# /contactpage as the canonical contact URL. Removing /contact and
+# redirecting it preserves any old bookmarks / search results.
+/contact   /contactpage   301
+/contact/  /contactpage   301
