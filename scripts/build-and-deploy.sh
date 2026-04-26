@@ -7,7 +7,7 @@
 #   - You want to verify the build locally before letting CI ship it
 #
 # REQUIREMENTS:
-#   - You have push access to CentilioTech/centilio-website-build
+#   - You have push access to CentilioTech/centilio-website-build-deployment
 #   - Your GitHub auth is set up (gh auth status confirms)
 #   - You're on the centilio-website source repo, on whatever branch you
 #     want to ship
@@ -87,13 +87,13 @@ git commit -q -m "build: $(echo "$SOURCE_MSG" | head -n1)" \
                 -m "" \
                 -m "$SOURCE_MSG"
 
-echo "=== [5/5] Push to centilio-website-build (main) ==="
+echo "=== [5/5] Push to centilio-website-build-deployment (main) ==="
 git remote add origin "$BRIDGE_URL"
 git push -f origin main
 
 echo
 echo "============================================================"
 echo " Build pushed."
-echo " Bridge repo: https://github.com/CentilioTech/centilio-website-build"
+echo " Bridge repo: https://github.com/CentilioTech/centilio-website-build-deployment"
 echo " DO App Platform should auto-deploy within ~3 min."
 echo "============================================================"

@@ -1,5 +1,5 @@
 # Auto-build the Next.js static export and push the artifacts to the bridge
-# repo (centilio-website-build) that DigitalOcean App Platform deploys from.
+# repo (centilio-website-build-deployment) that DigitalOcean App Platform deploys from.
 #
 # Why this exists: from Jan 29 2026 to Apr 26 2026 the live site was frozen
 # because the previous bridge repo went missing and there was no automation
@@ -9,7 +9,7 @@
 #
 # REQUIREMENTS (one-time setup by repo admin):
 #   1. Create a GitHub fine-grained Personal Access Token with:
-#        Repository access: CentilioTech/centilio-website-build
+#        Repository access: CentilioTech/centilio-website-build-deployment
 #        Permissions: Contents → Read and write
 #      Generate at https://github.com/settings/personal-access-tokens
 #   2. Add it as a repo secret on centilio-website named BRIDGE_REPO_TOKEN.
@@ -34,7 +34,7 @@ concurrency:
 
 jobs:
   build-and-push:
-    name: Build static export, push to centilio-website-build
+    name: Build static export, push to centilio-website-build-deployment
     runs-on: ubuntu-latest
     timeout-minutes: 15
 
@@ -86,7 +86,7 @@ jobs:
           fi
           echo "OK: no localhost URLs in homepage"
 
-      - name: Push out/ to centilio-website-build
+      - name: Push out/ to centilio-website-build-deployment
         env:
           BRIDGE_REPO_TOKEN: ${{ secrets.BRIDGE_REPO_TOKEN }}
           SOURCE_SHA: ${{ github.sha }}
@@ -137,13 +137,13 @@ jobs:
           # build output, no merge history.
           git push -f origin main
 
-          echo "Pushed build for $SOURCE_SHA to centilio-website-build."
+          echo "Pushed build for $SOURCE_SHA to centilio-website-build-deployment."
 
       - name: Summary
         run: |
           echo "### Deploy build pushed" >> $GITHUB_STEP_SUMMARY
           echo "" >> $GITHUB_STEP_SUMMARY
           echo "Source commit: \`${{ github.sha }}\`" >> $GITHUB_STEP_SUMMARY
-          echo "Bridge repo: https://github.com/CentilioTech/centilio-website-build" >> $GITHUB_STEP_SUMMARY
+          echo "Bridge repo: https://github.com/CentilioTech/centilio-website-build-deployment" >> $GITHUB_STEP_SUMMARY
           echo "" >> $GITHUB_STEP_SUMMARY
           echo "DO App Platform should pick this up in ~3 min and deploy to centilio.com." >> $GITHUB_STEP_SUMMARY
