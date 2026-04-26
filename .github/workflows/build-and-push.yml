@@ -2,7 +2,7 @@
 # repo (centilio-website-build-deployment) that DigitalOcean App Platform deploys from.
 #
 # Why this exists: from Jan 29 2026 to Apr 26 2026 the live site was frozen
-# because the previous bridge repo went missing and there was no automation
+# because the bridge repo's GitHub auth went stale and there was no automation
 # to detect or recover from it. This workflow makes the full source → live
 # pipeline a single git push to `production`. See centilio-audit/
 # P3_DEPLOY_PIPELINE.md for the full incident write-up.
@@ -16,6 +16,12 @@
 #      https://github.com/CentilioTech/centilio-website/settings/secrets/actions
 #
 # Once those exist, every push to `production` runs this workflow automatically.
+#
+# History model: this workflow CLONES the bridge repo, replaces its contents
+# with the new build, and commits on top. Each build is one commit. Means
+# `git revert HEAD` rolls back to the previous build. (Earlier versions of
+# this workflow used `git init` + force-push, which wiped history every
+# time. Don't do that.)
 
 name: Build and push to bridge repo
 
@@ -86,7 +92,7 @@ jobs:
           fi
           echo "OK: no localhost URLs in homepage"
 
-      - name: Push out/ to centilio-website-build-deployment
+      - name: Push out/ to centilio-website-build-deployment (preserving history)
         env:
           BRIDGE_REPO_TOKEN: ${{ secrets.BRIDGE_REPO_TOKEN }}
           SOURCE_SHA: ${{ github.sha }}
@@ -99,10 +105,25 @@ jobs:
             exit 1
           fi
 
-          cd out
+          BRIDGE_URL="https://x-access-token:${BRIDGE_REPO_TOKEN}@github.com/CentilioTech/centilio-website-build-deployment.git"
 
-          # Re-add the README and config files that explain what this repo is
-          # (otherwise they get clobbered by the build output every time).
+          # Clone the bridge repo (shallow, fast) so we add a commit on top
+          # of its existing history rather than wiping it.
+          git clone --depth 1 "$BRIDGE_URL" deploy-repo
+
+          cd deploy-repo
+          git config user.email "actions@github.com"
+          git config user.name  "centilio-website CI"
+
+          # Replace contents with the fresh build. Preserve .git/ so the
+          # commit lands on top of the existing history. .gitignore is
+          # treated as a normal file too — Next.js doesn't write one to
+          # out/, so anything previously there gets removed cleanly.
+          find . -mindepth 1 -maxdepth 1 ! -name '.git' -exec rm -rf {} +
+          cp -R "$GITHUB_WORKSPACE/out/." .
+
+          # README is regenerated on every build (overwrites whatever
+          # was there) so it stays in sync with reality.
           cat > README.md <<'EOF'
           # centilio-website-build-deployment
 
@@ -113,29 +134,27 @@ jobs:
           repo on every push to `centilio-website/production`. Make changes
           in the source repo instead.
 
-          See `centilio-audit/P3_DEPLOY_PIPELINE.md` for the full pipeline
+          History model: each build is one commit on top of the previous one.
+          To roll back: `git revert HEAD` (then push) or revert to a known-
+          good commit by force-pushing it as main.
+
+          See `centilio-audit/PHASE3_COMPLETION.md` for the full pipeline
           documentation.
           EOF
 
-          git init -q -b main
-          git config user.email "actions@github.com"
-          git config user.name  "centilio-website CI"
           git add -A
+          if git diff --cached --quiet; then
+            echo "Nothing changed in build output — skipping commit."
+            exit 0
+          fi
 
-          # First-line of the source commit message becomes the build commit
+          # First line of the source commit message becomes the build commit
           # subject. Full SHA + message in the body.
           SUBJECT=$(echo "$SOURCE_MSG" | head -n1)
-          git commit -q -m "build: $SUBJECT" -m "Source commit: $SOURCE_SHA" -m "$SOURCE_MSG" || {
-            echo "Nothing changed in build output — skipping push."
-            exit 0
-          }
+          git commit -q -m "build: $SUBJECT" -m "Source commit: $SOURCE_SHA" -m "$SOURCE_MSG"
 
-          REMOTE="https://x-access-token:${BRIDGE_REPO_TOKEN}@github.com/CentilioTech/centilio-website-build-deployment.git"
-          git remote add origin "$REMOTE"
-
-          # Force push — the bridge repo is regenerated entirely from the
-          # build output, no merge history.
-          git push -f origin main
+          # Regular push — no force. Adds a commit on top.
+          git push origin main
 
           echo "Pushed build for $SOURCE_SHA to centilio-website-build-deployment."
 

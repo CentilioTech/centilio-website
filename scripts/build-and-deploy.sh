@@ -58,7 +58,14 @@ SOURCE_SHA=$(git rev-parse HEAD)
 SOURCE_BRANCH=$(git rev-parse --abbrev-ref HEAD)
 SOURCE_MSG=$(git log -1 --pretty=%B)
 
-cd out
+# Clone bridge repo so we commit on top of its history (preserves
+# rollback capability via git revert).
+TMPDIR=$(mktemp -d)
+trap "rm -rf $TMPDIR" EXIT
+git clone --depth 1 "$BRIDGE_URL" "$TMPDIR/deploy-repo"
+cd "$TMPDIR/deploy-repo"
+find . -mindepth 1 -maxdepth 1 ! -name '.git' -exec rm -rf {} +
+cp -R "$REPO_ROOT/out/." .
 
 cat > README.md <<EOF
 # centilio-website-build-deployment
@@ -77,9 +84,13 @@ Last manual rebuild: $(date -u +%Y-%m-%dT%H:%M:%SZ)
 Source commit: $SOURCE_SHA ($SOURCE_BRANCH)
 EOF
 
-rm -rf .git
-git init -q -b main
+git config user.email "${USER}@$(hostname)"
+git config user.name "$USER (manual deploy)"
 git add -A
+if git diff --cached --quiet; then
+    echo "Nothing changed in build output — nothing to push."
+    exit 0
+fi
 git commit -q -m "build: $(echo "$SOURCE_MSG" | head -n1)" \
                 -m "Source commit: $SOURCE_SHA" \
                 -m "Source branch: $SOURCE_BRANCH" \
@@ -88,8 +99,8 @@ git commit -q -m "build: $(echo "$SOURCE_MSG" | head -n1)" \
                 -m "$SOURCE_MSG"
 
 echo "=== [5/5] Push to centilio-website-build-deployment (main) ==="
-git remote add origin "$BRIDGE_URL"
-git push -f origin main
+# Regular push — no force. Adds a commit on top.
+git push origin main
 
 echo
 echo "============================================================"
