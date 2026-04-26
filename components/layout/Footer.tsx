@@ -6,6 +6,7 @@ export default function Footer() {
   const productLinks = [
     { name: 'Sign', href: '/sign' },
     { name: 'SEO Bot', href: '/seo-bot' },
+    { name: 'Vault', href: '/vault' },
   ];
 
   const companyLinks = [

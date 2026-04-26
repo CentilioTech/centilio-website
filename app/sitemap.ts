@@ -24,6 +24,7 @@ const ROUTES: { path: string; changeFrequency: MetadataRoute.Sitemap[number]["ch
   { path: "/partners",     changeFrequency: "monthly", priority: 0.5 },
   { path: "/case-studies", changeFrequency: "monthly", priority: 0.5 },
   { path: "/sign",      changeFrequency: "monthly", priority: 0.9 },
+  { path: "/vault",     changeFrequency: "monthly", priority: 0.9 },
   { path: "/seo-bot",   changeFrequency: "monthly", priority: 0.9 },
   { path: "/blog",      changeFrequency: "weekly",  priority: 0.7 },
   { path: "/careers",   changeFrequency: "monthly", priority: 0.5 },

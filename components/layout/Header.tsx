@@ -31,6 +31,7 @@ export default function Header() {
   const productItems = [
     { name: 'Sign', href: '/sign', description: 'Digital signature solution' },
     { name: 'SEO Bot', href: '/seo-bot', description: 'Content automation tool' },
+    { name: 'Vault', href: '/vault', description: 'Zero-knowledge password manager' },
   ];
 
   const navItems = [
