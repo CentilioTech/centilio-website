@@ -1,5 +1,12 @@
 import type { MetadataRoute } from "next"
 
+// Required when next.config.ts has output: 'export'. Without this, the build
+// errors out with "Failed to collect page data for /robots.txt" (or sitemap.xml).
+// We don't have any dynamic data here — both files are pure functions of the
+// hard-coded route list — so force-static is exactly right.
+export const dynamic = 'force-static'
+
+
 // Generates /sitemap.xml at build time. Includes the marketing routes that
 // currently exist on production. Excludes duplicates (/home → /, /contactpage
 // → /contact) and routes that 404 (e.g. /products, /pricing). Update this
