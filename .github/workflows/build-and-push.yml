@@ -27,7 +27,10 @@ name: Build and push to bridge repo
 
 on:
   push:
-    branches: [production]
+    # main is the canonical branch (default + source of truth as of 2026-04-26).
+    # production exists historically but is no longer pushed to; if anyone
+    # pushes to it, we still want to ship — hence both branches listed.
+    branches: [main, production]
   # Allow manual triggering from the Actions tab — useful for re-running
   # builds without a code change (e.g., when a dependency updates).
   workflow_dispatch:
