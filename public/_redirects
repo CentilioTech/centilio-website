@@ -7,3 +7,9 @@
 # 301 so search engines consolidate signal on /.
 /home   /   301
 /home/  /   301
+
+# /contact was rewritten in Phase 1 (Apr 2026 audit) but the live nav uses
+# /contactpage as the canonical contact URL. Removing /contact and
+# redirecting it preserves any old bookmarks / search results.
+/contact   /contactpage   301
+/contact/  /contactpage   301

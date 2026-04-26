@@ -110,7 +110,7 @@ export default function PricingPageSign() {
               <Link href="/sign/pricing-sign" className="text-white text-sm hover:text-gray-300 transition-colors">
                 Pricing
               </Link>
-              <Link href="/contact" className="text-white text-sm hover:text-gray-300 transition-colors">
+              <Link href="/contactpage" className="text-white text-sm hover:text-gray-300 transition-colors">
                 Contact Us
               </Link>
             </nav>

@@ -108,10 +108,13 @@ const nextConfig: NextConfig = {
         destination: "/",
         permanent: true,
       },
-      // Note: /contact vs /contactpage canonicalization is intentionally
-      // NOT redirected here — that's a Phase 2 followup pending the
-      // user's decision on which URL becomes canonical and how to wire
-      // the form backend.
+      // /contact route was removed (Phase 2 audit, Apr 2026). The live nav
+      // uses /contactpage and the form there now sends to team@centilio.com.
+      {
+        source: "/contact",
+        destination: "/contactpage",
+        permanent: true,
+      },
     ];
   },
 };

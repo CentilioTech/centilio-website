@@ -33,9 +33,31 @@ export default function ContactPage() {
     }
   }, [])
 
+  // Form submit opens the user's mail client with all fields pre-filled and
+  // routes the lead to team@centilio.com. Matches the email-only contact
+  // policy approved on 2026-04-26. Replace this with a fetch() to a real
+  // backend (Centilio SEO Bot lead endpoint, Formspree, HubSpot, etc.) when
+  // ready — the form schema already matches a typical lead-capture payload.
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault()
-    console.log('Form submitted:', formData)
+    const phone = formData.mobile
+      ? `${selectedCountryCode} ${formData.mobile}`.trim()
+      : ''
+    const subject = `Contact Sales — ${formData.firstName} ${formData.lastName}` +
+      (formData.companyName ? ` (${formData.companyName})` : '')
+    const body = [
+      `Name:    ${formData.firstName} ${formData.lastName}`.trim(),
+      `Company: ${formData.companyName || '(not provided)'}`,
+      `Email:   ${formData.email}`,
+      `Mobile:  ${phone || '(not provided)'}`,
+      ``,
+      `Message:`,
+      formData.description,
+    ].join('\n')
+    const href = `mailto:team@centilio.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`
+    if (typeof window !== 'undefined') {
+      window.location.href = href
+    }
   }
 
 

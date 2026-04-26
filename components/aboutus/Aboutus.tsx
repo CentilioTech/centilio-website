@@ -22,7 +22,7 @@ export default function Aboutus() {
         </p>
         <p className="text-sm text-gray-500 pt-6">
           Have a question or want to talk to a growth expert?{' '}
-          <a href="/contact" className="text-blue-700 hover:underline">
+          <a href="/contactpage" className="text-blue-700 hover:underline">
             Get in touch
           </a>
           .
