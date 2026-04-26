@@ -19,7 +19,11 @@ const inter = Inter({
   weight: ["400", "500", "600", "700"],
 });
 
+// metadataBase resolves all relative URLs in the metadata object (og.images, twitter.images,
+// canonical, etc.) against this origin. Without it, Next.js falls back to http://localhost:3000,
+// which is what was leaking into the production OG/Twitter card image URLs.
 export const metadata: Metadata = {
+  metadataBase: new URL("https://centilio.com"),
   title: "Centilio - Your Trusted Growth Engine",
   description: "Centilio is your growth partner. From strategy to execution, we deliver end-to-end solutions that scale your revenue and simplify your operations.",
   keywords: ["growth engine", "business automation", "revenue scaling"],
