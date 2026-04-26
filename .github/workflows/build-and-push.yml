@@ -104,7 +104,7 @@ jobs:
           # Re-add the README and config files that explain what this repo is
           # (otherwise they get clobbered by the build output every time).
           cat > README.md <<'EOF'
-          # centilio-website-build
+          # centilio-website-build-deployment
 
           Pre-built static export of [`centilio-website`](https://github.com/CentilioTech/centilio-website).
           DigitalOcean App Platform deploys every push to `main` here.
@@ -130,7 +130,7 @@ jobs:
             exit 0
           }
 
-          REMOTE="https://x-access-token:${BRIDGE_REPO_TOKEN}@github.com/CentilioTech/centilio-website-build.git"
+          REMOTE="https://x-access-token:${BRIDGE_REPO_TOKEN}@github.com/CentilioTech/centilio-website-build-deployment.git"
           git remote add origin "$REMOTE"
 
           # Force push — the bridge repo is regenerated entirely from the

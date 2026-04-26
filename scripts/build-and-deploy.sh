@@ -19,14 +19,14 @@
 #   1. npm ci                         (install deps cleanly)
 #   2. npm run build                  (produce out/)
 #   3. Sanity-check the build         (no localhost leaks, expected pages)
-#   4. git init in out/, commit, force-push to centilio-website-build/main
+#   4. git init in out/, commit, force-push to centilio-website-build-deployment/main
 #
 set -euo pipefail
 
 REPO_ROOT="$(cd "$(dirname "$0")/.." && pwd)"
 cd "$REPO_ROOT"
 
-BRIDGE_URL="https://github.com/CentilioTech/centilio-website-build.git"
+BRIDGE_URL="https://github.com/CentilioTech/centilio-website-build-deployment.git"
 
 echo "=== [1/5] Install dependencies (npm ci) ==="
 npm ci
@@ -61,7 +61,7 @@ SOURCE_MSG=$(git log -1 --pretty=%B)
 cd out
 
 cat > README.md <<EOF
-# centilio-website-build
+# centilio-website-build-deployment
 
 Pre-built static export of [\`centilio-website\`](https://github.com/CentilioTech/centilio-website).
 DigitalOcean App Platform deploys every push to \`main\` here.
